@@ -35,6 +35,7 @@ public class Closet {
     @Column(name = "closet_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY) private long closetId;
     @Column private String clothesClassification;
+    @Column private String clothesRegister;
 
     @OneToMany(mappedBy = "closet")
     List<Clothes> clothes = new ArrayList<>();

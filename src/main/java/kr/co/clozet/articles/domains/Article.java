@@ -39,6 +39,7 @@ public class Article {
     @Column @NotNull private String picture;
     @Column @NotNull private String height;
     @Column @NotNull private String weight;
+    @Column String comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
