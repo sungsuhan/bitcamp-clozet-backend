@@ -48,6 +48,10 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/join").permitAll()
                 .antMatchers("/users/login").permitAll()
                 .antMatchers("/api/weather").permitAll()
+                .antMatchers("/users/findAll").permitAll()
+                .antMatchers("/users/count").permitAll()
+                .antMatchers("/users/update").permitAll()
+                .antMatchers("/users/delete").permitAll()
                 .anyRequest().authenticated();
         http.exceptionHandling().accessDeniedPage("/users/login");
     }

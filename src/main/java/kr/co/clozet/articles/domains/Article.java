@@ -31,14 +31,13 @@ public class Article {
     @Id
     @Column(name = "article_id")
     @GeneratedValue private long articleId;
-    @Column @NotNull private String title;
-    @Column(name = "written_date") @NotNull private String writtenDate;
-    @Column @NotNull private String inquiry;
-    @Column @NotNull private String open;
-    @Column @NotNull private String content;
-    @Column @NotNull private String picture;
-    @Column @NotNull private String height;
-    @Column @NotNull private String weight;
+    @Column private String title;
+    @Column(name = "written_date") private String writtenDate;
+    @Column private String open;
+    @Column private String content;
+    @Column private String picture;
+    @Column private String height;
+    @Column private String weight;
     @Column String comment;
 
     @ManyToOne(fetch = FetchType.LAZY)

@@ -35,7 +35,7 @@ public class WeatherApiController {
                +"&dataType=JSON"
                +"&numOfRows=100"
                +"&pageNo=1"
-               +"&base_date=20220616"
+               +"&base_date=20220617"
                +"&base_time=0800"
                +"&nx=61"
                +"&ny=125";

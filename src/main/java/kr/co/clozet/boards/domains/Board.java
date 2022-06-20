@@ -36,7 +36,7 @@ public class Board {
     @Id
     @Column(name = "board_id")
     @GeneratedValue private long boardId;
-    @Column(name = "created_date") @NotNull private String createdDate;
+    @Column(name = "created_date") private String createdDate;
     @Column private String qna;
 
     @OneToMany(mappedBy = "board")

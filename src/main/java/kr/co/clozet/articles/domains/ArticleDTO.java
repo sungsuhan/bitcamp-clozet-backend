@@ -20,13 +20,12 @@ public class ArticleDTO {
     @ApiModelProperty(position = 1) private long articleId;
     @ApiModelProperty(position = 2) String title;
     @ApiModelProperty(position = 3) private String writtenDate;
-    @ApiModelProperty(position = 4) String inquiry;
-    @ApiModelProperty(position = 5) String open;
-    @ApiModelProperty(position = 6) String content;
-    @ApiModelProperty(position = 7) String picture;
-    @ApiModelProperty(position = 8) String height;
-    @ApiModelProperty(position = 9) String weight;
-    @ApiModelProperty(position = 10) String userId;
-    @ApiModelProperty(position = 11) String boardId;
-    @ApiModelProperty(position = 12) String comment;
+    @ApiModelProperty(position = 4) String open;
+    @ApiModelProperty(position = 5) String content;
+    @ApiModelProperty(position = 6) String picture;
+    @ApiModelProperty(position = 7) String height;
+    @ApiModelProperty(position = 8) String weight;
+    @ApiModelProperty(position = 9) String userId;
+    @ApiModelProperty(position = 10) String boardId;
+    @ApiModelProperty(position = 11) String comment;
 }
