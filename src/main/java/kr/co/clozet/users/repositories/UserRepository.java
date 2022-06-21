@@ -25,17 +25,14 @@ import java.util.Optional;
  **/
 
 interface UserCustomRepository{
-    @Modifying(clearAutomatically = true)
-    @Query(value = "select * from users where name like '한%'",
-            nativeQuery = true)
-    List<User> findHan();
+
 
 rtretretertrereeet
 }
 
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long>, UserCustomRepository {
+public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
 
 
