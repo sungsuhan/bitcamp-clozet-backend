@@ -27,12 +27,12 @@ import java.util.Optional;
 interface UserCustomRepository{
 
 
-rtretretertrereeet
+
 }
 
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long>, UserCustomRepository {
     Optional<User> findByUsername(String username);
 
 
