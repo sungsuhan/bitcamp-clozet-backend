@@ -20,7 +20,7 @@ import java.util.Optional;
 /**
  * packageName:kr.co.clozet.controllers
  * fileName        :UserController.java
- * author          : sungsuhan kimyunseop
+ * author          : sungsuhan k
  * date            :2022-05-03
  * desc            :
  * =============================================
