@@ -45,6 +45,7 @@ public class UserController {
 
     private final UserService service;
     private final UserRepository repository;
+    private final ModelMapper modelMapper;
 
     @PostMapping("/login")
     @ApiOperation(value ="${UserController.login")

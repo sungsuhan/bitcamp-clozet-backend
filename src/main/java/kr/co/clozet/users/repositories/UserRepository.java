@@ -30,10 +30,7 @@ interface UserCustomRepository{
             nativeQuery = true)
     List<User> findHan();
 
-    @Modifying(clearAutomatically = true)
-    @Query(value = "select users.phone from users where users.name like '한%'",
-            nativeQuery = true)
-    List<User> findPhoneByHan();
+
 }
 
 
