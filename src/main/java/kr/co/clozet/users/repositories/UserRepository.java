@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -24,13 +25,15 @@ import java.util.Optional;
  **/
 
 interface UserCustomRepository{
-    // 000. 사용자의 비밀번호를 수정하시오
     @Modifying(clearAutomatically = true)
-    @Query(value = "update user u set u.password where u.userId",
+    @Query(value = "select * from users where name like '한%'",
             nativeQuery = true)
-    List<User> update();
+    List<User> findHan();
 
-
+    @Modifying(clearAutomatically = true)
+    @Query(value = "select users.phone from users where users.name like '한%'",
+            nativeQuery = true)
+    List<User> findPhoneByHan();
 }
 
 
@@ -38,8 +41,5 @@ interface UserCustomRepository{
 public interface UserRepository extends JpaRepository<User, Long>, UserCustomRepository {
     Optional<User> findByUsername(String username);
 
-    @Override
-    List<User> update();
 
 }
-

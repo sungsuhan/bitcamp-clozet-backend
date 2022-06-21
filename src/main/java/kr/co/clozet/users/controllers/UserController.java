@@ -4,6 +4,7 @@ import io.swagger.annotations.*;
 import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.users.domains.User;
 import kr.co.clozet.users.domains.UserDTO;
+import kr.co.clozet.users.repositories.UserRepository;
 import kr.co.clozet.users.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -35,6 +36,7 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService service;
+    private final UserRepository repository;
     private final ModelMapper modelMapper;
 
     @PostMapping("/login")
@@ -83,6 +85,11 @@ public class UserController {
         return ResponseEntity.ok(service.delete(user));
     }
 
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<Messenger> deleteAll() {
+        return ResponseEntity.ok(service.deleteAll());
+    }
+
     @PostMapping("/join")
     @ApiOperation(value = "${UserController.join}")
     @ApiResponses(value = {
@@ -103,6 +110,16 @@ public class UserController {
     @GetMapping("/existsById/{userid}")
     public ResponseEntity<Messenger> existsById(@PathVariable String userid) {
         return ResponseEntity.ok(service.existsById(userid));
+    }
+
+    @GetMapping("/findHan")
+    public ResponseEntity<List<User>> findHan() {
+        return ResponseEntity.ok(repository.findHan());
+    }
+
+    @GetMapping("/findPhoneByHan")
+    public ResponseEntity<List<User>> findPhoneByHan() {
+        return ResponseEntity.ok(repository.findPhoneByHan());
     }
 
 

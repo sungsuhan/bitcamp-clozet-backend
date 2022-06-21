@@ -36,6 +36,8 @@ public interface UserService {
 
     Messenger delete(User user);
 
+    Messenger deleteAll();
+
     Messenger save(UserDTO user);
 
     Optional<User> findById(String userid);

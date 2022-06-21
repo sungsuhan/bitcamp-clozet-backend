@@ -43,14 +43,17 @@ public class User {
     @Column private @NotNull String email;
     @Column private @NotNull String phone;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     List<Article> articles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     List<Clothes> clothes = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     public List<Role> roles;
 
 
+    public User(String phone, String name) {
+
+    }
 }

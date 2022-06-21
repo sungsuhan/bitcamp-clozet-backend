@@ -99,6 +99,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Messenger deleteAll() {
+        repository.deleteAll();
+        return Messenger.builder().message("전체 삭제").build();
+    }
+
+
+    @Override
     public Messenger save(UserDTO user) {
         System.out.println("서비스로 전달된 회원가입 정보: "+user.toString());
         String result = "";
