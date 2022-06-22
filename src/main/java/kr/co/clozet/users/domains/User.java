@@ -53,7 +53,5 @@ public class User {
     public List<Role> roles;
 
 
-    public User(String phone, String name) {
 
-    }
 }

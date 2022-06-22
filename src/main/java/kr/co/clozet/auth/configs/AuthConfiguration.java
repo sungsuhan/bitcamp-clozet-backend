@@ -55,6 +55,8 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/deleteAll").permitAll()
                 .antMatchers("/users/findHan").permitAll()
                 .antMatchers("/users/findPhoneByHan").permitAll()
+                .antMatchers("/users/findAll/sort").permitAll()
+                .antMatchers("/users/findAll/pageable").permitAll()
                 .anyRequest().authenticated();
         http.exceptionHandling().accessDeniedPage("/users/login");
     }

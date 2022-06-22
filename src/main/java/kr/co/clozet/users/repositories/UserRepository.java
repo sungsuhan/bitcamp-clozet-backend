@@ -1,6 +1,7 @@
 package kr.co.clozet.users.repositories;
 
 import kr.co.clozet.users.domains.User;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -26,7 +27,7 @@ import java.util.Optional;
 
 interface UserCustomRepository{
     @Modifying(clearAutomatically = true)
-    @Query(value = "select * from users where name like '한%'",
+    @Query(value = "select * from users where users.name like '한%'",
             nativeQuery = true)
     List<User> findHan();
 
@@ -36,6 +37,8 @@ interface UserCustomRepository{
     @Query(value = "select users.phone from users where users.name like '한%'",
             nativeQuery = true)
     List<User> findPhoneByHan();
+
+
 }
 
 
