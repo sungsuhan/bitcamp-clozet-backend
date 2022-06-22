@@ -2,6 +2,7 @@ package kr.co.clozet.closets.domains;
 
 import kr.co.clozet.boards.domains.Board;
 import kr.co.clozet.clothes.domains.Clothes;
+import kr.co.clozet.users.domains.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,10 +35,9 @@ public class Closet {
     @Id
     @Column(name = "closet_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY) private long closetId;
-    @Column private String clothesClassification;
     @Column private String clothesRegister;
 
-    @OneToMany(mappedBy = "closet")
+    @OneToMany(mappedBy = "closet", cascade = CascadeType.REMOVE)
     List<Clothes> clothes = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
