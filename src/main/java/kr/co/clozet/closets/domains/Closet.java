@@ -1,5 +1,6 @@
 package kr.co.clozet.closets.domains;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import kr.co.clozet.boards.domains.Board;
 import kr.co.clozet.clothes.domains.Clothes;
 import kr.co.clozet.users.domains.User;
@@ -37,6 +38,7 @@ public class Closet {
     @GeneratedValue(strategy = GenerationType.IDENTITY) private long closetId;
     @Column private String clothesRegister;
 
+    @JsonManagedReference // json 꼬리물기 방지
     @OneToMany(mappedBy = "closet", cascade = CascadeType.REMOVE)
     List<Clothes> clothes = new ArrayList<>();
 

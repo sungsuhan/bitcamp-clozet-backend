@@ -1,5 +1,9 @@
 package kr.co.clozet.clothes.services;
 
+import kr.co.clozet.clothes.domains.Clothes;
+
+import java.util.List;
+
 /**
  * packageName:kr.co.clozet.closet.services
  * fileName        :ClothesService.java
@@ -12,4 +16,5 @@ package kr.co.clozet.clothes.services;
  * 2022-05-29           sungsuhan      최초 생성
  **/
 public interface ClothesService {
+    List<Clothes> findAll();
 }

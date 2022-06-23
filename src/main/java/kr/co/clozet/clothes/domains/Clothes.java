@@ -1,5 +1,6 @@
 package kr.co.clozet.clothes.domains;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import kr.co.clozet.closets.domains.Closet;
 import kr.co.clozet.users.domains.User;
 import lombok.AllArgsConstructor;
@@ -39,10 +40,12 @@ public class Clothes {
     @Column private String styles;
     @Column private String events;
 
+    @JsonBackReference // json 꼬리물기 방지
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "closet_id")
     private Closet closet;
 
+    @JsonBackReference // json 꼬리물기 방지
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
