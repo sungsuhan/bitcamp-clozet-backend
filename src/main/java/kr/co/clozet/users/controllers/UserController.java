@@ -125,11 +125,8 @@ public class UserController {
     }
 
     @GetMapping("/findUsername")
-    public ResponseEntity<String> findUsername(String name, String email) {
-        String username = service.findUsername(name, email);
-        if (username == null)
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("아이디를 찾지 못했습니다.");
-        return ResponseEntity.ok(username);
+    public ResponseEntity<List<User>> findUsername(String name, String email) {
+        return ResponseEntity.ok(service.findUsername(name, email));
     }
 
 

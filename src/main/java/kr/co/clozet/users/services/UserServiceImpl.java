@@ -157,7 +157,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String findUsername(String name, String email) {
+    public List<User> findUsername(String name, String email) {
         return repository.findUsername(name, email);
     }
 
