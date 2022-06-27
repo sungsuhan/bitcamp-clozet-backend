@@ -49,5 +49,5 @@ public interface UserService {
 
     Messenger logout();
 
-    List<User> findUsername(String name, String email);
+    String findUsername(String name, String email);
 }
