@@ -38,6 +38,11 @@ interface UserCustomRepository{
             nativeQuery = true)
     List<User> findPhoneByHan();
 
+    @Modifying(clearAutomatically = true)
+    @Query(value = "select * from users where users.name = #{name} and users.email = #{email}",
+            nativeQuery = true)
+    List<User> findUsername(String name, String email);
+
 
 }
 

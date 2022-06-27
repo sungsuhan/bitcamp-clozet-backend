@@ -156,5 +156,10 @@ public class UserServiceImpl implements UserService {
         return Messenger.builder().build();
     }
 
+    @Override
+    public List<User> findUsername(String name, String email) {
+        return repository.findUsername(name, email);
+    }
+
 
 }

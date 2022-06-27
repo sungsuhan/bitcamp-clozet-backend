@@ -6,6 +6,7 @@ import kr.co.clozet.users.domains.User;
 import kr.co.clozet.users.domains.UserDTO;
 import kr.co.clozet.users.repositories.UserRepository;
 import kr.co.clozet.users.services.UserService;
+import kr.co.clozet.users.services.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -120,6 +121,11 @@ public class UserController {
     @GetMapping("/findPhoneByHan")
     public ResponseEntity<List<User>> findPhoneByHan() {
         return ResponseEntity.ok(repository.findPhoneByHan());
+    }
+
+    @GetMapping("/findUsername")
+    public ResponseEntity<List<User>> findUsername(String name, String email) {
+        return ResponseEntity.ok(service.findUsername(name, email));
     }
 
 
