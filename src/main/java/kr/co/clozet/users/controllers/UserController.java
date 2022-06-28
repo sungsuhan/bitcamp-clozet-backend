@@ -131,6 +131,8 @@ public class UserController {
 
     @RequestMapping(value = "/findUsername", method = RequestMethod.POST) @ResponseBody
     public ResponseEntity<Messenger> findUsername(@RequestParam("name") String name, @RequestParam("email") String email) {
+        System.out.println("이름 = "+name);
+        System.out.println("이름 = "+email);
         return ResponseEntity.ok(service.findUsername(name, email));
     }
 

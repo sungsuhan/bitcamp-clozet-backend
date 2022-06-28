@@ -4,6 +4,7 @@ import com.sun.istack.NotNull;
 import kr.co.clozet.boards.domains.Board;
 import kr.co.clozet.users.domains.User;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -32,6 +33,7 @@ public class Article {
     @Column(name = "article_id")
     @GeneratedValue(strategy = GenerationType.AUTO) private long articleId;
     @Column private String title;
+    @CreatedDate
     @Column(name = "written_date") private String writtenDate;
     @Column private String open;
     @Column private String content;

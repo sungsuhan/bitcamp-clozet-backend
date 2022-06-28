@@ -55,10 +55,10 @@ public class ArticleController {
         return service.delete(article);
     }
 
-    @PostMapping("/join")
-    public String save(@RequestBody Article article) {
-        return service.save(article);
-    }
+//    @PostMapping("/join")
+//    public String save(@RequestBody Article article) {
+//        return service.save(article);
+//    }
 
     @GetMapping("/findById/{article}")
     public Optional<Article> findById(@PathVariable String article) {
