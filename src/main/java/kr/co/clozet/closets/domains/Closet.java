@@ -35,7 +35,7 @@ import java.util.List;
 public class Closet {
     @Id
     @Column(name = "closet_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY) private long closetId;
+    @GeneratedValue(strategy = GenerationType.AUTO) private long closetId;
     @Column private String clothesRegister;
 
     @JsonManagedReference // json 꼬리물기 방지

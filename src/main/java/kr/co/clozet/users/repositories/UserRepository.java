@@ -1,5 +1,6 @@
 package kr.co.clozet.users.repositories;
 
+import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.users.domains.User;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -31,18 +32,21 @@ interface UserCustomRepository{
             nativeQuery = true)
     List<User> findHan();
 
+    @Modifying(clearAutomatically = true)
+    @Query(value = "select users.name from users where users.name like '한%'",
+            nativeQuery = true)
+    String [] findPhoneByHan();
+
+    @Modifying(clearAutomatically = true)
+    @Query(value = "select a.title from articles a where a.user_id like (select u.user_id from users u where u.user_id like 1)",
+            nativeQuery = true)
+    String [] findTitleByUserId();
 
 
     @Modifying(clearAutomatically = true)
-    @Query(value = "select users.phone from users where users.name like '한%'",
+    @Query(value = "select users.username from users where users.name = #{name} and users.email = #{email}",
             nativeQuery = true)
-    List<User> findPhoneByHan();
-
-    @Modifying(clearAutomatically = true)
-    @Query(value = "select * from users where users.name = #{name} and users.email = #{email}",
-            nativeQuery = true)
-    List<User> findUsername(String name, String email);
-
+    Messenger findUsername(String name, String email);
 
 }
 

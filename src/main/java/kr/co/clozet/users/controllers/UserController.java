@@ -120,12 +120,17 @@ public class UserController {
     }
 
     @GetMapping("/findPhoneByHan")
-    public ResponseEntity<List<User>> findPhoneByHan() {
+    public ResponseEntity<String []> findPhoneByHan() {
         return ResponseEntity.ok(repository.findPhoneByHan());
     }
 
-    @GetMapping("/findUsername")
-    public ResponseEntity<List<User>> findUsername(String name, String email) {
+    @GetMapping("/findTitleByUserId")
+    public ResponseEntity<String []> findTitleByUserId() {
+        return ResponseEntity.ok(repository.findTitleByUserId());
+    }
+
+    @RequestMapping(value = "/findUsername", method = RequestMethod.POST) @ResponseBody
+    public ResponseEntity<Messenger> findUsername(@RequestParam("name") String name, @RequestParam("email") String email) {
         return ResponseEntity.ok(service.findUsername(name, email));
     }
 

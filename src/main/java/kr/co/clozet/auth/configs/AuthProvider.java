@@ -46,8 +46,8 @@ public class AuthProvider implements AuthenticationProvider {
     @Value("${security.jwt.token.security-key:secret-key}")
     private String securityKey;
 
-//    @Value("${security.jwt.token.expiration-length:3600000}")
-//    private long validityInMs = 3600000; //1h
+    @Value("${security.jwt.token.expiration-length:3600000}")
+    private long validityInMs = 3600000; //1h
 
     @PostConstruct
     protected void init(){
@@ -60,7 +60,7 @@ public class AuthProvider implements AuthenticationProvider {
         claims.put("auth", roles.stream().map(s -> new SimpleGrantedAuthority(s.getAuthority()))
                 .filter(Objects::nonNull).collect(Collectors.toList()));
         Date now = new Date();
-        Date validity = new Date(now.getTime()); //+validityInMs
+        Date validity = new Date(now.getTime()+validityInMs);
         return Jwts.builder().setClaims(claims).setIssuedAt(now)
                 .setExpiration(validity).signWith(SignatureAlgorithm.HS256, securityKey)
                 .compact();

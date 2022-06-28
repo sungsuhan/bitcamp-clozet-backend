@@ -33,7 +33,7 @@ public class Clothes {
 
     @Id
     @Column(name = "clothes_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY) private long clothesId;
+    @GeneratedValue(strategy = GenerationType.AUTO) private long clothesId;
     @Column private String clothesClassification;
     @Column private String colors;
     @Column private String weathers;
