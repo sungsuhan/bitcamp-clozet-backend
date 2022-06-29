@@ -1,8 +1,11 @@
 package kr.co.clozet.articles.repositories;
 
 import kr.co.clozet.articles.domains.Article;
+import kr.co.clozet.users.domains.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 /**
  * packageName:kr.co.clozet.board.repositories
@@ -24,4 +27,5 @@ interface ArticleCustomRepository{
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
+    Optional<Article> findByTitle(String title);
 }
