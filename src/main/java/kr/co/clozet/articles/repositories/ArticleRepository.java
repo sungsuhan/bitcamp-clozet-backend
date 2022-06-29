@@ -3,6 +3,8 @@ package kr.co.clozet.articles.repositories;
 import kr.co.clozet.articles.domains.Article;
 import kr.co.clozet.users.domains.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -20,8 +22,8 @@ import java.util.Optional;
  **/
 
 interface ArticleCustomRepository{
-    // 000. title 과 content 를 수정하시오
-    void update(Article article);
+
+
 }
 
 

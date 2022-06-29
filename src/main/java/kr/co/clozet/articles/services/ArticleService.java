@@ -30,7 +30,7 @@ public interface ArticleService {
 
     long count();
 
-    String delete(Article article);
+    Messenger delete(Article article);
 
     Messenger save(ArticleDTO article);
 

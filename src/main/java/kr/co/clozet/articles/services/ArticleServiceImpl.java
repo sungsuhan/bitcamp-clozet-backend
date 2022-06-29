@@ -54,9 +54,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public String delete(Article article) {
+    public Messenger delete(Article article) {
         repository.delete(article);
-        return "";
+        return Messenger.builder().message("삭제").build();
     }
 
     @Override

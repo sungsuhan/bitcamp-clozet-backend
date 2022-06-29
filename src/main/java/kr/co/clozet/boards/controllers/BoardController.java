@@ -1,5 +1,6 @@
 package kr.co.clozet.boards.controllers;
 
+import io.swagger.annotations.Api;
 import kr.co.clozet.boards.domains.Board;
 import kr.co.clozet.boards.services.BoardService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,8 @@ import java.util.Optional;
  * =============================================
  * 2022-05-04           sungsuhan      최초 생성
  **/
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@Api(tags ="boards")
 @RestController
 @RequestMapping("/boards")
 @RequiredArgsConstructor

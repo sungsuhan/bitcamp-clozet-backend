@@ -1,6 +1,7 @@
 package kr.co.clozet.articles.controllers;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.Api;
 import kr.co.clozet.articles.domains.Article;
 import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.articles.services.ArticleService;
@@ -28,6 +29,8 @@ import java.util.Optional;
  * =============================================
  * 2022-05-09           sungsuhan      최초 생성
  **/
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@Api(tags ="articles")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/articles")
@@ -56,8 +59,8 @@ public class ArticleController {
     }
 
     @DeleteMapping("/delete")
-    public String delete(@RequestBody Article article) {
-        return service.delete(article);
+    public ResponseEntity<Messenger> delete(@RequestBody Article article) {
+        return ResponseEntity.ok(service.delete(article));
     }
 
     @PostMapping(value = "/join")
