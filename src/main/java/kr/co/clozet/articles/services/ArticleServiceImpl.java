@@ -88,4 +88,6 @@ public class ArticleServiceImpl implements ArticleService {
     public boolean existsById(String article) {
         return repository.existsById(0L);
     }
+
 }
+

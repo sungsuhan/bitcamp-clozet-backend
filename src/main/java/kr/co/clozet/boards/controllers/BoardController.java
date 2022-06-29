@@ -69,4 +69,5 @@ public class BoardController {
         return service.existsById(board);
     }
 
+
 }
