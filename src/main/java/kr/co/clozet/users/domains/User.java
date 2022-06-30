@@ -36,13 +36,13 @@ public class User {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.AUTO) private long userId;
-    @Column private @NotNull String username;
-    @Column private @NotNull String password;
-    @Column private @NotNull String name;
-    @Column private @NotNull String birth;
-    @Column private @NotNull String nickname;
-    @Column private @NotNull String email;
-    @Column private @NotNull String phone;
+    @Column private String username;
+    @Column private String password;
+    @Column private String name;
+    @Column private String birth;
+    @Column private String nickname;
+    @Column private String email;
+    @Column private String phone;
     @Column private String token;
 
     @JsonManagedReference
