@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 /**
  * packageName:kr.co.clozet.config
@@ -55,8 +56,22 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/deleteAll").permitAll()
                 .antMatchers("/users/findHan").permitAll()
                 .antMatchers("/users/findPhoneByHan").permitAll()
+                .antMatchers("/users/findAll/sort").permitAll()
+                .antMatchers("/users/findAll/pageable").permitAll()
+                .antMatchers("/clothes/findAll").permitAll()
+                .antMatchers("/users/findUsername").permitAll()
+                .antMatchers("/users/findAccount").permitAll()
+                .antMatchers("/users/findTitleByUserId").permitAll()
+                .antMatchers("/users/logout").permitAll()
+                .antMatchers("/articles/join").permitAll()
+                .antMatchers("/articles/findAll").permitAll()
                 .anyRequest().authenticated();
         http.exceptionHandling().accessDeniedPage("/users/login");
+        http.logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/users/logout"))
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true);
+
     }
 }
 

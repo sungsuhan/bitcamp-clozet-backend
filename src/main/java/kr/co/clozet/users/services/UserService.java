@@ -48,4 +48,6 @@ public interface UserService {
     List<User> findByUserName(String name);
 
     Messenger logout();
+
+    Messenger findUsername(String name, String email);
 }

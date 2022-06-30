@@ -1,11 +1,8 @@
 package kr.co.clozet.clothes.domains;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import kr.co.clozet.closets.domains.Closet;
-import kr.co.clozet.colors.domains.Color;
-import kr.co.clozet.events.domains.Event;
-import kr.co.clozet.styles.domains.Style;
 import kr.co.clozet.users.domains.User;
-import kr.co.clozet.weathers.domains.Weather;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,27 +33,23 @@ public class Clothes {
 
     @Id
     @Column(name = "clothes_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY) private long clothesId;
+    @GeneratedValue(strategy = GenerationType.AUTO) private long clothesId;
+    @Column private String clothesClassification;
+    @Column private String colors;
+    @Column private String weathers;
+    @Column private String styles;
+    @Column private String events;
 
+    @JsonBackReference // json 꼬리물기 방지
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "closet_id")
     private Closet closet;
 
+    @JsonBackReference // json 꼬리물기 방지
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToOne(mappedBy = "clothes")
-    private Color color;
-
-    @OneToOne(mappedBy = "clothes")
-    private Weather weather;
-
-    @OneToOne(mappedBy = "clothes")
-    private Style style;
-
-    @OneToOne(mappedBy = "clothes")
-    private Event event;
 
 
 

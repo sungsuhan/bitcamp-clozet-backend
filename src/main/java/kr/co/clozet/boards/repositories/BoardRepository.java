@@ -17,7 +17,9 @@ import org.springframework.stereotype.Repository;
  **/
 
 interface BoardCustomRepository{
-    /// 000. 게시판 이름 boardName 을 변경하시오
+
+
+
 }
 
 @Repository

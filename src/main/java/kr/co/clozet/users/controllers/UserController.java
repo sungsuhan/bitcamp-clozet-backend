@@ -6,11 +6,13 @@ import kr.co.clozet.users.domains.User;
 import kr.co.clozet.users.domains.UserDTO;
 import kr.co.clozet.users.repositories.UserRepository;
 import kr.co.clozet.users.services.UserService;
+import kr.co.clozet.users.services.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -118,8 +120,20 @@ public class UserController {
     }
 
     @GetMapping("/findPhoneByHan")
-    public ResponseEntity<List<User>> findPhoneByHan() {
+    public ResponseEntity<String []> findPhoneByHan() {
         return ResponseEntity.ok(repository.findPhoneByHan());
+    }
+
+    @GetMapping("/findTitleByUserId")
+    public ResponseEntity<String []> findTitleByUserId() {
+        return ResponseEntity.ok(repository.findTitleByUserId());
+    }
+
+    @RequestMapping(value = "/findUsername", method = RequestMethod.POST) @ResponseBody
+    public ResponseEntity<Messenger> findUsername(@RequestParam("name") String name, @RequestParam("email") String email) {
+        System.out.println("이름 = "+name);
+        System.out.println("이름 = "+email);
+        return ResponseEntity.ok(service.findUsername(name, email));
     }
 
 

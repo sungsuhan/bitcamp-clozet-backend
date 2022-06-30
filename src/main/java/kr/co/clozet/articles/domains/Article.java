@@ -1,9 +1,12 @@
 package kr.co.clozet.articles.domains;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 import kr.co.clozet.boards.domains.Board;
 import kr.co.clozet.users.domains.User;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -30,8 +33,9 @@ public class Article {
 
     @Id
     @Column(name = "article_id")
-    @GeneratedValue private long articleId;
+    @GeneratedValue(strategy = GenerationType.AUTO) private long articleId;
     @Column private String title;
+    @CreatedDate
     @Column(name = "written_date") private String writtenDate;
     @Column private String open;
     @Column private String content;
@@ -40,10 +44,12 @@ public class Article {
     @Column private String weight;
     @Column String comment;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "board_id")
     private Board board;

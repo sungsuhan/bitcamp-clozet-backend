@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
 @Component @Data
 public class ClosetDTO {
     @ApiModelProperty(position = 1) private long closetId;
-    @ApiModelProperty(position = 2) String clothesClassification;
-    @ApiModelProperty(position = 3) String boardId;
-    @ApiModelProperty(position = 4) private String clothesRegister;
+    @ApiModelProperty(position = 2) String boardId;
+    @ApiModelProperty(position = 3) private String clothesRegister;
 }

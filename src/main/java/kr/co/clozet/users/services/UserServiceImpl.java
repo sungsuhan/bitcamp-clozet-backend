@@ -56,6 +56,8 @@ public class UserServiceImpl implements UserService {
                     returnUser = modelMapper.map(findUser, UserDTO.class);
                     String token = provider.createToken(username, returnUser.getRoles());
                     returnUser.setToken(token);
+                    findUser = modelMapper.map(returnUser, User.class); // 토큰
+                    repository.save(findUser); // 토큰
                 }else{
                     String token = "FAILURE";
                     returnUser.setToken(token);
@@ -74,7 +76,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll(Sort sort) {
-        return repository.findAll(sort);
+        List<User> list = repository.findAll(Sort.by(Sort.Direction.DESC,"name"));
+        return list;
     }
 
     @Override
@@ -103,7 +106,6 @@ public class UserServiceImpl implements UserService {
         repository.deleteAll();
         return Messenger.builder().message("전체 삭제").build();
     }
-
 
     @Override
     public Messenger save(UserDTO user) {
@@ -153,6 +155,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public Messenger logout() {
         return Messenger.builder().build();
+    }
+
+    @Override
+    public Messenger findUsername(String name, String email) {
+        repository.findUsername(name, email);
+        return Messenger.builder().message("# 아이디 찾기 #").build();
+
     }
 
 

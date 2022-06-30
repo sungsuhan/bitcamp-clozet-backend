@@ -1,9 +1,12 @@
 package kr.co.clozet.clothes.services;
 
+import kr.co.clozet.clothes.domains.Clothes;
 import kr.co.clozet.clothes.repositories.ClothesRepository;
 import kr.co.clozet.clothes.services.ClothesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * packageName:kr.co.clozet.closet.services
@@ -21,4 +24,9 @@ import org.springframework.stereotype.Service;
 public class ClothesServiceImpl implements ClothesService {
 
     private final ClothesRepository repository;
+
+    @Override
+    public List<Clothes> findAll() {
+        return repository.findAll();
+    }
 }

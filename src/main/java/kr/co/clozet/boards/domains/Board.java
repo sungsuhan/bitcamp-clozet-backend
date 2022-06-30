@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -35,7 +36,8 @@ public class Board {
 
     @Id
     @Column(name = "board_id")
-    @GeneratedValue private long boardId;
+    @GeneratedValue(strategy = GenerationType.AUTO) private long boardId;
+    @CreatedDate
     @Column(name = "created_date") private String createdDate;
     @Column private String qna;
 
