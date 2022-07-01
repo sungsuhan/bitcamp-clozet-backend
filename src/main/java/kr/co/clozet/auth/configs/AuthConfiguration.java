@@ -23,7 +23,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
  * =============================================
  * 2022-05-23           sungsuhan      최초 생성
  **/
-@Configuration
+@Configuration //인터셉터역할
 public class AuthConfiguration extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder(){

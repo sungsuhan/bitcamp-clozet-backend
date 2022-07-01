@@ -158,19 +158,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String findUsername(String name, String email) {
-
+    public UserDTO findUsername(UserDTO user) {
         String result = "";
-
         try {
-            result= repository.findUsername(name, email);
+            result= repository.findUsername(user.getName(), user.getEmail());
+            user.setUsername(result);
 
         } catch(Exception e) {
 
             e.printStackTrace();
         }
 
-        return result ;
+        return user;
 
     }
 
