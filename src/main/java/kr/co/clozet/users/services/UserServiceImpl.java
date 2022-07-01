@@ -158,9 +158,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Messenger findUsername(String name, String email) {
-        repository.findUsername(name, email);
-        return Messenger.builder().message("# 아이디 찾기 #").build();
+    public String findUsername(String name, String email) {
+
+        String result = "";
+
+        try {
+            result= repository.findUsername(name, email);
+
+        } catch(Exception e) {
+
+            e.printStackTrace();
+        }
+
+        return result ;
 
     }
 

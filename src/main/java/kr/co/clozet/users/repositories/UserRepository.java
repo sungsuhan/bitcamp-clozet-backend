@@ -2,6 +2,7 @@ package kr.co.clozet.users.repositories;
 
 import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.users.domains.User;
+import kr.co.clozet.users.domains.UserDTO;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -42,11 +43,9 @@ interface UserCustomRepository{
             nativeQuery = true)
     String [] findTitleByUserId();
 
-
-    @Modifying(clearAutomatically = true)
-    @Query(value = "select users.username from users where users.name = #{name} and users.email = #{email}",
+    @Query(value = "select users.username from users where users.name = :name and users.email = :email",
             nativeQuery = true)
-    Messenger findUsername(String name, String email);
+    String findUsername(@Param("name") String name, @Param("email") String email);
 
 }
 

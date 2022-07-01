@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 
@@ -130,10 +131,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/findUsername", method = RequestMethod.POST) @ResponseBody
-    public ResponseEntity<Messenger> findUsername(@RequestParam("name") String name, @RequestParam("email") String email) {
-        System.out.println("이름 = "+name);
-        System.out.println("이름 = "+email);
-        return ResponseEntity.ok(service.findUsername(name, email));
+    public String findUsername(@RequestParam("name")String name, @RequestParam("email")String email) {
+        return service.findUsername(name, email);
     }
 
 
