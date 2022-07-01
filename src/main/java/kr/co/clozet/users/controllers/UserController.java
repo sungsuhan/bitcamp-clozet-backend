@@ -134,6 +134,12 @@ public class UserController {
     public ResponseEntity<String> findUsername(@RequestBody UserDTO user) {
         return ResponseEntity.ok(service.findUsername(user).getUsername());
     }
+    @PostMapping(value = "/findPw")
+    public void findPwPOST(@RequestBody UserDTO user, HttpServletResponse response) throws Exception{
+        System.out.println("아이디 : " + user.getUsername());
+        System.out.println("email : " + user.getEmail());
+        service.findPw(response, user);
+    }
 
 
 }

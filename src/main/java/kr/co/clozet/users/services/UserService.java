@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,4 +51,9 @@ public interface UserService {
     Messenger logout();
 
     UserDTO findUsername(UserDTO user);
+    //이메일발송
+    public void sendEmail(UserDTO user, String div) throws Exception;
+
+    //비밀번호찾기
+    public void findPw(HttpServletResponse resp, UserDTO user) throws Exception;
 }

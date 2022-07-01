@@ -9,6 +9,7 @@ import kr.co.clozet.users.domains.UserDTO;
 import kr.co.clozet.users.repositories.UserRepository;
 import kr.co.clozet.common.dataStructure.Box;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.mail.HtmlEmail;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -172,6 +175,85 @@ public class UserServiceImpl implements UserService {
         return user;
 
     }
+    //비밀번호 찾기 이메일발송
+    @Override
+    public void sendEmail(UserDTO user, String div) throws Exception {
+        // Mail Server 설정
+        String charSet = "utf-8";
+        String hostSMTP = "smtp.gmail.com"; //네이버 이용시 smtp.naver.com
+        String hostSMTPid = "dbstjqdlwksj@gmail.com";
+        String hostSMTPpwd = "owmhrcwfvoihuwke";
 
+        // 보내는 사람 EMail, 제목, 내용
+        String fromEmail = "dbstjqdlwksj@gmail.com";//"보내는 사람 이메일주소(받는 사람 이메일에 표시됨)";
+        String fromName = "CLOZET";//"프로젝트이름 또는 보내는 사람 이름";
+        String subject = "임시비밀번호 발금";
+        String msg = "임시비밀번호";
+
+        if(div.equals("findpw")) {
+            subject = "CLOZET 임시 비밀번호 입니다.";
+            msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
+            msg += "<h3 style='color: blue;'>";
+            msg += user.getUsername() + "님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
+            msg += "<p>임시 비밀번호 : ";
+            msg += user.getPassword() + "</p></div>";
+        }
+
+        // 받는 사람 E-Mail 주소
+        String mail = user.getEmail();
+        try {
+            HtmlEmail email = new HtmlEmail();
+            email.setDebug(true);
+            email.setCharset(charSet);
+            email.setSSLOnConnect(true);
+            email.setHostName(hostSMTP);
+            email.setSmtpPort(587); //네이버 이용시 587
+
+            email.setAuthentication(hostSMTPid, hostSMTPpwd);
+            email.setStartTLSEnabled(true);
+            email.addTo(mail, charSet);
+            email.setFrom(fromEmail, fromName, charSet);
+            email.setSubject(subject);
+            email.setHtmlMsg(msg);
+            email.send();
+        } catch (Exception e) {
+            System.out.println("메일발송 실패 : " + e);
+        }
+    }
+
+    //비밀번호찾기
+    @Override
+    public void findPw(HttpServletResponse response, UserDTO user) throws Exception {
+        response.setContentType("text/html;charset=utf-8");
+        User returnUser = new User();
+        String username = user.getUsername();
+        PrintWriter out = response.getWriter();
+        // 가입된 아이디가 없으면
+        if(username == null) {
+            out.print("등록되지 않은 아이디입니다.");
+            out.close();
+        }
+        // 가입된 이메일이 아니면
+        else if(!user.getEmail().equals(user.getEmail())) {
+            out.print("등록되지 않은 이메일입니다.");
+            out.close();
+        }else {
+            // 임시 비밀번호 생성
+            String pw = "";
+            for (int i = 0; i < 12; i++) {
+                pw += (char) ((Math.random() * 26) + 97);
+            }
+            user.setPassword(pw);
+            // 비밀번호 변경
+            String newPw = returnUser.getPassword();
+            repository.save(returnUser);
+
+            // 비밀번호 변경 메일 발송
+            sendEmail(user, "findpw");
+
+            out.print("이메일로 임시 비밀번호를 발송하였습니다.");
+            out.close();
+        }
+    }
 
 }
