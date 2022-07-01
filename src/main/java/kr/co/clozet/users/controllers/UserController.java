@@ -130,9 +130,9 @@ public class UserController {
         return ResponseEntity.ok(repository.findTitleByUserId());
     }
 
-    @RequestMapping(value = "/findUsername", method = RequestMethod.POST) @ResponseBody
-    public String findUsername(@RequestParam("name")String name, @RequestParam("email")String email) {
-        return service.findUsername(name, email);
+    @PostMapping("/findUsername") @ResponseBody
+    public ResponseEntity<String> findUsername(@RequestBody UserDTO user) {
+        return ResponseEntity.ok(service.findUsername(user).getUsername());
     }
 
 

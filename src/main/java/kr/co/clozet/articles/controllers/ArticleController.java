@@ -39,18 +39,18 @@ public class ArticleController {
     private final ArticleService service;
 
     @GetMapping("/findAll")
-    public List<Article> findAll() {
-        return service.findAll();
+    public ResponseEntity<List<Article>> findAll() {
+        return ResponseEntity.ok(service.findAll());
     }
 
     @GetMapping("/findAll/sort")
-    public List<Article> findAll(Sort sort) {
-        return service.findAll(sort);
+    public ResponseEntity<List<Article>> findAll(Sort sort) {
+        return ResponseEntity.ok(service.findAll(sort));
     }
 
     @GetMapping("/findAll/pageable")
-    public Page<Article> findAll(Pageable pageable) {
-        return service.findAll(pageable);
+    public ResponseEntity<Page<Article>> findAll(Pageable pageable) {
+        return ResponseEntity.ok(service.findAll(pageable));
     }
 
     @GetMapping("/count")
