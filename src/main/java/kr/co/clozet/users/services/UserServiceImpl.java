@@ -102,9 +102,9 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public Messenger delete(User user) {
-        repository.delete(user);
-        return Messenger.builder().message("").build();
+    public Messenger delete(UserDTO user) {
+        repository.findById(user.getUserId()).ifPresent(repository::delete);
+        return Messenger.builder().message("삭제 완료").build();
     }
 
     @Override
@@ -137,8 +137,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findById(String userid) {
-        return repository.findById(0L);
+    public Optional<User> findById(long userId) {
+        return repository.findById(userId);
     }
 
     @Override
@@ -260,8 +260,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override @Transactional
-    public int partialUpdate(long userId, final UserDTO userDTO) {
-        Optional<User> originUser = repository.findById(userId);
+    public int partialUpdate(final UserDTO userDTO) {
+        Optional<User> originUser = repository.findById(userDTO.getUserId());
 
         User user = originUser.get();
         if(StringUtils.isNotBlank(userDTO.getName())) user.setName(userDTO.getName());
@@ -272,7 +272,6 @@ public class UserServiceImpl implements UserService {
         if(StringUtils.isNotBlank(userDTO.getPassword())) user.setPassword(userDTO.getPassword());
         if(StringUtils.isNotBlank(userDTO.getUsername())) user.setUsername(userDTO.getUsername());
         repository.save(user);
-        System.out.println(repository.save(user));
         return 1;
     }
 

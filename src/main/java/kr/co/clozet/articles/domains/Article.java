@@ -22,6 +22,7 @@ import javax.persistence.*;
  * =============================================
  * 2022-05-18           sungsuhan      최초 생성
  **/
+@Setter
 @Builder
 @Getter
 @NoArgsConstructor
@@ -35,7 +36,6 @@ public class Article {
     @Column(name = "article_id")
     @GeneratedValue(strategy = GenerationType.AUTO) private long articleId;
     @Column private String title;
-    @CreatedDate
     @Column(name = "written_date") private String writtenDate;
     @Column private String open;
     @Column private String content;

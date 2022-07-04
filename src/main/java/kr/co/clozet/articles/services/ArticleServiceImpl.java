@@ -4,13 +4,14 @@ import kr.co.clozet.articles.domains.Article;
 import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.articles.repositories.ArticleRepository;
 import kr.co.clozet.auth.domains.Messenger;
-import kr.co.clozet.users.domains.Role;
+import kr.co.clozet.common.blank.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -54,8 +55,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Messenger delete(Article article) {
-        repository.delete(article);
+    public Messenger delete(ArticleDTO articleDTO) {
+        repository.findById(articleDTO.getArticleId()).ifPresent(repository::delete);
         return Messenger.builder().message("삭제").build();
     }
 
@@ -82,13 +83,30 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Optional<Article> findById(String article) {
-        return repository.findById(0L);
+    public Optional<Article> findById(long articleId) {
+        return repository.findById(articleId);
     }
 
     @Override
     public boolean existsById(String article) {
         return repository.existsById(0L);
+    }
+
+    @Override @Transactional
+    public int partialUpdate(final ArticleDTO articleDTO) {
+        Optional<Article> originArticle = repository.findById(articleDTO.getArticleId());
+
+        Article article = originArticle.get();
+        if(StringUtils.isNotBlank(articleDTO.getTitle())) article.setTitle(articleDTO.getTitle());
+        if(StringUtils.isNotBlank(articleDTO.getWrittenDate())) article.setWrittenDate(articleDTO.getWrittenDate());
+        if(StringUtils.isNotBlank(articleDTO.getOpen())) article.setOpen(articleDTO.getOpen());
+        if(StringUtils.isNotBlank(articleDTO.getContent())) article.setContent(articleDTO.getContent());
+        if(StringUtils.isNotBlank(articleDTO.getPicture())) article.setPicture(articleDTO.getPicture());
+        if(StringUtils.isNotBlank(articleDTO.getHeight())) article.setHeight(articleDTO.getHeight());
+        if(StringUtils.isNotBlank(articleDTO.getWeight())) article.setWeight(articleDTO.getWeight());
+        if(StringUtils.isNotBlank(articleDTO.getComment())) article.setComment(articleDTO.getComment());
+        repository.save(article);
+        return 1;
     }
 
 }

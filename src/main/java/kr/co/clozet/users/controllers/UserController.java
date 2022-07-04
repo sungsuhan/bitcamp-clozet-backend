@@ -55,11 +55,6 @@ public class UserController {
         return ResponseEntity.ok(service.logout());
     }
 
-//    @PutMapping(value = "/update")
-//    public ResponseEntity<Messenger> update(@RequestBody User user) {
-//        return ResponseEntity.ok(service.update(user));
-//    }
-
     // Embeded Method
     @GetMapping("/findAll")
     public ResponseEntity<List<User>> findAll() {
@@ -82,7 +77,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Messenger> delete(@RequestBody User user) {
+    public ResponseEntity<Messenger> delete(@RequestBody UserDTO user) {
         return ResponseEntity.ok(service.delete(user));
     }
 
@@ -103,9 +98,9 @@ public class UserController {
         return ResponseEntity.ok(service.save(user));
     }
 
-    @GetMapping("/findById/{userid}")
-    public ResponseEntity<Optional<User>> findById(@PathVariable String userid) {
-        return ResponseEntity.ok(service.findById(userid));
+    @GetMapping("/findById/{user_id}") @ResponseBody
+    public ResponseEntity<Optional<User>> findById(@PathVariable("user_id") long userId) {
+        return ResponseEntity.ok(service.findById(userId));
     }
 
     @GetMapping("/existsById/{userid}")
@@ -132,6 +127,7 @@ public class UserController {
     public ResponseEntity<String> findUsername(@RequestBody UserDTO user) {
         return ResponseEntity.ok(service.findUsername(user).getUsername());
     }
+
     @PostMapping(value = "/findPw")
     public void findPwPOST(@RequestBody UserDTO user, HttpServletResponse response) throws Exception{
         System.out.println("아이디 : " + user.getUsername());
@@ -139,23 +135,9 @@ public class UserController {
         service.findPw(response, user);
     }
 
-//    @PatchMapping(value = "/{user_id}") @ResponseBody
-//    public ResponseEntity<Map<String, Object>> partialUpdate(@PathVariable("user_id") long userId, @RequestBody final UserDTO userDTO) {
-//        Map<String, Object> response = new HashMap<>();
-//
-//        int res = service.partialUpdate(userId, userDTO);
-//        if(res > 0) {
-//            response.put("result", "SUCCESS");
-//        } else {
-//            response.put("result", "FAIL");
-//            response.put("reason", "일치하는 회원 정보가 없습니다. 사용자 id를 확인해주세요.");
-//        }
-//        return ResponseEntity.ok(response);
-//    }
-
-    @PatchMapping(value = "/update/{user_id}") @ResponseBody
-    public ResponseEntity<Integer> partialUpdate(@PathVariable("user_id") long userId, @ModelAttribute final UserDTO userDTO) {
-        return ResponseEntity.ok(service.partialUpdate(userId, userDTO));
+    @PatchMapping(value = "/update") @ResponseBody
+    public ResponseEntity<Integer> partialUpdate(@RequestBody final UserDTO userDTO) {
+        return ResponseEntity.ok(service.partialUpdate(userDTO));
     }
 
 

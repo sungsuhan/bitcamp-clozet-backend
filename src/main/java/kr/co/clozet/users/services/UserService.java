@@ -35,13 +35,13 @@ public interface UserService {
 
     //UserDTO update(UserDTO user);
 
-    Messenger delete(User user);
+    Messenger delete(UserDTO user);
 
     Messenger deleteAll();
 
     Messenger save(UserDTO user);
 
-    Optional<User> findById(String userid);
+    Optional<User> findById(long userId);
 
     Messenger existsById(String userid);
 
@@ -58,5 +58,5 @@ public interface UserService {
     //비밀번호찾기
     public void findPw(HttpServletResponse resp, UserDTO user) throws Exception;
 
-    int partialUpdate(long userId, UserDTO userDTO);
+    int partialUpdate(UserDTO userDTO);
 }
