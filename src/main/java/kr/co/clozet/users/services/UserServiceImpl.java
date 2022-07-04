@@ -3,6 +3,7 @@ package kr.co.clozet.users.services;
 import kr.co.clozet.auth.configs.AuthProvider;
 import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.auth.exception.SecurityRuntimeException;
+import kr.co.clozet.common.blank.StringUtils;
 import kr.co.clozet.users.domains.Role;
 import kr.co.clozet.users.domains.User;
 import kr.co.clozet.users.domains.UserDTO;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,10 +95,11 @@ public class UserServiceImpl implements UserService {
         return Messenger.builder().message(string(repository.count())).build();
     }
 
-    @Override
-    public Messenger update(User user) {
-        return Messenger.builder().message("").build();
-    }
+//    public Messenger update(User user) {
+//        repository.update(user);
+//        return Messenger.builder().build();
+//    }
+
 
     @Override
     public Messenger delete(User user) {
@@ -181,11 +184,11 @@ public class UserServiceImpl implements UserService {
         // Mail Server 설정
         String charSet = "utf-8";
         String hostSMTP = "smtp.gmail.com"; //네이버 이용시 smtp.naver.com
-        String hostSMTPid = "dbstjqdlwksj@gmail.com";
+        String hostSMTPid = "swhanssu@gmail.com";
         String hostSMTPpwd = "owmhrcwfvoihuwke";
 
         // 보내는 사람 EMail, 제목, 내용
-        String fromEmail = "dbstjqdlwksj@gmail.com";//"보내는 사람 이메일주소(받는 사람 이메일에 표시됨)";
+        String fromEmail = "swhanssu@gmail.com";//"보내는 사람 이메일주소(받는 사람 이메일에 표시됨)";
         String fromName = "CLOZET";//"프로젝트이름 또는 보내는 사람 이름";
         String subject = "임시비밀번호 발금";
         String msg = "임시비밀번호";
@@ -255,5 +258,24 @@ public class UserServiceImpl implements UserService {
             out.close();
         }
     }
+
+    @Override @Transactional
+    public int partialUpdate(long userId, final UserDTO userDTO) {
+        Optional<User> originUser = repository.findById(userId);
+
+        User user = originUser.get();
+        if(StringUtils.isNotBlank(userDTO.getName())) user.setName(userDTO.getName());
+        if(StringUtils.isNotBlank(userDTO.getBirth())) user.setBirth(userDTO.getBirth());
+        if(StringUtils.isNotBlank(userDTO.getNickname())) user.setNickname(userDTO.getNickname());
+        if(StringUtils.isNotBlank(userDTO.getPhone())) user.setPhone(userDTO.getPhone());
+        if(StringUtils.isNotBlank(userDTO.getEmail())) user.setEmail(userDTO.getEmail());
+        if(StringUtils.isNotBlank(userDTO.getPassword())) user.setPassword(userDTO.getPassword());
+        if(StringUtils.isNotBlank(userDTO.getUsername())) user.setUsername(userDTO.getUsername());
+        repository.save(user);
+        System.out.println(repository.save(user));
+        return 1;
+    }
+
+
 
 }

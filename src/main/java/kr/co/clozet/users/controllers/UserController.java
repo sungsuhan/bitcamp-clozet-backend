@@ -6,13 +6,11 @@ import kr.co.clozet.users.domains.User;
 import kr.co.clozet.users.domains.UserDTO;
 import kr.co.clozet.users.repositories.UserRepository;
 import kr.co.clozet.users.services.UserService;
-import kr.co.clozet.users.services.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,10 +55,10 @@ public class UserController {
         return ResponseEntity.ok(service.logout());
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Messenger> update(@RequestBody User user) {
-        return ResponseEntity.ok(service.update(user));
-    }
+//    @PutMapping(value = "/update")
+//    public ResponseEntity<Messenger> update(@RequestBody User user) {
+//        return ResponseEntity.ok(service.update(user));
+//    }
 
     // Embeded Method
     @GetMapping("/findAll")
@@ -140,6 +138,26 @@ public class UserController {
         System.out.println("email : " + user.getEmail());
         service.findPw(response, user);
     }
+
+//    @PatchMapping(value = "/{user_id}") @ResponseBody
+//    public ResponseEntity<Map<String, Object>> partialUpdate(@PathVariable("user_id") long userId, @RequestBody final UserDTO userDTO) {
+//        Map<String, Object> response = new HashMap<>();
+//
+//        int res = service.partialUpdate(userId, userDTO);
+//        if(res > 0) {
+//            response.put("result", "SUCCESS");
+//        } else {
+//            response.put("result", "FAIL");
+//            response.put("reason", "일치하는 회원 정보가 없습니다. 사용자 id를 확인해주세요.");
+//        }
+//        return ResponseEntity.ok(response);
+//    }
+
+    @PatchMapping(value = "/update/{user_id}") @ResponseBody
+    public ResponseEntity<Integer> partialUpdate(@PathVariable("user_id") long userId, @ModelAttribute final UserDTO userDTO) {
+        return ResponseEntity.ok(service.partialUpdate(userId, userDTO));
+    }
+
 
 
 }

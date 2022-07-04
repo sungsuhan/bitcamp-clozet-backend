@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -25,6 +26,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
  **/
 @Configuration //인터셉터역할
 public class AuthConfiguration extends WebSecurityConfigurerAdapter {
+    //회원수정 후 세션 유지하기 위해
+    @Bean @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -65,6 +71,9 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/logout").permitAll()
                 .antMatchers("/articles/join").permitAll()
                 .antMatchers("/articles/findAll").permitAll()
+                .antMatchers("/users/findPw").permitAll()
+                .antMatchers("/users/findById").permitAll()
+                .antMatchers("/users/update/{user_id}").permitAll()
                 .anyRequest().authenticated();
         http.exceptionHandling().accessDeniedPage("/users/login");
         http.logout()

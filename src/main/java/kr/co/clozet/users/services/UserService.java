@@ -33,7 +33,7 @@ public interface UserService {
 
     Messenger count();
 
-    Messenger update(User user);
+    //UserDTO update(UserDTO user);
 
     Messenger delete(User user);
 
@@ -51,9 +51,12 @@ public interface UserService {
     Messenger logout();
 
     UserDTO findUsername(UserDTO user);
+
     //이메일발송
     public void sendEmail(UserDTO user, String div) throws Exception;
 
     //비밀번호찾기
     public void findPw(HttpServletResponse resp, UserDTO user) throws Exception;
+
+    int partialUpdate(long userId, UserDTO userDTO);
 }
