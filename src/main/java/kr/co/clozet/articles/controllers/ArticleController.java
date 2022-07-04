@@ -70,9 +70,9 @@ public class ArticleController {
         return ResponseEntity.ok(service.save(article));
     }
 
-    @GetMapping("/findById/{article_id}") @ResponseBody
-    public ResponseEntity<Optional<Article>> findById(@PathVariable("article_id") long articleId) {
-        return ResponseEntity.ok(service.findById(articleId));
+    @GetMapping("/findById") @ResponseBody
+    public ResponseEntity<Optional<Article>> findById(ArticleDTO articleDTO) {
+        return ResponseEntity.ok(service.findById(articleDTO));
     }
 
     @GetMapping("/existsById/{article}")

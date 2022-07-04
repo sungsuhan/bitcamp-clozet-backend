@@ -98,9 +98,9 @@ public class UserController {
         return ResponseEntity.ok(service.save(user));
     }
 
-    @GetMapping("/findById/{user_id}") @ResponseBody
-    public ResponseEntity<Optional<User>> findById(@PathVariable("user_id") long userId) {
-        return ResponseEntity.ok(service.findById(userId));
+    @GetMapping("/findById") @ResponseBody
+    public ResponseEntity<Optional<User>> findById(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(service.findById(userDTO));
     }
 
     @GetMapping("/existsById/{userid}")

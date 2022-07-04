@@ -83,8 +83,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Optional<Article> findById(long articleId) {
-        return repository.findById(articleId);
+    public Optional<Article> findById(ArticleDTO articleDTO) {
+        return repository.findById(articleDTO.getArticleId());
     }
 
     @Override

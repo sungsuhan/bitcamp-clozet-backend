@@ -35,7 +35,7 @@ public interface ArticleService {
 
     Messenger save(ArticleDTO article);
 
-    Optional<Article> findById(long articleId);
+    Optional<Article> findById(ArticleDTO articleDTO);
 
     boolean existsById(String article);
 

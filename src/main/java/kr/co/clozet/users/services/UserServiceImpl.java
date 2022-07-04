@@ -137,8 +137,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findById(long userId) {
-        return repository.findById(userId);
+    public Optional<User> findById(UserDTO userDTO) {
+        return repository.findById(userDTO.getUserId());
     }
 
     @Override

@@ -41,7 +41,7 @@ public interface UserService {
 
     Messenger save(UserDTO user);
 
-    Optional<User> findById(long userId);
+    Optional<User> findById(UserDTO userDTO);
 
     Messenger existsById(String userid);
 
