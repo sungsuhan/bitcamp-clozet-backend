@@ -275,7 +275,7 @@ public class UserServiceImpl implements UserService {
 
     @Override @Transactional
     public UserDTO partialUpdate(final UserDTO userDTO) {
-        Optional<User> originUser = repository.findById(userDTO.getUserId());
+        Optional<User> originUser = repository.findByToken(userDTO.getToken());
 
         User user = originUser.get();
         if(StringUtils.isNotBlank(userDTO.getName())) user.setName(userDTO.getName());
