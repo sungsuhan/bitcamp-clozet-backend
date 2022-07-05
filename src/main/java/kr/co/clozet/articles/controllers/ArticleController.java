@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.filechooser.FileSystemView;
+import java.io.File;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +43,7 @@ import java.util.Optional;
 public class ArticleController {
 
     private final ArticleService service;
+
     @GetMapping("/findByUsername/{username}")
     public ResponseEntity<List<Article>> findByUsernameToArticle(@PathVariable("username") String username) {
         return ResponseEntity.ok(service.findByUsernameToArticle(username));
@@ -91,12 +94,6 @@ public class ArticleController {
     public ResponseEntity<Integer> partialUpdate(@RequestBody final ArticleDTO articleDTO) {
         return ResponseEntity.ok(service.partialUpdate(articleDTO));
     }
-
-
-//    @PostMapping("picture/upload")
-//    public String upload(@RequestParam("files") MultipartFile file) throws Exception {
-//        String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
-//    }
 
 
 }

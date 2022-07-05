@@ -1,7 +1,6 @@
 package kr.co.clozet.users.services;
 
 import kr.co.clozet.articles.domains.Article;
-import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.users.domains.User;
 import kr.co.clozet.users.domains.UserDTO;
@@ -47,6 +46,8 @@ public interface UserService {
 
     Optional<User> findByToken(UserDTO userDTO);
 
+    List<Article> articlesByToken(UserDTO userDTO);
+
     Messenger existsById(String userid);
 
     // custom
@@ -62,5 +63,5 @@ public interface UserService {
     //비밀번호찾기
     public void findPw(HttpServletResponse resp, UserDTO user) throws Exception;
 
-    int partialUpdate(UserDTO userDTO);
+    UserDTO partialUpdate(UserDTO userDTO);
 }

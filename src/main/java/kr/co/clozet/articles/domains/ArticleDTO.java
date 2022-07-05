@@ -28,4 +28,5 @@ public class ArticleDTO {
     @ApiModelProperty(position = 9) String userId;
     @ApiModelProperty(position = 10) String boardId;
     @ApiModelProperty(position = 11) String comment;
+    @ApiModelProperty(position = 12) String qna;
 }

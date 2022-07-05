@@ -24,6 +24,7 @@ import java.util.Optional;
  **/
 public interface ArticleService {
     List<Article> findAll();
+
     List<Article> findByUsernameToArticle(String username);
 
     List<Article> findAll(Sort sort);

@@ -1,5 +1,7 @@
 package kr.co.clozet.users.services;
 
+import kr.co.clozet.articles.domains.Article;
+import kr.co.clozet.articles.repositories.ArticleRepository;
 import kr.co.clozet.auth.configs.AuthProvider;
 import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.auth.exception.SecurityRuntimeException;
@@ -47,6 +49,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder encoder;
     private final AuthProvider provider;
     private final ModelMapper modelMapper;
+    private final ArticleRepository articleRepository;
 
 
     @Override
@@ -147,12 +150,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<Article> articlesByToken(UserDTO userDTO) {
+        User user = repository.findByToken(userDTO.getToken()).orElse(null);
+        return user.getArticles();
+    }
+
+    @Override
     public Messenger existsById(String userid) {
         return repository.existsById(longParse(userid))
                 ? Messenger.builder().message("EXIST").build()
                 : Messenger.builder().message("NOT_EXIST").build(); //userid 타입이 다름
     }
-
 
     // custom
     @Override
@@ -266,7 +274,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override @Transactional
-    public int partialUpdate(final UserDTO userDTO) {
+    public UserDTO partialUpdate(final UserDTO userDTO) {
         Optional<User> originUser = repository.findById(userDTO.getUserId());
 
         User user = originUser.get();
@@ -278,7 +286,7 @@ public class UserServiceImpl implements UserService {
         if(StringUtils.isNotBlank(userDTO.getPassword())) user.setPassword(userDTO.getPassword());
         if(StringUtils.isNotBlank(userDTO.getUsername())) user.setUsername(userDTO.getUsername());
         repository.save(user);
-        return 1;
+        return userDTO;
     }
 
 

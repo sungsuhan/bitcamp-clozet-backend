@@ -43,6 +43,7 @@ public class Article {
     @Column private String height;
     @Column private String weight;
     @Column String comment;
+    @Column String qna;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
