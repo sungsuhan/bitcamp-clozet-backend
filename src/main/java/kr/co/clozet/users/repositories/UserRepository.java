@@ -51,21 +51,14 @@ interface UserCustomRepository{
 //    String findByToken(@Param("token") String token);
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> b0044fee9da9e40cfa53531b5375c5a62d2201ee
 }
 
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>, UserCustomRepository {
     Optional<User> findByUsername(String username);
-<<<<<<< HEAD
     Optional<User> findByToken(String token);
-=======
-    Optional<User> findByToken(UserDTO userDTO);
->>>>>>> 3ada5229a4bf24ce3479c6ac74d07c0af8bef6ce
 
 
 }

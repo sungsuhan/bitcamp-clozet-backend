@@ -49,8 +49,6 @@ public interface UserService {
 
     Messenger existsById(String userid);
 
-    User findByToken(UserDTO userDTO);
-
     // custom
     Optional<User> findByUsername(String username);
 

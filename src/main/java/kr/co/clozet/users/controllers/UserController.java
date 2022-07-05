@@ -72,10 +72,7 @@ public class UserController {
     public ResponseEntity<Page<User>> findAll(Pageable pageable) {
         return ResponseEntity.ok(service.findAll(pageable));
     }
-    @PostMapping("/token")
-    public ResponseEntity<User> findByToken(@RequestBody UserDTO userDTO){
-        return ResponseEntity.ok(service.findByToken(userDTO));
-    }
+
     @GetMapping("/count")
     public ResponseEntity<Messenger> count() {
         return ResponseEntity.ok(service.count());
