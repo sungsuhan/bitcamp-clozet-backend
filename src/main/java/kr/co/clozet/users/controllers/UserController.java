@@ -148,7 +148,7 @@ public class UserController {
     }
 
     @PatchMapping(value = "/update") @ResponseBody
-    public ResponseEntity<Integer> partialUpdate(@RequestBody final UserDTO userDTO) {
+    public ResponseEntity<User> partialUpdate(@RequestBody final UserDTO userDTO) {
         return ResponseEntity.ok(service.partialUpdate(userDTO));
     }
 
