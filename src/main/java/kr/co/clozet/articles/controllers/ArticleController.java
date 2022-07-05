@@ -37,6 +37,10 @@ import java.util.Optional;
 public class ArticleController {
 
     private final ArticleService service;
+    @GetMapping("/findByUsername/{username}")
+    public ResponseEntity<List<Article>> findByUsernameToArticle(@PathVariable("username") String username) {
+        return ResponseEntity.ok(service.findByUsernameToArticle(username));
+    }
 
     @GetMapping("/findAll")
     public ResponseEntity<List<Article>> findAll() {

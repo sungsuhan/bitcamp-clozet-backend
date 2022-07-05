@@ -58,7 +58,11 @@ public class ArticleServiceImpl implements ArticleService {
         repository.delete(article);
         return Messenger.builder().message("삭제").build();
     }
+    @Override
+    public List<Article> findByUsernameToArticle(String username) {
 
+        return repository.findByUsernameToArticle(username);
+    }
     @Override
     public Messenger save(ArticleDTO article) {
         System.out.println("서비스로 전달된 게시글 정보: "+article.toString());

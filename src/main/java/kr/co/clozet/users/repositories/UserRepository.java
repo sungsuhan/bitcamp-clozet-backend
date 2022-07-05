@@ -1,5 +1,6 @@
 package kr.co.clozet.users.repositories;
 
+import kr.co.clozet.articles.domains.Article;
 import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.users.domains.User;
 import kr.co.clozet.users.domains.UserDTO;
@@ -46,12 +47,14 @@ interface UserCustomRepository{
     @Query(value = "select u.username from User u where u.name = :name and u.email = :email")
     String findUsername(@Param("name") String name, @Param("email") String email);
 
+
 }
 
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>, UserCustomRepository {
     Optional<User> findByUsername(String username);
+    Optional<User> findByToken(UserDTO userDTO);
 
 
 }
