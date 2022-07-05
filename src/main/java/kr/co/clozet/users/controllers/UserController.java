@@ -1,6 +1,8 @@
 package kr.co.clozet.users.controllers;
 
 import io.swagger.annotations.*;
+import kr.co.clozet.articles.domains.Article;
+import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.users.domains.User;
 import kr.co.clozet.users.domains.UserDTO;
@@ -70,7 +72,10 @@ public class UserController {
     public ResponseEntity<Page<User>> findAll(Pageable pageable) {
         return ResponseEntity.ok(service.findAll(pageable));
     }
-
+    @PostMapping("/token")
+    public ResponseEntity<User> findByToken(@RequestBody UserDTO userDTO){
+        return ResponseEntity.ok(service.findByToken(userDTO));
+    }
     @GetMapping("/count")
     public ResponseEntity<Messenger> count() {
         return ResponseEntity.ok(service.count());

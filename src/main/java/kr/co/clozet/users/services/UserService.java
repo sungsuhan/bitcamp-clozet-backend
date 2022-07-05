@@ -1,5 +1,7 @@
 package kr.co.clozet.users.services;
 
+import kr.co.clozet.articles.domains.Article;
+import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.users.domains.User;
 import kr.co.clozet.users.domains.UserDTO;
@@ -46,6 +48,8 @@ public interface UserService {
     Optional<User> findByToken(UserDTO userDTO);
 
     Messenger existsById(String userid);
+
+    User findByToken(UserDTO userDTO);
 
     // custom
     Optional<User> findByUsername(String username);

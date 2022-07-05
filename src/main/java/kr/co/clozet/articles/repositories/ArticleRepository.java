@@ -5,8 +5,10 @@ import kr.co.clozet.users.domains.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -23,11 +25,13 @@ import java.util.Optional;
 
 interface ArticleCustomRepository{
 
+    @Query(value = "SELECT a FROM Article a where a.user.username = :username")
+    List<Article> findByUsernameToArticle(@Param("username") String username);
 
 }
 
 
 @Repository
-public interface ArticleRepository extends JpaRepository<Article, Long> {
+public interface ArticleRepository extends JpaRepository<Article, Long>, ArticleCustomRepository {
     Optional<Article> findByTitle(String title);
 }

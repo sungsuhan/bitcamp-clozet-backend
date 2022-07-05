@@ -153,6 +153,16 @@ public class UserServiceImpl implements UserService {
                 : Messenger.builder().message("NOT_EXIST").build(); //userid 타입이 다름
     }
 
+    @Override
+    public User findByToken(UserDTO userDTO) {
+        User user = new User();
+        boolean checkPassword = encoder.matches(userDTO.getToken(), user.getToken());
+        if(checkPassword){
+            user = modelMapper.map(userDTO, User.class);
+        }
+        return user;
+    }
+
     // custom
     @Override
     public Optional<User> findByUsername(String username) {
