@@ -62,5 +62,5 @@ public interface UserService {
     //비밀번호찾기
     public void findPw(HttpServletResponse resp, UserDTO user) throws Exception;
 
-    User partialUpdate(UserDTO userDTO);
+    Messenger partialUpdate(UserDTO userDTO);
 }
