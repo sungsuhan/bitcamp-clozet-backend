@@ -48,6 +48,10 @@ interface UserCustomRepository{
     String findUsername(@Param("name") String name, @Param("email") String email);
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> b0044fee9da9e40cfa53531b5375c5a62d2201ee
 }
 
 

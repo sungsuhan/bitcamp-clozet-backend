@@ -37,7 +37,6 @@ public class Board {
     @Id
     @Column(name = "board_id")
     @GeneratedValue(strategy = GenerationType.AUTO) private long boardId;
-    @CreatedDate
     @Column(name = "created_date") private String createdDate;
     @Column private String qna;
 

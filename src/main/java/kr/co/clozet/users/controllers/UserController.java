@@ -8,13 +8,11 @@ import kr.co.clozet.users.domains.User;
 import kr.co.clozet.users.domains.UserDTO;
 import kr.co.clozet.users.repositories.UserRepository;
 import kr.co.clozet.users.services.UserService;
-import kr.co.clozet.users.services.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,11 +57,6 @@ public class UserController {
         return ResponseEntity.ok(service.logout());
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Messenger> update(@RequestBody User user) {
-        return ResponseEntity.ok(service.update(user));
-    }
-
     // Embeded Method
     @GetMapping("/findAll")
     public ResponseEntity<List<User>> findAll() {
@@ -89,7 +82,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<Messenger> delete(@RequestBody User user) {
+    public ResponseEntity<Messenger> delete(@RequestBody UserDTO user) {
         return ResponseEntity.ok(service.delete(user));
     }
 
@@ -110,9 +103,9 @@ public class UserController {
         return ResponseEntity.ok(service.save(user));
     }
 
-    @GetMapping("/findById/{userid}")
-    public ResponseEntity<Optional<User>> findById(@PathVariable String userid) {
-        return ResponseEntity.ok(service.findById(userid));
+    @GetMapping("/findById") @ResponseBody
+    public ResponseEntity<Optional<User>> findById(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(service.findById(userDTO));
     }
 
     @GetMapping("/existsById/{userid}")
@@ -139,12 +132,19 @@ public class UserController {
     public ResponseEntity<String> findUsername(@RequestBody UserDTO user) {
         return ResponseEntity.ok(service.findUsername(user).getUsername());
     }
+
     @PostMapping(value = "/findPw")
     public void findPwPOST(@RequestBody UserDTO user, HttpServletResponse response) throws Exception{
         System.out.println("아이디 : " + user.getUsername());
         System.out.println("email : " + user.getEmail());
         service.findPw(response, user);
     }
+
+    @PatchMapping(value = "/update") @ResponseBody
+    public ResponseEntity<Integer> partialUpdate(@RequestBody final UserDTO userDTO) {
+        return ResponseEntity.ok(service.partialUpdate(userDTO));
+    }
+
 
 
 }

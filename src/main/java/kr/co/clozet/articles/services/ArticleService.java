@@ -3,6 +3,7 @@ package kr.co.clozet.articles.services;
 import kr.co.clozet.articles.domains.Article;
 import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.auth.domains.Messenger;
+import kr.co.clozet.users.domains.UserDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -31,12 +32,14 @@ public interface ArticleService {
 
     long count();
 
-    Messenger delete(Article article);
+    Messenger delete(ArticleDTO articleDTO);
 
     Messenger save(ArticleDTO article);
 
-    Optional<Article> findById(String article);
+    Optional<Article> findById(ArticleDTO articleDTO);
 
     boolean existsById(String article);
+
+    int partialUpdate(ArticleDTO articleDTO);
 
 }
