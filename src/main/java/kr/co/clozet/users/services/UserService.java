@@ -43,10 +43,12 @@ public interface UserService {
 
     Optional<User> findById(UserDTO userDTO);
 
+    Optional<User> findByToken(UserDTO userDTO);
+
     Messenger existsById(String userid);
 
     // custom
-    List<User> findByUserName(String name);
+    Optional<User> findByUsername(String username);
 
     Messenger logout();
 

@@ -103,6 +103,16 @@ public class UserController {
         return ResponseEntity.ok(service.findById(userDTO));
     }
 
+    @PostMapping("/token") @ResponseBody
+    public ResponseEntity<Optional<User>> findByToken(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(service.findByToken(userDTO));
+    }
+
+    @GetMapping("findByUsername") @ResponseBody
+    public ResponseEntity<Optional<User>> findByUsername(@RequestBody String username) {
+        return ResponseEntity.ok(service.findByUsername(username));
+    }
+
     @GetMapping("/existsById/{userid}")
     public ResponseEntity<Messenger> existsById(@PathVariable String userid) {
         return ResponseEntity.ok(service.existsById(userid));
@@ -139,7 +149,6 @@ public class UserController {
     public ResponseEntity<Integer> partialUpdate(@RequestBody final UserDTO userDTO) {
         return ResponseEntity.ok(service.partialUpdate(userDTO));
     }
-
 
 
 }

@@ -142,6 +142,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> findByToken(UserDTO userDTO) {
+        return repository.findByToken(userDTO.getToken());
+    }
+
+    @Override
     public Messenger existsById(String userid) {
         return repository.existsById(longParse(userid))
                 ? Messenger.builder().message("EXIST").build()
@@ -150,12 +155,12 @@ public class UserServiceImpl implements UserService {
 
     // custom
     @Override
-    public List<User> findByUserName(String name) {
+    public Optional<User> findByUsername(String username) {
         List<User> ls = repository.findAll();
         Box<String, User> box = new Box<>();
         // ls = box.findByUserName(ls, name);
         // ls.stream().filter(...)
-        return null;
+        return repository.findByUsername(username);
     }
 
     @Override

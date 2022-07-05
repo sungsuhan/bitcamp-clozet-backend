@@ -13,9 +13,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.filechooser.FileSystemView;
 import java.security.MessageDigest;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -85,6 +88,11 @@ public class ArticleController {
         return ResponseEntity.ok(service.partialUpdate(articleDTO));
     }
 
+
+//    @PostMapping("picture/upload")
+//    public String upload(@RequestParam("files") MultipartFile file) throws Exception {
+//        String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
+//    }
 
 
 }
