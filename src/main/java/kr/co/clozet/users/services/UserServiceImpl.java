@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Messenger delete(UserDTO user) {
-        repository.findById(user.getUserId()).ifPresent(repository::delete);
+        repository.findByUsername(user.getUsername()).ifPresent(repository::delete);
         return Messenger.builder().message("삭제 완료").build();
     }
 
@@ -237,7 +237,16 @@ public class UserServiceImpl implements UserService {
             System.out.println("메일발송 실패 : " + e);
         }
     }
-
+    @Override
+    public UserDTO save1(UserDTO user) throws Exception{
+        String token = user.getToken();
+        String email = user.getEmail();
+        user.setEmail(email);
+        user.setToken(token);
+        User returnUser = modelMapper.map(user, User.class);
+        repository.save(returnUser);
+        return user;
+    }
     //비밀번호찾기
     @Override
     public void findPw(HttpServletResponse response, UserDTO user) throws Exception {
@@ -279,15 +288,13 @@ public class UserServiceImpl implements UserService {
         Optional<User> originUser = repository.findByToken(userDTO.getToken());
 
         User user = originUser.get();
-        if(StringUtils.isNotBlank(userDTO.getName()))
-            repository.existsByUsername(userDTO.getUsername());
-            user.setName(userDTO.getName());
+        if(StringUtils.isNotBlank(userDTO.getName()) ) user.setName(userDTO.getName());
         if(StringUtils.isNotBlank(userDTO.getBirth())) user.setBirth(userDTO.getBirth());
-        if(StringUtils.isNotBlank(userDTO.getNickname())) user.setNickname(userDTO.getNickname());
-        if(StringUtils.isNotBlank(userDTO.getPhone())) user.setPhone(userDTO.getPhone());
-        if(StringUtils.isNotBlank(userDTO.getEmail())) user.setEmail(userDTO.getEmail());
+        if(StringUtils.isNotBlank(userDTO.getNickname())&& !repository.existsByNickname(userDTO.getNickname())) user.setNickname(userDTO.getNickname());
+        if(StringUtils.isNotBlank(userDTO.getPhone())&& !repository.existsByPhone(userDTO.getPhone())) user.setPhone(userDTO.getPhone());
+        if(StringUtils.isNotBlank(userDTO.getEmail())&& !repository.existsByEmail(userDTO.getEmail())) user.setEmail(userDTO.getEmail());
         if(StringUtils.isNotBlank(userDTO.getPassword())) user.setPassword(userDTO.getPassword());
-        if(StringUtils.isNotBlank(userDTO.getUsername())) user.setUsername(userDTO.getUsername());
+        if(StringUtils.isNotBlank(userDTO.getUsername())&& !repository.existsByUsername(userDTO.getUsername())) user.setUsername(userDTO.getUsername());
         repository.save(user);
     }
 

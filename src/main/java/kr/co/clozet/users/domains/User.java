@@ -43,7 +43,7 @@ public class User {
     @Column private String nickname;
     @Column private String email;
     @Column private String phone;
-    @Column private String token;
+    @Column(length = 1200) private String token;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)

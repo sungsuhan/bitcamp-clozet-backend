@@ -84,6 +84,11 @@ public class ArticleController {
         System.out.println("게시글 정보: "+article.toString());//확인만 하려구.. 지워야함
         return ResponseEntity.ok(service.save(article));
     }
+    @PostMapping(value = "/comment")
+    public ResponseEntity<Article> findByTitle(@RequestBody ArticleDTO article) {
+        System.out.println("게시글 정보: "+article.toString());//확인만 하려구.. 지워야함
+        return ResponseEntity.ok(service.findByTitle(article));
+    }
 
     @PostMapping(value = "/joinQna")
     public ResponseEntity<Messenger> saveQna(@RequestBody ArticleDTO article) {
