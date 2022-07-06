@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Messenger delete(UserDTO user) {
-        repository.findById(user.getUserId()).ifPresent(repository::delete);
+        repository.findByUsername(user.getUsername()).ifPresent(repository::delete);
         return Messenger.builder().message("삭제 완료").build();
     }
 
