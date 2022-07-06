@@ -60,5 +60,4 @@ public interface UserRepository extends JpaRepository<User, Long>, UserCustomRep
     Optional<User> findByUsername(String username);
     Optional<User> findByToken(String token);
 
-
 }

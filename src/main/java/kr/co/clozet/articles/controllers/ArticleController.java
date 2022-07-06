@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.filechooser.FileSystemView;
+import java.io.File;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +43,7 @@ import java.util.Optional;
 public class ArticleController {
 
     private final ArticleService service;
+
     @GetMapping("/findByUsername/{username}")
     public ResponseEntity<List<Article>> findByUsernameToArticle(@PathVariable("username") String username) {
         return ResponseEntity.ok(service.findByUsernameToArticle(username));
@@ -48,6 +51,11 @@ public class ArticleController {
 
     @GetMapping("/findAll")
     public ResponseEntity<List<Article>> findAll() {
+        return ResponseEntity.ok(service.findAll());
+    }
+
+    @GetMapping("/findAllQna")
+    public ResponseEntity<List<Article>> findAllQna() {
         return ResponseEntity.ok(service.findAll());
     }
 
@@ -77,6 +85,12 @@ public class ArticleController {
         return ResponseEntity.ok(service.save(article));
     }
 
+    @PostMapping(value = "/joinQna")
+    public ResponseEntity<Messenger> saveQna(@RequestBody ArticleDTO article) {
+        System.out.println("QnA 정보: "+article.toString());//확인만 하려구.. 지워야함
+        return ResponseEntity.ok(service.save(article));
+    }
+
     @GetMapping("/findById") @ResponseBody
     public ResponseEntity<Optional<Article>> findById(ArticleDTO articleDTO) {
         return ResponseEntity.ok(service.findById(articleDTO));
@@ -91,12 +105,6 @@ public class ArticleController {
     public ResponseEntity<Integer> partialUpdate(@RequestBody final ArticleDTO articleDTO) {
         return ResponseEntity.ok(service.partialUpdate(articleDTO));
     }
-
-
-//    @PostMapping("picture/upload")
-//    public String upload(@RequestParam("files") MultipartFile file) throws Exception {
-//        String rootPath = FileSystemView.getFileSystemView().getHomeDirectory().toString();
-//    }
 
 
 }

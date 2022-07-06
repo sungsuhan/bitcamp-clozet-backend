@@ -42,6 +42,11 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<Article> findAllQna() {
+        return repository.findAll();
+    }
+
+    @Override
     public List<Article> findAll(Sort sort) {
         return repository.findAll(sort);
     }
@@ -61,11 +66,13 @@ public class ArticleServiceImpl implements ArticleService {
         repository.findById(articleDTO.getArticleId()).ifPresent(repository::delete);
         return Messenger.builder().message("삭제").build();
     }
+
     @Override
     public List<Article> findByUsernameToArticle(String username) {
 
         return repository.findByUsernameToArticle(username);
     }
+
     @Override
     public Messenger save(ArticleDTO article) {
         System.out.println("서비스로 전달된 게시글 정보: "+article.toString());
@@ -79,6 +86,26 @@ public class ArticleServiceImpl implements ArticleService {
                     .picture(article.getPicture())
                     .height(article.getHeight())
                     .weight(article.getWeight())
+                    .comment(article.getComment())
+                    .build());
+            result = "SUCCESS";
+        } else {
+            result = "FAIL";
+        }
+        return Messenger.builder().message(result).build();
+    }
+
+    @Override
+    public Messenger saveQna(ArticleDTO article) {
+        System.out.println("서비스로 전달된 QnA 정보: "+article.toString());
+        String result = "";
+        if (repository.findByTitle(article.getTitle()).isEmpty()) {
+            repository.save(Article.builder()
+                    .title(article.getTitle())
+                    .writtenDate(article.getWrittenDate())
+                    .open(article.getOpen())
+                    .content(article.getContent())
+                    .picture(article.getPicture())
                     .comment(article.getComment())
                     .build());
             result = "SUCCESS";

@@ -2,7 +2,6 @@ package kr.co.clozet.users.controllers;
 
 import io.swagger.annotations.*;
 import kr.co.clozet.articles.domains.Article;
-import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.users.domains.User;
 import kr.co.clozet.users.domains.UserDTO;
@@ -17,7 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -110,6 +111,11 @@ public class UserController {
         return ResponseEntity.ok(service.findByToken(userDTO));
     }
 
+    @PostMapping("/articlesByToken") @ResponseBody
+    public ResponseEntity<List<Article>> articlesByToken(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(service.articlesByToken(userDTO));
+    }
+
     @GetMapping("findByUsername") @ResponseBody
     public ResponseEntity<Optional<User>> findByUsername(@RequestBody String username) {
         return ResponseEntity.ok(service.findByUsername(username));
@@ -150,6 +156,7 @@ public class UserController {
     @PatchMapping(value = "/update") @ResponseBody
     public void partialUpdate(@RequestBody UserDTO userDTO)  throws Exception{
        service.partialUpdate(userDTO);
+
     }
 
 

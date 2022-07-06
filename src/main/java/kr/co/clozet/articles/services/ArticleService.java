@@ -24,6 +24,9 @@ import java.util.Optional;
  **/
 public interface ArticleService {
     List<Article> findAll();
+
+    List<Article> findAllQna();
+
     List<Article> findByUsernameToArticle(String username);
 
     List<Article> findAll(Sort sort);
@@ -35,6 +38,8 @@ public interface ArticleService {
     Messenger delete(ArticleDTO articleDTO);
 
     Messenger save(ArticleDTO article);
+
+    Messenger saveQna(ArticleDTO article);
 
     Optional<Article> findById(ArticleDTO articleDTO);
 
