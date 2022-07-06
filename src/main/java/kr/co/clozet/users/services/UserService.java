@@ -36,7 +36,7 @@ public interface UserService {
 
     //UserDTO update(UserDTO user);
 
-    Messenger delete(UserDTO user);
+    //Messenger delete(UserDTO user);
 
     Messenger deleteAll();
 
@@ -66,5 +66,5 @@ public interface UserService {
 
     void partialUpdate(UserDTO userDTO) throws Exception;
 
-
+    Optional<User> delete(UserDTO userDTO) throws Exception;
 }

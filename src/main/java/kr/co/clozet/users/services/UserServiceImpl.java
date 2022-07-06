@@ -104,11 +104,11 @@ public class UserServiceImpl implements UserService {
 //    }
 
 
-    @Override
-    public Messenger delete(UserDTO user) {
-        repository.findByUsername(user.getUsername()).ifPresent(repository::delete);
-        return Messenger.builder().message("삭제 완료").build();
-    }
+//    @Override
+//    public Messenger delete(UserDTO user) {
+//        repository.findByUsername(user.getUsername()).ifPresent(repository::delete);
+//        return Messenger.builder().message("삭제 완료").build();
+//    }
 
     @Override
     public Messenger deleteAll() {
@@ -192,6 +192,7 @@ public class UserServiceImpl implements UserService {
         return user;
 
     }
+
     //비밀번호 찾기 이메일발송
     @Override
     public void sendEmail(UserDTO user, String div) throws Exception {
@@ -237,6 +238,7 @@ public class UserServiceImpl implements UserService {
             System.out.println("메일발송 실패 : " + e);
         }
     }
+
     @Override
     public UserDTO save1(UserDTO user) throws Exception{
         String token = user.getToken();
@@ -247,6 +249,7 @@ public class UserServiceImpl implements UserService {
         repository.save(returnUser);
         return user;
     }
+
     //비밀번호찾기
     @Override
     public void findPw(HttpServletResponse response, UserDTO user) throws Exception {
@@ -296,6 +299,16 @@ public class UserServiceImpl implements UserService {
         if(StringUtils.isNotBlank(userDTO.getPassword())) user.setPassword(userDTO.getPassword());
         if(StringUtils.isNotBlank(userDTO.getUsername())&& !repository.existsByUsername(userDTO.getUsername())) user.setUsername(userDTO.getUsername());
         repository.save(user);
+    }
+
+    @Override @Transactional
+    public Optional<User> delete(final UserDTO userDTO) throws Exception{
+
+        Optional<User> originUser = repository.findByToken(userDTO.getToken());
+
+        repository.delete(originUser.get());
+
+        return originUser;
     }
 
 
