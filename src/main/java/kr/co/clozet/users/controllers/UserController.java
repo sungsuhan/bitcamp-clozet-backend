@@ -100,7 +100,10 @@ public class UserController {
         System.out.println("회원가입 정보: "+user.toString()); // 확인만 하려구...지워야함
         return ResponseEntity.ok(service.save(user));
     }
-
+    @PostMapping(value = "/getToken")
+    public void getToken(@RequestBody UserDTO userDTO){
+        service.save1(userDTO);
+    }
     @GetMapping("/findById") @ResponseBody
     public ResponseEntity<Optional<User>> findById(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(service.findById(userDTO));

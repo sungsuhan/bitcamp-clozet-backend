@@ -49,7 +49,7 @@ public interface UserService {
     List<Article> articlesByToken(UserDTO userDTO);
 
     Messenger existsById(String userid);
-
+    void save1(UserDTO uer);
 
     // custom
     Optional<User> findByUsername(String username);

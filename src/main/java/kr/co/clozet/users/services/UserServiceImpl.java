@@ -237,7 +237,13 @@ public class UserServiceImpl implements UserService {
             System.out.println("메일발송 실패 : " + e);
         }
     }
-
+    @Override
+    public void save1(UserDTO user) {
+        String token = user.getToken();
+        user.setToken(token);
+        User returnUser = modelMapper.map(user, User.class);
+        repository.save(returnUser);
+    }
     //비밀번호찾기
     @Override
     public void findPw(HttpServletResponse response, UserDTO user) throws Exception {
@@ -280,8 +286,8 @@ public class UserServiceImpl implements UserService {
 
         User user = originUser.get();
         if(StringUtils.isNotBlank(userDTO.getName()))
-            repository.existsByUsername(userDTO.getUsername());
-            user.setName(userDTO.getName());
+            if(repository.existsByUsername(userDTO.getUsername()) == true){
+            user.setName(userDTO.getName());}
         if(StringUtils.isNotBlank(userDTO.getBirth())) user.setBirth(userDTO.getBirth());
         if(StringUtils.isNotBlank(userDTO.getNickname())) user.setNickname(userDTO.getNickname());
         if(StringUtils.isNotBlank(userDTO.getPhone())) user.setPhone(userDTO.getPhone());
