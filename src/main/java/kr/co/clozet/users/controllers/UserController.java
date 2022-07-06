@@ -100,9 +100,9 @@ public class UserController {
         System.out.println("회원가입 정보: "+user.toString()); // 확인만 하려구...지워야함
         return ResponseEntity.ok(service.save(user));
     }
-    @PostMapping(value = "/getToken")
-    public void getToken(@RequestBody UserDTO userDTO) throws Exception{
-        service.save1(userDTO);
+    @PostMapping(value = "/getToken") @ResponseBody
+    public ResponseEntity<UserDTO> getToken(@RequestBody UserDTO userDTO) throws Exception{
+        return ResponseEntity.ok(service.save1(userDTO));
     }
     @GetMapping("/findById") @ResponseBody
     public ResponseEntity<Optional<User>> findById(@RequestBody UserDTO userDTO) {
@@ -127,6 +127,22 @@ public class UserController {
     @GetMapping("/existsById/{userid}")
     public ResponseEntity<Messenger> existsById(@PathVariable String userid) {
         return ResponseEntity.ok(service.existsById(userid));
+    }
+    @GetMapping("/existsByUsername") @ResponseBody
+    public ResponseEntity<Boolean> existsByUsername(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(repository.existsByUsername(userDTO.getUsername()));
+    }
+    @GetMapping("/existsByPhone") @ResponseBody
+    public ResponseEntity<Boolean> existsByPhone(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(repository.existsByPhone(userDTO.getPhone()));
+    }
+    @GetMapping("/existsByEmail") @ResponseBody
+    public ResponseEntity<Boolean> existsByEmail(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(repository.existsByEmail(userDTO.getEmail()));
+    }
+    @GetMapping("/existsByNickname") @ResponseBody
+    public ResponseEntity<Boolean> existsByNickname(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(repository.existsByNickname(userDTO.getNickname()));
     }
 
     @GetMapping("/findHan")

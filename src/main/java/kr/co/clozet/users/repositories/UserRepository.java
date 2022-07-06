@@ -59,6 +59,9 @@ interface UserCustomRepository{
 public interface UserRepository extends JpaRepository<User, Long>, UserCustomRepository {
     Optional<User> findByUsername(String username);
     Optional<User> findByToken(String token);
+    boolean existsByPhone(String phone);
     boolean existsByUsername(String username);
+    boolean existsByEmail(String email);
+    boolean existsByNickname(String nickname);
 
 }
