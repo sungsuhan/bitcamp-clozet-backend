@@ -66,6 +66,5 @@ public interface UserService {
 
     void partialUpdate(UserDTO userDTO) throws Exception;
 
-    boolean existsByUsername(String username);
 
 }

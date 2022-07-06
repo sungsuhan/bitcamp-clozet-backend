@@ -184,32 +184,5 @@ public class UserController {
        service.partialUpdate(userDTO);
     }
 
-//    @PostMapping("/idCheck")
-//    public ResponseEntity<Map<String, Object>> confirmId(@RequestBody String username) throws Exception {
-//        System.out.println("중복 확인 요청된 아이디 : " + username);
-//        Map<String, Object> data = new HashMap<>();
-//        int result = service.isDuplicatedId(username);
-//
-//        if (result==0) {
-//            System.out.println("아이디 사용 가능");
-//            data.put("confirm", "ok");
-//        } else {
-//            System.out.println("아이디 중복");
-//            data.put("confirm", "no");
-//        }
-//        return ResponseEntity.ok(data);
-//    }
-
-    @GetMapping("/idCheck") @ResponseBody
-    public ResponseEntity<String> existsByUsername(@RequestBody String username) throws Exception {
-        System.out.println(username);
-        if (service.existsByUsername(username) == true) {
-            throw new Exception("이미 사용중인 아이디 입니다.");
-        } else {
-            return ResponseEntity.ok("사용 가능한 아이디 입니다.");
-        }
-
-    }
-
 }
 
