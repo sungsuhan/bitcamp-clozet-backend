@@ -148,8 +148,8 @@ public class UserController {
     }
 
     @PatchMapping(value = "/update") @ResponseBody
-    public ResponseEntity<Messenger> partialUpdate(@RequestBody UserDTO userDTO) {
-        return ResponseEntity.ok(service.partialUpdate(userDTO));
+    public void partialUpdate(@RequestBody UserDTO userDTO)  throws Exception{
+       service.partialUpdate(userDTO);
     }
 
 

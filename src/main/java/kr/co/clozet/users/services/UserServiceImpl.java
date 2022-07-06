@@ -266,8 +266,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override @Transactional
-    public Messenger partialUpdate(final UserDTO userDTO) {
-        Optional<User> originUser = repository.findById(userDTO.getUserId());
+    public void partialUpdate(final UserDTO userDTO)  throws Exception{
+        Optional<User> originUser = repository.findByToken(userDTO.getToken());
 
         User user = originUser.get();
         if(StringUtils.isNotBlank(userDTO.getName())) user.setName(userDTO.getName());
@@ -278,7 +278,7 @@ public class UserServiceImpl implements UserService {
         if(StringUtils.isNotBlank(userDTO.getPassword())) user.setPassword(userDTO.getPassword());
         if(StringUtils.isNotBlank(userDTO.getUsername())) user.setUsername(userDTO.getUsername());
         repository.save(user);
-        return Messenger.builder().message("수정되었습니다.").build();
+
     }
 
 
