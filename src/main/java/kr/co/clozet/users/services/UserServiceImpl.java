@@ -238,7 +238,7 @@ public class UserServiceImpl implements UserService {
         }
     }
     @Override
-    public void save1(UserDTO user) {
+    public void save1(UserDTO user) throws Exception{
         String token = user.getToken();
         user.setToken(token);
         User returnUser = modelMapper.map(user, User.class);

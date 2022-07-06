@@ -101,7 +101,7 @@ public class UserController {
         return ResponseEntity.ok(service.save(user));
     }
     @PostMapping(value = "/getToken")
-    public void getToken(@RequestBody UserDTO userDTO){
+    public void getToken(@RequestBody UserDTO userDTO) throws Exception{
         service.save1(userDTO);
     }
     @GetMapping("/findById") @ResponseBody
