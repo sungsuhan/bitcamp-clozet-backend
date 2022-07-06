@@ -291,4 +291,10 @@ public class UserServiceImpl implements UserService {
         repository.save(user);
     }
 
+    @Override @Transactional
+    public boolean existsByUsername(String username){
+
+        return repository.existsByUsername(username);
+    }
+
 }

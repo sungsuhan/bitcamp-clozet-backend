@@ -12,10 +12,17 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
+import java.net.PortUnreachableException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -154,11 +161,36 @@ public class UserController {
     }
 
     @PatchMapping(value = "/update") @ResponseBody
-    public void partialUpdate(@RequestBody UserDTO userDTO)  throws Exception{
+    public void partialUpdate(@RequestBody UserDTO userDTO) throws Exception{
        service.partialUpdate(userDTO);
-
     }
 
+//    @PostMapping("/idCheck")
+//    public ResponseEntity<Map<String, Object>> confirmId(@RequestBody String username) throws Exception {
+//        System.out.println("중복 확인 요청된 아이디 : " + username);
+//        Map<String, Object> data = new HashMap<>();
+//        int result = service.isDuplicatedId(username);
+//
+//        if (result==0) {
+//            System.out.println("아이디 사용 가능");
+//            data.put("confirm", "ok");
+//        } else {
+//            System.out.println("아이디 중복");
+//            data.put("confirm", "no");
+//        }
+//        return ResponseEntity.ok(data);
+//    }
+
+    @GetMapping("/idCheck") @ResponseBody
+    public ResponseEntity<String> existsByUsername(@RequestBody String username) throws Exception {
+        System.out.println(username);
+        if (service.existsByUsername(username) == true) {
+            throw new Exception("이미 사용중인 아이디 입니다.");
+        } else {
+            return ResponseEntity.ok("사용 가능한 아이디 입니다.");
+        }
+
+    }
 
 }
 

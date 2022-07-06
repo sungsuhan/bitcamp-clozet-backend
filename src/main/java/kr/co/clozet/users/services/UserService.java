@@ -64,6 +64,8 @@ public interface UserService {
     //비밀번호찾기
     public void findPw(HttpServletResponse resp, UserDTO user) throws Exception;
 
-    void partialUpdate(UserDTO userDTO)  throws Exception;
+    void partialUpdate(UserDTO userDTO) throws Exception;
+
+    boolean existsByUsername(String username);
 
 }

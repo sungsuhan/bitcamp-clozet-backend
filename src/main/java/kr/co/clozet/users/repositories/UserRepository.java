@@ -47,8 +47,6 @@ interface UserCustomRepository{
     @Query(value = "select u.username from User u where u.name = :name and u.email = :email")
     String findUsername(@Param("name") String name, @Param("email") String email);
 
-//    @Query(value = "select u from User u where u.token = :token")
-//    String findByToken(@Param("token") String token);
 
 
 
