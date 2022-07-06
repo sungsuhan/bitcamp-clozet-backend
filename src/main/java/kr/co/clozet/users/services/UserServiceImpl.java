@@ -279,7 +279,9 @@ public class UserServiceImpl implements UserService {
         Optional<User> originUser = repository.findByToken(userDTO.getToken());
 
         User user = originUser.get();
-        if(StringUtils.isNotBlank(userDTO.getName())) user.setName(userDTO.getName());
+        if(StringUtils.isNotBlank(userDTO.getName()))
+            repository.existsByUsername(userDTO.getUsername());
+            user.setName(userDTO.getName());
         if(StringUtils.isNotBlank(userDTO.getBirth())) user.setBirth(userDTO.getBirth());
         if(StringUtils.isNotBlank(userDTO.getNickname())) user.setNickname(userDTO.getNickname());
         if(StringUtils.isNotBlank(userDTO.getPhone())) user.setPhone(userDTO.getPhone());
@@ -287,10 +289,6 @@ public class UserServiceImpl implements UserService {
         if(StringUtils.isNotBlank(userDTO.getPassword())) user.setPassword(userDTO.getPassword());
         if(StringUtils.isNotBlank(userDTO.getUsername())) user.setUsername(userDTO.getUsername());
         repository.save(user);
-
-
     }
-
-
 
 }
