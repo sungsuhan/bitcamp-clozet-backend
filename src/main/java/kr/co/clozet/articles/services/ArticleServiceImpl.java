@@ -52,6 +52,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public Article findByTitle(ArticleDTO articleDTO) {
+        Article article =repository.findByTitle(articleDTO.getTitle()).orElse(null);
+        return article;
+    }
+
+    @Override
     public Page findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
