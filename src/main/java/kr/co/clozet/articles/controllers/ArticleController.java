@@ -54,6 +54,11 @@ public class ArticleController {
         return ResponseEntity.ok(service.findAll());
     }
 
+    @GetMapping("/findAllQna")
+    public ResponseEntity<List<Article>> findAllQna() {
+        return ResponseEntity.ok(service.findAll());
+    }
+
     @GetMapping("/findAll/sort")
     public ResponseEntity<List<Article>> findAll(Sort sort) {
         return ResponseEntity.ok(service.findAll(sort));
@@ -77,6 +82,12 @@ public class ArticleController {
     @PostMapping(value = "/join")
     public ResponseEntity<Messenger> save(@RequestBody ArticleDTO article) {
         System.out.println("게시글 정보: "+article.toString());//확인만 하려구.. 지워야함
+        return ResponseEntity.ok(service.save(article));
+    }
+
+    @PostMapping(value = "/joinQna")
+    public ResponseEntity<Messenger> saveQna(@RequestBody ArticleDTO article) {
+        System.out.println("QnA 정보: "+article.toString());//확인만 하려구.. 지워야함
         return ResponseEntity.ok(service.save(article));
     }
 
