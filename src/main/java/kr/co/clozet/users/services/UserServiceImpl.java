@@ -12,6 +12,7 @@ import kr.co.clozet.users.domains.UserDTO;
 import kr.co.clozet.users.repositories.UserRepository;
 import kr.co.clozet.common.dataStructure.Box;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.apache.commons.mail.HtmlEmail;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -26,6 +27,7 @@ import javax.transaction.Transactional;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static kr.co.clozet.common.lambdas.Lambda.*;
@@ -41,6 +43,7 @@ import static kr.co.clozet.common.lambdas.Lambda.*;
  * =============================================
  * 2022-05-03           sungsuhan      최초 생성
  **/
+@Log
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -104,10 +107,10 @@ public class UserServiceImpl implements UserService {
 //    }
 
 
-    @Override
-    public Messenger delete(UserDTO user) {
-        repository.findByUsername(user.getUsername()).ifPresent(repository::delete);
-        return Messenger.builder().message("삭제 완료").build();
+    @Override @Transactional
+    public void delete(String username) throws Exception{
+        User user =repository.findByUsername(username).orElse(null);
+        repository.delete(user);
     }
 
     @Override

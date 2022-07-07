@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -36,7 +37,7 @@ public interface UserService {
 
     //UserDTO update(UserDTO user);
 
-    Messenger delete(UserDTO user);
+    void delete(String username)throws Exception;
 
     Messenger deleteAll();
 

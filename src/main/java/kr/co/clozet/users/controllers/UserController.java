@@ -8,6 +8,7 @@ import kr.co.clozet.users.domains.UserDTO;
 import kr.co.clozet.users.repositories.UserRepository;
 import kr.co.clozet.users.services.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,6 +38,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
+@Log
 public class UserController {
 
     private final UserService service;
@@ -79,9 +81,10 @@ public class UserController {
         return ResponseEntity.ok(service.count());
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Messenger> delete(@RequestBody UserDTO user) {
-        return ResponseEntity.ok(service.delete(user));
+    @DeleteMapping("/delete/{username}") @ResponseBody
+    public void delete(@PathVariable("username") String username) throws Exception{
+        log.info(username);
+        service.delete(username);
     }
 
     @DeleteMapping("/deleteAll")
