@@ -195,6 +195,10 @@ public class UserController {
         service.delete(userDTO);
     }
 
+    @DeleteMapping(value = "/deleteUser/{username}") @ResponseBody
+    public void delete(@PathVariable String username) throws Exception{
+        service.deleteUser(username);
+    }
 
 
 }

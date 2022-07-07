@@ -1,0 +1,86 @@
+package kr.co.clozet.files.services;
+
+import kr.co.clozet.auth.domains.Messenger;
+import kr.co.clozet.files.domains.File;
+import kr.co.clozet.files.domains.FileDTO;
+import kr.co.clozet.files.repositories.FileRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * packageName:kr.co.clozet.services
+ * fileName        :BoardServiceImpl.java
+ * author          : sungsuhan
+ * date            :2022-05-04
+ * desc            :
+ * =============================================
+ * DATE              AUTHOR        NOTE
+ * =============================================
+ * 2022-05-04           sungsuhan      최초 생성
+ **/
+@Service
+@RequiredArgsConstructor
+public class FileServiceImpl implements FileService {
+
+    private final FileRepository repository;
+
+    @Override
+    public List<File> findAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public List<File> findAll(Sort sort) {
+        return repository.findAll(sort);
+    }
+
+    @Override
+    public Page<File> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
+
+    @Override
+    public long count() {
+        return repository.count();
+    }
+
+    @Override
+    public String delete(File file) {
+        repository.delete(file);
+        return "";
+    }
+
+    @Override
+    public Optional<File> findById(String file) {
+        return repository.findById(0L);
+    }
+
+    @Override
+    public boolean existsById(String file) {
+        return repository.existsById(0L);
+    }
+
+    @Override
+    public String getImageURL(){
+        try {
+            return URLEncoder.encode(folderPath+"/" +uuid + fileName,"UTF-8");
+
+        }catch (UnsupportedEncodingException e){
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+
+}
+
+

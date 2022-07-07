@@ -1,6 +1,8 @@
-package kr.co.clozet.boards.services;
+package kr.co.clozet.files.services;
 
-import kr.co.clozet.boards.domains.Board;
+import kr.co.clozet.auth.domains.Messenger;
+import kr.co.clozet.files.domains.File;
+import kr.co.clozet.files.domains.FileDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -19,20 +21,22 @@ import java.util.Optional;
  * =============================================
  * 2022-05-04           sungsuhan      최초 생성
  **/
-public interface BoardService {
-    List<Board> findAll();
+public interface FileService {
+    List<File> findAll();
 
-    List<Board> findAll(Sort sort);
+    List<File> findAll(Sort sort);
 
-    Page<Board> findAll(Pageable pageable);
+    Page<File> findAll(Pageable pageable);
 
     long count();
 
-    String delete(Board board);
+    String delete(File file);
 
-    String save(Board board);
+    Messenger save(FileDTO fileDTO);
 
-    Optional<Board> findById(String board);
+    Optional<File> findById(String file);
 
-    boolean existsById(String board);
+    boolean existsById(String file);
+
+    String getImageURL();
 }

@@ -1,8 +1,8 @@
-package kr.co.clozet.boards.controllers;
+package kr.co.clozet.files.controllers;
 
 import io.swagger.annotations.Api;
-import kr.co.clozet.boards.domains.Board;
-import kr.co.clozet.boards.services.BoardService;
+import kr.co.clozet.files.domains.File;
+import kr.co.clozet.files.services.FileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,26 +24,26 @@ import java.util.Optional;
  * 2022-05-04           sungsuhan      최초 생성
  **/
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@Api(tags ="boards")
+@Api(tags ="files")
 @RestController
-@RequestMapping("/boards")
+@RequestMapping("/files")
 @RequiredArgsConstructor
-public class BoardController {
+public class FileController {
 
-    private final BoardService service;
+    private final FileService service;
 
     @GetMapping("/findAll")
-    public List<Board> findAll() {
+    public List<File> findAll() {
         return service.findAll();
     }
 
     @GetMapping("/findAll/sort")
-    public List<Board> findAll(Sort sort) {
+    public List<File> findAll(Sort sort) {
         return service.findAll(sort);
     }
 
     @GetMapping("/findAll/pageable")
-    public Page<Board> findAll(Pageable pageable) {
+    public Page<File> findAll(Pageable pageable) {
         return service.findAll(pageable);
     }
 
@@ -53,23 +53,18 @@ public class BoardController {
     }
 
     @DeleteMapping("/delete")
-    public String delete(@RequestBody Board board) {
-        return service.delete(board);
+    public String delete(@RequestBody File file) {
+        return service.delete(file);
     }
 
-    @PostMapping("/join")
-    public String save(@RequestBody Board board) {
-        return service.save(board);
+    @GetMapping("/findById/{file}")
+    public Optional<File> findById(@PathVariable String file) {
+        return service.findById(file);
     }
 
-    @GetMapping("/findById/{board}")
-    public Optional<Board> findById(@PathVariable String board) {
-        return service.findById(board);
-    }
-
-    @GetMapping("/existsById/{board}")
-    public boolean existsById(@PathVariable String board) {
-        return service.existsById(board);
+    @GetMapping("/existsById/{file}")
+    public boolean existsById(@PathVariable String file) {
+        return service.existsById(file);
     }
 
 

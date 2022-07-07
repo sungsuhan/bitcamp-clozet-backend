@@ -304,13 +304,21 @@ public class UserServiceImpl implements UserService {
     @Override @Transactional
     public Optional<User> delete(final UserDTO userDTO) throws Exception{
 
-        Optional<User> originUser = repository.findByToken(userDTO.getToken());
+        Optional<User> originUser = repository.findByUsername(userDTO.getUsername());
 
         repository.delete(originUser.get());
 
         return originUser;
     }
 
+    @Override @Transactional
+    public void deleteUser(final String username) throws Exception{
+
+        Optional<User> originUser = repository.findByUsername(username);
+
+        repository.delete(originUser.get());
+
+    }
 
 
 }

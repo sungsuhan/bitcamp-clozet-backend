@@ -1,4 +1,4 @@
-package kr.co.clozet.boards.domains;
+package kr.co.clozet.files.domains;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -16,8 +16,10 @@ import org.springframework.stereotype.Component;
  * 2022-06-15           sungsuhan      최초 생성
  **/
 @Component @Data
-public class BoardDTO {
-    @ApiModelProperty(position = 1) private long boardId;
-    @ApiModelProperty(position = 2) private String createdDate;
-    @ApiModelProperty(position = 3) String qna;
+public class FileDTO {
+    @ApiModelProperty(position = 1) private long fileId;
+    @ApiModelProperty(position = 2) String fileName;
+    @ApiModelProperty(position = 3) private String uuid;
+    @ApiModelProperty(position = 4) String folderPath;
+
 }
