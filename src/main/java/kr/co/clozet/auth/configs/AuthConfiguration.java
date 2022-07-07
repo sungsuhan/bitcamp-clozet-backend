@@ -82,6 +82,8 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/delete/{username}").permitAll()
                 .antMatchers("/users/findByUsername").permitAll()
                 .antMatchers("/users/token").permitAll()
+                .antMatchers("/users/articlesByToken").permitAll()
+                .antMatchers("/users/idCheck").permitAll()
                 .antMatchers("/users/existsByUsername").permitAll()
                 .antMatchers("/users/existsByEmail").permitAll()
                 .antMatchers("/users/getToken").permitAll()

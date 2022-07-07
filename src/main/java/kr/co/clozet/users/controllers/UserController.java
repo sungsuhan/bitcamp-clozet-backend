@@ -13,10 +13,17 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
+import java.net.PortUnreachableException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,6 +93,10 @@ public class UserController {
         log.info(username);
         service.delete(username);
     }
+//    @DeleteMapping("/delete")
+//    public ResponseEntity<Messenger> delete(@RequestBody UserDTO user) {
+//        return ResponseEntity.ok(service.delete(user));
+//    }
 
     @DeleteMapping("/deleteAll")
     public ResponseEntity<Messenger> deleteAll() {
@@ -103,10 +114,12 @@ public class UserController {
         System.out.println("회원가입 정보: "+user.toString()); // 확인만 하려구...지워야함
         return ResponseEntity.ok(service.save(user));
     }
+
     @PostMapping(value = "/getToken") @ResponseBody
     public ResponseEntity<UserDTO> getToken(@RequestBody UserDTO userDTO) throws Exception{
         return ResponseEntity.ok(service.save1(userDTO));
     }
+
     @GetMapping("/findById") @ResponseBody
     public ResponseEntity<Optional<User>> findById(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(service.findById(userDTO));
@@ -131,18 +144,22 @@ public class UserController {
     public ResponseEntity<Messenger> existsById(@PathVariable String userid) {
         return ResponseEntity.ok(service.existsById(userid));
     }
+
     @GetMapping("/existsByUsername") @ResponseBody
     public ResponseEntity<Boolean> existsByUsername(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(repository.existsByUsername(userDTO.getUsername()));
     }
+
     @GetMapping("/existsByPhone") @ResponseBody
     public ResponseEntity<Boolean> existsByPhone(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(repository.existsByPhone(userDTO.getPhone()));
     }
+
     @GetMapping("/existsByEmail") @ResponseBody
     public ResponseEntity<Boolean> existsByEmail(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(repository.existsByEmail(userDTO.getEmail()));
     }
+
     @GetMapping("/existsByNickname") @ResponseBody
     public ResponseEntity<Boolean> existsByNickname(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(repository.existsByNickname(userDTO.getNickname()));
@@ -176,10 +193,15 @@ public class UserController {
     }
 
     @PatchMapping(value = "/update") @ResponseBody
-    public void partialUpdate(@RequestBody UserDTO userDTO)  throws Exception{
+    public void partialUpdate(@RequestBody UserDTO userDTO) throws Exception{
        service.partialUpdate(userDTO);
-
     }
+
+    @DeleteMapping(value = "/delete") @ResponseBody
+    public void delete(@RequestBody UserDTO userDTO) throws Exception{
+        service.delete(userDTO);
+    }
+
 
 
 }

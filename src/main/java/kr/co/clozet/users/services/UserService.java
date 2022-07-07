@@ -38,6 +38,7 @@ public interface UserService {
     //UserDTO update(UserDTO user);
 
     void delete(String username)throws Exception;
+    //Messenger delete(UserDTO user);
 
     Messenger deleteAll();
 
@@ -65,6 +66,7 @@ public interface UserService {
     //비밀번호찾기
     public void findPw(HttpServletResponse resp, UserDTO user) throws Exception;
 
-    void partialUpdate(UserDTO userDTO)  throws Exception;
+    void partialUpdate(UserDTO userDTO) throws Exception;
 
+    Optional<User> delete(UserDTO userDTO) throws Exception;
 }
