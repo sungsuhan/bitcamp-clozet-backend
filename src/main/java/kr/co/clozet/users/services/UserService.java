@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -36,6 +37,7 @@ public interface UserService {
 
     //UserDTO update(UserDTO user);
 
+    void delete(String username)throws Exception;
     //Messenger delete(UserDTO user);
 
     Messenger deleteAll();
@@ -54,7 +56,6 @@ public interface UserService {
 
     // custom
     Optional<User> findByUsername(String username);
-
     Messenger logout();
 
     UserDTO findUsername(UserDTO user);
@@ -68,5 +69,5 @@ public interface UserService {
     void partialUpdate(UserDTO userDTO) throws Exception;
 
     Optional<User> delete(UserDTO userDTO) throws Exception;
-    void deleteUser(String username) throws Exception;
+    Optional<User> deleteByUserId(UserDTO userDTO) throws Exception;
 }

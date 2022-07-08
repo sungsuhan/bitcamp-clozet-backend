@@ -3,12 +3,14 @@ package kr.co.clozet.articles.controllers;
 import io.swagger.annotations.Api;
 import kr.co.clozet.articles.domains.Article;
 import kr.co.clozet.articles.domains.ArticleDTO;
+import kr.co.clozet.articles.repositories.ArticleRepository;
 import kr.co.clozet.articles.services.ArticleService;
 import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.common.util.MD5Generator;
 import kr.co.clozet.files.domains.File;
 import kr.co.clozet.files.domains.FileDTO;
 import kr.co.clozet.files.services.FileService;
+import kr.co.clozet.users.domains.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -44,10 +46,15 @@ public class ArticleController {
 
     private final ArticleService service;
     private final FileService fileService;
+    private final ArticleRepository repository;
 
     @GetMapping("/findByUsername/{username}")
     public ResponseEntity<List<Article>> findByUsernameToArticle(@PathVariable("username") String username) {
         return ResponseEntity.ok(service.findByUsernameToArticle(username));
+    }
+    @GetMapping("/findByTokenToArticle") @ResponseBody
+    public ResponseEntity<String []> findByTokenToArticle(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(repository.findByTokenToArticle(userDTO.getToken()));
     }
 
     @GetMapping("/findAll")
@@ -113,7 +120,12 @@ public class ArticleController {
     public ResponseEntity<Integer> partialUpdate(@RequestBody final ArticleDTO articleDTO) {
         return ResponseEntity.ok(service.partialUpdate(articleDTO));
     }
-
+    @GetMapping("/posts/{title}") @ResponseBody
+    public Integer read(@PathVariable("title") String title) {
+        ResponseEntity.ok(repository.updateView(title));
+        Article article = new Article();
+        return article.getView();
+    }
 
 
 }

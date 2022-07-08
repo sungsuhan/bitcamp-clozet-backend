@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -51,9 +52,11 @@ interface UserCustomRepository{
 }
 
 
-@Repository
+@Repository @Transactional
 public interface UserRepository extends JpaRepository<User, Long>, UserCustomRepository {
     Optional<User> findByUsername(String username);
+    Optional<User> findByUserId(Long userId);
+    Optional<User> findByUsername(Map<String, String> userDTO);
     Optional<User> findByToken(String token);
     boolean existsByPhone(String phone);
     boolean existsByUsername(String username);

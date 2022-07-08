@@ -12,6 +12,7 @@ import kr.co.clozet.users.domains.UserDTO;
 import kr.co.clozet.users.repositories.UserRepository;
 import kr.co.clozet.common.dataStructure.Box;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.apache.commons.mail.HtmlEmail;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -26,6 +27,7 @@ import javax.transaction.Transactional;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static kr.co.clozet.common.lambdas.Lambda.*;
@@ -41,6 +43,7 @@ import static kr.co.clozet.common.lambdas.Lambda.*;
  * =============================================
  * 2022-05-03           sungsuhan      최초 생성
  **/
+@Log
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -104,6 +107,11 @@ public class UserServiceImpl implements UserService {
 //    }
 
 
+    @Override @Transactional
+    public void delete(String username) throws Exception{
+        User user =repository.findByUsername(username).orElse(null);
+        repository.delete(user);
+    }
 //    @Override
 //    public Messenger delete(UserDTO user) {
 //        repository.findByUsername(user.getUsername()).ifPresent(repository::delete);
@@ -171,6 +179,8 @@ public class UserServiceImpl implements UserService {
         // ls.stream().filter(...)
         return repository.findByUsername(username);
     }
+
+
 
     @Override
     public Messenger logout() {
@@ -241,10 +251,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO save1(UserDTO user) throws Exception{
-        String token = user.getToken();
-        String email = user.getEmail();
-        user.setEmail(email);
-        user.setToken(token);
+
         User returnUser = modelMapper.map(user, User.class);
         repository.save(returnUser);
         return user;
@@ -274,7 +281,7 @@ public class UserServiceImpl implements UserService {
             }
             user.setPassword(pw);
             // 비밀번호 변경
-            String newPw = returnUser.getPassword();
+            String newPw = encoder.encode(returnUser.getPassword());
             repository.save(returnUser);
 
             // 비밀번호 변경 메일 발송
@@ -291,12 +298,12 @@ public class UserServiceImpl implements UserService {
         Optional<User> originUser = repository.findByToken(userDTO.getToken());
 
         User user = originUser.get();
-        if(StringUtils.isNotBlank(userDTO.getName()) ) user.setName(userDTO.getName());
+        if(StringUtils.isNotBlank(userDTO.getName())) user.setName(userDTO.getName());
         if(StringUtils.isNotBlank(userDTO.getBirth())) user.setBirth(userDTO.getBirth());
         if(StringUtils.isNotBlank(userDTO.getNickname())&& !repository.existsByNickname(userDTO.getNickname())) user.setNickname(userDTO.getNickname());
         if(StringUtils.isNotBlank(userDTO.getPhone())&& !repository.existsByPhone(userDTO.getPhone())) user.setPhone(userDTO.getPhone());
         if(StringUtils.isNotBlank(userDTO.getEmail())&& !repository.existsByEmail(userDTO.getEmail())) user.setEmail(userDTO.getEmail());
-        if(StringUtils.isNotBlank(userDTO.getPassword())) user.setPassword(userDTO.getPassword());
+        if(StringUtils.isNotBlank(userDTO.getPassword())) user.setPassword(encoder.encode(userDTO.getPassword()));
         if(StringUtils.isNotBlank(userDTO.getUsername())&& !repository.existsByUsername(userDTO.getUsername())) user.setUsername(userDTO.getUsername());
         repository.save(user);
     }
@@ -311,14 +318,14 @@ public class UserServiceImpl implements UserService {
         return originUser;
     }
 
-    @Override @Transactional
-    public void deleteUser(final String username) throws Exception{
-
-        Optional<User> originUser = repository.findByUsername(username);
-
+    @Override
+    public Optional<User> deleteByUserId(UserDTO userDTO) throws Exception {
+        Optional<User> originUser =repository.findByUserId(userDTO.getUserId());
         repository.delete(originUser.get());
-
+        return originUser;
     }
+
+
 
 
 }
