@@ -1,11 +1,15 @@
 package kr.co.clozet.articles.controllers;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.Api;
 import kr.co.clozet.articles.domains.Article;
 import kr.co.clozet.articles.domains.ArticleDTO;
+import kr.co.clozet.articles.repositories.ArticleRepository;
 import kr.co.clozet.articles.services.ArticleService;
 import kr.co.clozet.auth.domains.Messenger;
+import kr.co.clozet.common.util.MD5Generator;
+import kr.co.clozet.files.domains.File;
+import kr.co.clozet.files.domains.FileDTO;
+import kr.co.clozet.files.services.FileService;
 import kr.co.clozet.users.domains.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,12 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.filechooser.FileSystemView;
-import java.io.File;
-import java.io.IOException;
-import java.security.MessageDigest;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 
@@ -43,10 +42,16 @@ import java.util.Optional;
 public class ArticleController {
 
     private final ArticleService service;
+    private final FileService fileService;
+    private final ArticleRepository repository;
 
     @GetMapping("/findByUsername/{username}")
     public ResponseEntity<List<Article>> findByUsernameToArticle(@PathVariable("username") String username) {
         return ResponseEntity.ok(service.findByUsernameToArticle(username));
+    }
+    @GetMapping("/findByTokenToArticle") @ResponseBody
+    public ResponseEntity<String []> findByTokenToArticle(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(repository.findByTokenToArticle(userDTO.getToken()));
     }
 
     @GetMapping("/findAll")
@@ -81,22 +86,24 @@ public class ArticleController {
 
     @PostMapping(value = "/join")
     public ResponseEntity<Messenger> save(@RequestBody ArticleDTO article) {
-        System.out.println("게시글 정보: "+article.toString());//확인만 하려구.. 지워야함
+        System.out.println("게시글 정보: " + article.toString());//확인만 하려구.. 지워야함
         return ResponseEntity.ok(service.save(article));
     }
+
     @PostMapping(value = "/comment")
     public ResponseEntity<Article> findByTitle(@RequestBody ArticleDTO article) {
-        System.out.println("게시글 정보: "+article.toString());//확인만 하려구.. 지워야함
+        System.out.println("게시글 정보: " + article.toString());//확인만 하려구.. 지워야함
         return ResponseEntity.ok(service.findByTitle(article));
     }
 
     @PostMapping(value = "/joinQna")
     public ResponseEntity<Messenger> saveQna(@RequestBody ArticleDTO article) {
-        System.out.println("QnA 정보: "+article.toString());//확인만 하려구.. 지워야함
+        System.out.println("QnA 정보: " + article.toString());//확인만 하려구.. 지워야함
         return ResponseEntity.ok(service.save(article));
     }
 
-    @GetMapping("/findById") @ResponseBody
+    @GetMapping("/findById")
+    @ResponseBody
     public ResponseEntity<Optional<Article>> findById(ArticleDTO articleDTO) {
         return ResponseEntity.ok(service.findById(articleDTO));
     }
@@ -112,5 +119,5 @@ public class ArticleController {
     }
 
 
-}
 
+}

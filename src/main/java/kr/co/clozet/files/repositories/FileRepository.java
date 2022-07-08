@@ -1,6 +1,6 @@
-package kr.co.clozet.boards.repositories;
+package kr.co.clozet.files.repositories;
 
-import kr.co.clozet.boards.domains.Board;
+import kr.co.clozet.files.domains.File;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,12 +16,13 @@ import org.springframework.stereotype.Repository;
  * 2022-05-04           sungsuhan      최초 생성
  **/
 
-interface BoardCustomRepository{
+interface FileCustomRepository{
 
 
 
 }
 
 @Repository
-public interface BoardRepository extends JpaRepository<Board, Long> {
+public interface FileRepository extends JpaRepository<File, Long> {
+
 }

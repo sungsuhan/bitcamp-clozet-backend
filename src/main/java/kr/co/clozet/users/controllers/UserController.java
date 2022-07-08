@@ -87,7 +87,6 @@ public class UserController {
     public ResponseEntity<Messenger> count() {
         return ResponseEntity.ok(service.count());
     }
-
     @DeleteMapping("/delete/{username}") @ResponseBody
     public void delete(@PathVariable("username") String username) throws Exception{
         log.info(username);
@@ -192,6 +191,7 @@ public class UserController {
         service.findPw(response, user);
     }
 
+
     @PatchMapping(value = "/update") @ResponseBody
     public void partialUpdate(@RequestBody UserDTO userDTO) throws Exception{
        service.partialUpdate(userDTO);
@@ -199,6 +199,13 @@ public class UserController {
 
     @DeleteMapping(value = "/delete") @ResponseBody
     public void delete(@RequestBody UserDTO userDTO) throws Exception{
+        System.out.println(userDTO);
+        log.info(userDTO.getToken());
+        service.delete(userDTO);
+    }
+    @DeleteMapping(value = "/deleteByUserId") @ResponseBody
+    public void deleteByUserId(@RequestBody UserDTO userDTO) throws Exception{
+
         service.delete(userDTO);
     }
 

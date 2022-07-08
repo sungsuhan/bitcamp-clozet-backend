@@ -1,12 +1,9 @@
 package kr.co.clozet.articles.domains;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.sun.istack.NotNull;
-import kr.co.clozet.boards.domains.Board;
+import kr.co.clozet.files.domains.File;
 import kr.co.clozet.users.domains.User;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -52,8 +49,8 @@ public class Article {
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
-    private Board board;
+    @JoinColumn(name = "file_id")
+    private File file;
 
 
 

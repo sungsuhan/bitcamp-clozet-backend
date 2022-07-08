@@ -47,6 +47,9 @@ dependencies {
 	implementation group: 'com.aspose.cells', name: 'aspose-cells-jdk16', version: '8.1.1.0'
 	// password -> email
 	implementation group: 'org.apache.commons', name: 'commons-email', version: '1.5'
+
+	compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+
 }
 
 tasks.named('test') {

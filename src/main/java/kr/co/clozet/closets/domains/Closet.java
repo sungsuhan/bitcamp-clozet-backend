@@ -1,9 +1,8 @@
 package kr.co.clozet.closets.domains;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import kr.co.clozet.boards.domains.Board;
+import kr.co.clozet.files.domains.File;
 import kr.co.clozet.clothes.domains.Clothes;
-import kr.co.clozet.users.domains.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -43,8 +42,8 @@ public class Closet {
     List<Clothes> clothes = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "board_id")
-    private Board board;
+    @JoinColumn(name = "file_id")
+    private File file;
 
 
 }

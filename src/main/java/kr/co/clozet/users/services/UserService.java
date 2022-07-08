@@ -51,11 +51,11 @@ public interface UserService {
     List<Article> articlesByToken(UserDTO userDTO);
 
     Messenger existsById(String userid);
+
     UserDTO save1(UserDTO user) throws Exception;
 
     // custom
     Optional<User> findByUsername(String username);
-
     Messenger logout();
 
     UserDTO findUsername(UserDTO user);
@@ -69,4 +69,5 @@ public interface UserService {
     void partialUpdate(UserDTO userDTO) throws Exception;
 
     Optional<User> delete(UserDTO userDTO) throws Exception;
+    Optional<User> deleteByUserId(UserDTO userDTO) throws Exception;
 }

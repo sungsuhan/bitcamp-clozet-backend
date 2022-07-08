@@ -1,13 +1,11 @@
-package kr.co.clozet.boards.domains;
+package kr.co.clozet.files.domains;
 
-import com.sun.istack.NotNull;
 import kr.co.clozet.articles.domains.Article;
 import kr.co.clozet.closets.domains.Closet;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -31,25 +29,21 @@ import java.util.List;
 @AllArgsConstructor
 @Component
 @Entity
-@Table(name="boards")
-public class Board {
+@Table(name="files")
+public class File {
 
     @Id
-    @Column(name = "board_id")
-    @GeneratedValue(strategy = GenerationType.AUTO) private long boardId;
-    @Column(name = "created_date") private String createdDate;
-    @Column private String qna;
+    @Column(name = "file_id")
+    @GeneratedValue(strategy = GenerationType.AUTO) private long fileId;
+    @Column private String fileName;
+    @Column private String uuid;
+    @Column private String folderPath;
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "file")
     List<Article> articles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "file")
     List<Closet> closets = new ArrayList<>();
-
-
-
-
-
 
 
 

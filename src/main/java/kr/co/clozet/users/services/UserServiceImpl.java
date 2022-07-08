@@ -180,6 +180,8 @@ public class UserServiceImpl implements UserService {
         return repository.findByUsername(username);
     }
 
+
+
     @Override
     public Messenger logout() {
         return Messenger.builder().build();
@@ -249,10 +251,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO save1(UserDTO user) throws Exception{
-        String token = user.getToken();
-        String email = user.getEmail();
-        user.setEmail(email);
-        user.setToken(token);
+
         User returnUser = modelMapper.map(user, User.class);
         repository.save(returnUser);
         return user;
@@ -282,7 +281,7 @@ public class UserServiceImpl implements UserService {
             }
             user.setPassword(pw);
             // 비밀번호 변경
-            String newPw = returnUser.getPassword();
+            String newPw = encoder.encode(returnUser.getPassword());
             repository.save(returnUser);
 
             // 비밀번호 변경 메일 발송
@@ -299,12 +298,12 @@ public class UserServiceImpl implements UserService {
         Optional<User> originUser = repository.findByToken(userDTO.getToken());
 
         User user = originUser.get();
-        if(StringUtils.isNotBlank(userDTO.getName()) ) user.setName(userDTO.getName());
+        if(StringUtils.isNotBlank(userDTO.getName())) user.setName(userDTO.getName());
         if(StringUtils.isNotBlank(userDTO.getBirth())) user.setBirth(userDTO.getBirth());
         if(StringUtils.isNotBlank(userDTO.getNickname())&& !repository.existsByNickname(userDTO.getNickname())) user.setNickname(userDTO.getNickname());
         if(StringUtils.isNotBlank(userDTO.getPhone())&& !repository.existsByPhone(userDTO.getPhone())) user.setPhone(userDTO.getPhone());
         if(StringUtils.isNotBlank(userDTO.getEmail())&& !repository.existsByEmail(userDTO.getEmail())) user.setEmail(userDTO.getEmail());
-        if(StringUtils.isNotBlank(userDTO.getPassword())) user.setPassword(userDTO.getPassword());
+        if(StringUtils.isNotBlank(userDTO.getPassword())) user.setPassword(encoder.encode(userDTO.getPassword()));
         if(StringUtils.isNotBlank(userDTO.getUsername())&& !repository.existsByUsername(userDTO.getUsername())) user.setUsername(userDTO.getUsername());
         repository.save(user);
     }
@@ -312,12 +311,20 @@ public class UserServiceImpl implements UserService {
     @Override @Transactional
     public Optional<User> delete(final UserDTO userDTO) throws Exception{
 
-        Optional<User> originUser = repository.findByToken(userDTO.getToken());
+        Optional<User> originUser = repository.findByUsername(userDTO.getUsername());
 
         repository.delete(originUser.get());
 
         return originUser;
     }
+
+    @Override
+    public Optional<User> deleteByUserId(UserDTO userDTO) throws Exception {
+        Optional<User> originUser =repository.findByUserId(userDTO.getUserId());
+        repository.delete(originUser.get());
+        return originUser;
+    }
+
 
 
 

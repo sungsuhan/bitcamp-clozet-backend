@@ -1,13 +1,18 @@
-package kr.co.clozet.boards.services;
+package kr.co.clozet.files.services;
 
-import kr.co.clozet.boards.domains.Board;
-import kr.co.clozet.boards.repositories.BoardRepository;
+import kr.co.clozet.auth.domains.Messenger;
+import kr.co.clozet.files.domains.File;
+import kr.co.clozet.files.domains.FileDTO;
+import kr.co.clozet.files.repositories.FileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,21 +29,22 @@ import java.util.Optional;
  **/
 @Service
 @RequiredArgsConstructor
-public class BoardServiceImpl implements BoardService {
+public class FileServiceImpl implements FileService {
 
-    private final BoardRepository repository;
+    private final FileRepository repository;
+
     @Override
-    public List<Board> findAll() {
+    public List<File> findAll() {
         return repository.findAll();
     }
 
     @Override
-    public List<Board> findAll(Sort sort) {
+    public List<File> findAll(Sort sort) {
         return repository.findAll(sort);
     }
 
     @Override
-    public Page<Board> findAll(Pageable pageable) {
+    public Page<File> findAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
 
@@ -48,24 +54,33 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public String delete(Board board) {
-        repository.delete(board);
+    public String delete(File file) {
+        repository.delete(file);
         return "";
     }
 
     @Override
-    public String save(Board board) {
-        repository.save(board);
-        return "";
+    public Messenger save(FileDTO fileDTO) {
+        return null;
     }
 
     @Override
-    public Optional<Board> findById(String board) {
+    public Optional<File> findById(String file) {
         return repository.findById(0L);
     }
 
     @Override
-    public boolean existsById(String board) {
+    public boolean existsById(String file) {
         return repository.existsById(0L);
     }
+
+    @Override
+    public String getImageURL(){
+
+        return "";
+    }
+
+
 }
+
+
