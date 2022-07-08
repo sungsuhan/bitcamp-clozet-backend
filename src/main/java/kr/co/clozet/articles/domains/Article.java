@@ -7,6 +7,8 @@ import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * packageName:kr.co.clozet.auth.domains
@@ -41,18 +43,15 @@ public class Article {
     @Column private String weight;
     @Column String comment;
     @Column String qna;
+    @Column(columnDefinition = "integer default 0", nullable = false) private int view;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "file_id")
-    private File file;
-
-
+    @OneToMany(mappedBy = "article")
+    List<File> files = new ArrayList<>();
 
 
 

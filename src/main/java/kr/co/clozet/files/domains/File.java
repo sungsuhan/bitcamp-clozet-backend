@@ -2,10 +2,7 @@ package kr.co.clozet.files.domains;
 
 import kr.co.clozet.articles.domains.Article;
 import kr.co.clozet.closets.domains.Closet;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -24,6 +21,7 @@ import java.util.List;
  * 2022-05-18           sungsuhan      최초 생성
  **/
 @Builder
+@Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -35,16 +33,17 @@ public class File {
     @Id
     @Column(name = "file_id")
     @GeneratedValue(strategy = GenerationType.AUTO) private long fileId;
-    @Column private String fileName;
-    @Column private String uuid;
-    @Column private String folderPath;
+    @Column private String name;
+    @Column private String url;
+    @Column private long size;
 
-    @OneToMany(mappedBy = "file")
-    List<Article> articles = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "article_id")
+    private Article article;
 
     @OneToMany(mappedBy = "file")
     List<Closet> closets = new ArrayList<>();
-
 
 
 }
