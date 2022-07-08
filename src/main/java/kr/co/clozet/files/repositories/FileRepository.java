@@ -2,7 +2,10 @@ package kr.co.clozet.files.repositories;
 
 import kr.co.clozet.files.domains.File;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * packageName:kr.co.clozet.repositories
@@ -17,7 +20,6 @@ import org.springframework.stereotype.Repository;
  **/
 
 interface FileCustomRepository{
-
 
 
 }
