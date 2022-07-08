@@ -28,5 +28,4 @@ public class FileProperties {
     private final String maxFileSize;
     private final String maxRequestSize;
     private final String fileSizeThreshold;
-    //private String location;
 }
