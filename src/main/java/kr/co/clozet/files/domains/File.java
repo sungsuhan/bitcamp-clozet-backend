@@ -1,7 +1,7 @@
 package kr.co.clozet.files.domains;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import kr.co.clozet.articles.domains.Article;
-import kr.co.clozet.closets.domains.Closet;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
@@ -33,17 +33,16 @@ public class File {
     @Id
     @Column(name = "file_id")
     @GeneratedValue(strategy = GenerationType.AUTO) private long fileId;
-    @Column private String name;
-    @Column private String url;
+    @Column private String pictureName;
+    @Column private String picture;
     @Column private long size;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "article_id")
-    private Article article;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "file", cascade = CascadeType.REMOVE)
+    List<Article> articles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "file")
-    List<Closet> closets = new ArrayList<>();
+
 
 
 }

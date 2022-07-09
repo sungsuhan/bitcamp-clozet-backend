@@ -18,8 +18,8 @@ import org.springframework.stereotype.Component;
 @Component @Data
 public class FileDTO {
     @ApiModelProperty(position = 1) private long fileId;
-    @ApiModelProperty(position = 2) String name;
-    @ApiModelProperty(position = 3) private String url;
+    @ApiModelProperty(position = 2) String pictureName;
+    @ApiModelProperty(position = 3) private String picture;
     @ApiModelProperty(position = 4) Long size;
 
 }

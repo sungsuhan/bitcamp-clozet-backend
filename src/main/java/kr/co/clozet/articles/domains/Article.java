@@ -1,6 +1,7 @@
 package kr.co.clozet.articles.domains;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import kr.co.clozet.clothes.domains.Clothes;
 import kr.co.clozet.files.domains.File;
 import kr.co.clozet.users.domains.User;
 import lombok.*;
@@ -50,8 +51,15 @@ public class Article {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "article")
-    List<File> files = new ArrayList<>();
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "file_id")
+    private File file;
+
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "clothes_id")
+    private Clothes clothes;
 
 
 

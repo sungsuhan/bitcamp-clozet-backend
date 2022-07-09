@@ -87,8 +87,8 @@ public class FileController {
             Long fileSize = file.getSize();
 
             fileList.add(File.builder()
-                    .name(fileName)
-                    .url(fileUrl)
+                    .pictureName(fileName)
+                    .picture(fileUrl)
                     .size(fileSize)
                     .build());
         }

@@ -6,22 +6,15 @@ import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.articles.repositories.ArticleRepository;
 import kr.co.clozet.articles.services.ArticleService;
 import kr.co.clozet.auth.domains.Messenger;
-import kr.co.clozet.common.util.MD5Generator;
-import kr.co.clozet.files.domains.File;
-import kr.co.clozet.files.domains.FileDTO;
 import kr.co.clozet.files.services.FileService;
 import kr.co.clozet.users.domains.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,7 +38,6 @@ import java.util.Optional;
 public class ArticleController {
 
     private final ArticleService service;
-    private final FileService fileService;
     private final ArticleRepository repository;
 
     @GetMapping("/findByUsername/{username}")

@@ -1,7 +1,8 @@
 package kr.co.clozet.clothes.domains;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import kr.co.clozet.closets.domains.Closet;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import kr.co.clozet.articles.domains.Article;
 import kr.co.clozet.users.domains.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +11,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * packageName:kr.co.clozet.closet.domains
@@ -40,17 +43,14 @@ public class Clothes {
     @Column private String styles;
     @Column private String events;
 
-    @JsonBackReference // json 꼬리물기 방지
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "closet_id")
-    private Closet closet;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "clothes", cascade = CascadeType.REMOVE)
+    List<Article> articles = new ArrayList<>();
 
     @JsonBackReference // json 꼬리물기 방지
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
-
-
 
 
 }

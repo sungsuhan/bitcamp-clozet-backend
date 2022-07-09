@@ -30,7 +30,9 @@ public interface ArticleService {
     List<Article> findByUsernameToArticle(String username);
 
     List<Article> findAll(Sort sort);
+
     Article findByTitle(ArticleDTO articleDTO);
+
     Page<Article> findAll(Pageable pageable);
 
     long count();

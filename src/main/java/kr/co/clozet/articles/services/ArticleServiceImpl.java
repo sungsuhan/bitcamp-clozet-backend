@@ -89,7 +89,6 @@ public class ArticleServiceImpl implements ArticleService {
                     .writtenDate(article.getWrittenDate())
                     .open(article.getOpen())
                     .content(article.getContent())
-                    .picture(article.getPicture())
                     .height(article.getHeight())
                     .weight(article.getWeight())
                     .comment(article.getComment())
@@ -111,7 +110,6 @@ public class ArticleServiceImpl implements ArticleService {
                     .writtenDate(article.getWrittenDate())
                     .open(article.getOpen())
                     .content(article.getContent())
-                    .picture(article.getPicture())
                     .comment(article.getComment())
                     .build());
             result = "SUCCESS";
@@ -140,7 +138,6 @@ public class ArticleServiceImpl implements ArticleService {
         if(StringUtils.isNotBlank(articleDTO.getWrittenDate())) article.setWrittenDate(articleDTO.getWrittenDate());
         if(StringUtils.isNotBlank(articleDTO.getOpen())) article.setOpen(articleDTO.getOpen());
         if(StringUtils.isNotBlank(articleDTO.getContent())) article.setContent(articleDTO.getContent());
-        if(StringUtils.isNotBlank(articleDTO.getPicture())) article.setPicture(articleDTO.getPicture());
         if(StringUtils.isNotBlank(articleDTO.getHeight())) article.setHeight(articleDTO.getHeight());
         if(StringUtils.isNotBlank(articleDTO.getWeight())) article.setWeight(articleDTO.getWeight());
         if(StringUtils.isNotBlank(articleDTO.getComment())) article.setComment(articleDTO.getComment());

@@ -38,7 +38,7 @@ import java.util.Optional;
 public class FileServiceImpl implements FileService {
 
     private final FileRepository repository;
-    private Path dirLocation;
+
 
     @Override
     public List<File> findAll() {

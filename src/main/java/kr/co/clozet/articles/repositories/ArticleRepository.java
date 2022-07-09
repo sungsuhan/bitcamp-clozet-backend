@@ -1,7 +1,6 @@
 package kr.co.clozet.articles.repositories;
 
 import kr.co.clozet.articles.domains.Article;
-import kr.co.clozet.users.domains.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -32,8 +31,7 @@ interface ArticleCustomRepository{
     @Query(value = "SELECT a FROM Article a where a.user.token = :token")
     String [] findByTokenToArticle(@Param("token") String token);
 
-    @Transactional
-    @Modifying
+    @Transactional @Modifying
     @Query("update Article a set a.view = a.view + 1 where a.title = :title")
     int updateView(@Param("title") String title);
 

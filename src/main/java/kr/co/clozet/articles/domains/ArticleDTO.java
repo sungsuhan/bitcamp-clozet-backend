@@ -22,11 +22,11 @@ public class ArticleDTO {
     @ApiModelProperty(position = 3) private String writtenDate;
     @ApiModelProperty(position = 4) String open;
     @ApiModelProperty(position = 5) String content;
-    @ApiModelProperty(position = 6) String picture;
-    @ApiModelProperty(position = 7) String height;
-    @ApiModelProperty(position = 8) String weight;
-    @ApiModelProperty(position = 9) String userId;
-    @ApiModelProperty(position = 10) String fileId;
+    @ApiModelProperty(position = 6) String height;
+    @ApiModelProperty(position = 7) String weight;
+    @ApiModelProperty(position = 8) String userId;
+    @ApiModelProperty(position = 9) String fileId;
+    @ApiModelProperty(position = 10) String clothesId;
     @ApiModelProperty(position = 11) String comment;
     @ApiModelProperty(position = 12) String qna;
     @ApiModelProperty(position = 13) int view;
