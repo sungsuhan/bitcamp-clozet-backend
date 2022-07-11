@@ -5,18 +5,17 @@ import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.articles.repositories.ArticleRepository;
 import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.common.blank.StringUtils;
-import kr.co.clozet.users.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.jni.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiFunction;
 
 /**
  * packageName:kr.co.clozet.board.services
@@ -87,7 +86,6 @@ public class ArticleServiceImpl implements ArticleService {
             repository.save(Article.builder()
                     .title(article.getTitle())
                     .writtenDate(article.getWrittenDate())
-                    .open(article.getOpen())
                     .content(article.getContent())
                     .height(article.getHeight())
                     .weight(article.getWeight())
@@ -108,7 +106,6 @@ public class ArticleServiceImpl implements ArticleService {
             repository.save(Article.builder()
                     .title(article.getTitle())
                     .writtenDate(article.getWrittenDate())
-                    .open(article.getOpen())
                     .content(article.getContent())
                     .comment(article.getComment())
                     .build());
@@ -136,7 +133,6 @@ public class ArticleServiceImpl implements ArticleService {
         Article article = originArticle.get();
         if(StringUtils.isNotBlank(articleDTO.getTitle())) article.setTitle(articleDTO.getTitle());
         if(StringUtils.isNotBlank(articleDTO.getWrittenDate())) article.setWrittenDate(articleDTO.getWrittenDate());
-        if(StringUtils.isNotBlank(articleDTO.getOpen())) article.setOpen(articleDTO.getOpen());
         if(StringUtils.isNotBlank(articleDTO.getContent())) article.setContent(articleDTO.getContent());
         if(StringUtils.isNotBlank(articleDTO.getHeight())) article.setHeight(articleDTO.getHeight());
         if(StringUtils.isNotBlank(articleDTO.getWeight())) article.setWeight(articleDTO.getWeight());
@@ -146,6 +142,17 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
 
+    @Override
+    public File makeDir(String t, String u) {
+        BiFunction<String,String,File> f = File :: new;
+        return f.apply(t, u);
+    }
+
+    @Override
+    public File makeFile(File t, String u) {
+        BiFunction<File, String, File> f = File :: new;
+        return f.apply(t, u);
+    }
 
 }
 

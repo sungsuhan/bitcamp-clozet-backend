@@ -3,11 +3,11 @@ package kr.co.clozet.articles.services;
 import kr.co.clozet.articles.domains.Article;
 import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.auth.domains.Messenger;
-import kr.co.clozet.users.domains.UserDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,5 +48,9 @@ public interface ArticleService {
     boolean existsById(String article);
 
     int partialUpdate(ArticleDTO articleDTO);
+
+    File makeDir(String t, String u);
+
+    File makeFile(File t, String u);
 
 }

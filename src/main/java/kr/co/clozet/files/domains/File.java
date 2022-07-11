@@ -43,6 +43,4 @@ public class File {
     List<Article> articles = new ArrayList<>();
 
 
-
-
 }

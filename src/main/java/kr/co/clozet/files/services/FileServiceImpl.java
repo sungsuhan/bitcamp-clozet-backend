@@ -12,15 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+
 import java.util.List;
 import java.util.Optional;
+import java.util.function.BiFunction;
 
 /**
  * packageName:kr.co.clozet.services
@@ -80,8 +75,6 @@ public class FileServiceImpl implements FileService {
     public boolean existsById(String file) {
         return repository.existsById(0L);
     }
-
-
 
     @Override
     public List<File> saveFileList(List<File> fileList) {

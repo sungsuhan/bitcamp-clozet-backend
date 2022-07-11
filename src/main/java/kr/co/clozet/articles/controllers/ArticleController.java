@@ -6,7 +6,7 @@ import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.articles.repositories.ArticleRepository;
 import kr.co.clozet.articles.services.ArticleService;
 import kr.co.clozet.auth.domains.Messenger;
-import kr.co.clozet.files.services.FileService;
+import kr.co.clozet.common.dataStructure.Box2;
 import kr.co.clozet.users.domains.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,9 +14,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import java.util.List;
-import java.util.Optional;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 /**
@@ -39,11 +42,13 @@ public class ArticleController {
 
     private final ArticleService service;
     private final ArticleRepository repository;
+    private final Box2 box;
 
     @GetMapping("/findByUsername/{username}")
     public ResponseEntity<List<Article>> findByUsernameToArticle(@PathVariable("username") String username) {
         return ResponseEntity.ok(service.findByUsernameToArticle(username));
     }
+
     @GetMapping("/findByTokenToArticle") @ResponseBody
     public ResponseEntity<String []> findByTokenToArticle(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(repository.findByTokenToArticle(userDTO.getToken()));
@@ -112,12 +117,38 @@ public class ArticleController {
     public ResponseEntity<Integer> partialUpdate(@RequestBody final ArticleDTO articleDTO) {
         return ResponseEntity.ok(service.partialUpdate(articleDTO));
     }
+
     @GetMapping("/posts/{title}") @ResponseBody
     public Integer read(@PathVariable("title") String title) {
         ResponseEntity.ok(repository.updateView(title));
         Article article = new Article();
         return article.getView();
     }
+
+    @PostMapping("/uploadImg") @ResponseBody
+    public ResponseEntity<String> uploadImg(MultipartHttpServletRequest uploadFile) {
+        Iterator<String> itr =uploadFile.getFileNames();
+        String filename = itr.next();
+        MultipartFile mfile = uploadFile.getFile(filename);
+        String origName=mfile.getOriginalFilename();
+        String path = "C:\\";
+        String directory=new SimpleDateFormat("yy-MM-dd").format(new Date()).replace("-", File.separator);
+        File serverPath = service.makeDir(path, directory);
+        serverPath.mkdirs();
+        String extension = origName.substring(origName.lastIndexOf(".")+1);
+        filename = UUID.randomUUID().toString() +"."+extension;
+        File serverFile = service.makeFile(serverPath, filename);
+        box.add(directory);
+        box.add(filename);
+        try {
+            mfile.transferTo(serverFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok("uploadImg");
+    }
+
+
 
 
 }

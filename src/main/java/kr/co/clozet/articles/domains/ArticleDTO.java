@@ -20,7 +20,7 @@ public class ArticleDTO {
     @ApiModelProperty(position = 1) private long articleId;
     @ApiModelProperty(position = 2) String title;
     @ApiModelProperty(position = 3) private String writtenDate;
-    @ApiModelProperty(position = 4) String open;
+    @ApiModelProperty(position = 4) boolean open;
     @ApiModelProperty(position = 5) String content;
     @ApiModelProperty(position = 6) String height;
     @ApiModelProperty(position = 7) String weight;
