@@ -56,6 +56,7 @@ public interface UserService {
 
     // custom
     Optional<User> findByUsername(String username);
+
     Messenger logout();
 
     UserDTO findUsername(UserDTO user);
@@ -69,5 +70,6 @@ public interface UserService {
     void partialUpdate(UserDTO userDTO) throws Exception;
 
     Optional<User> delete(UserDTO userDTO) throws Exception;
+
     Optional<User> deleteByUserId(UserDTO userDTO) throws Exception;
 }

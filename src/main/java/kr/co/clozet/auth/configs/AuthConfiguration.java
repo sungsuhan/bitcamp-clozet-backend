@@ -71,7 +71,7 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/logout").permitAll()
                 .antMatchers("/articles/join").permitAll()
                 .antMatchers("/articles/findAll").permitAll()
-                .antMatchers("/articles/findByUsername").permitAll()
+                .antMatchers("/articles/qnaList").permitAll()
                 .antMatchers("/users/findPw").permitAll()
                 .antMatchers("/users/findById").permitAll()
                 .antMatchers("/articles/findById").permitAll()
@@ -89,6 +89,9 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/getToken").permitAll()
                 .antMatchers("/files/upload").permitAll()
                 .antMatchers("/files/findAll").permitAll()
+                .antMatchers("/articles/uploadImg").permitAll()
+                .antMatchers("/articles/findByToken").permitAll()
+                .antMatchers("/articles/findByUserId").permitAll()
                 .anyRequest().authenticated();
         http.exceptionHandling().accessDeniedPage("/users/login");
         http.logout()

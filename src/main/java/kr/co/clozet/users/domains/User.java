@@ -45,6 +45,10 @@ public class User {
     @Column private String phone;
     @Column(length = 1200) private String token;
 
+    public User(long userId) {
+        this.userId = userId;
+    }
+
     @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     List<Article> articles = new ArrayList<>();

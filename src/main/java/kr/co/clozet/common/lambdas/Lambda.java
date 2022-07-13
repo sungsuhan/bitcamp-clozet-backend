@@ -7,6 +7,7 @@ import static kr.co.clozet.common.dataStructure.AppleList.Apple;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.*;
 
 /**
@@ -44,6 +45,7 @@ public class Lambda {
         Function<Object, String> s = String::valueOf;
         return s.apply(o);
     }
+
     public static boolean equals(String s1, String s2){
         BiPredicate<String, String> f = String::equals;
         return f.test(s1, s2);

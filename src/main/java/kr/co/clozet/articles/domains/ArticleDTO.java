@@ -1,6 +1,7 @@
 package kr.co.clozet.articles.domains;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +26,7 @@ public class ArticleDTO {
     @ApiModelProperty(position = 5) String content;
     @ApiModelProperty(position = 6) String height;
     @ApiModelProperty(position = 7) String weight;
-    @ApiModelProperty(position = 8) String userId;
+    @ApiModelProperty(position = 8) long userId;
     @ApiModelProperty(position = 9) String fileId;
     @ApiModelProperty(position = 10) String clothesId;
     @ApiModelProperty(position = 11) String comment;

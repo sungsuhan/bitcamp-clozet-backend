@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +26,7 @@ import java.util.Optional;
 public interface ArticleService {
     List<Article> findAll();
 
-    Article findAllQna(ArticleDTO articleDTO);
+    List<Article> findAllQna(ArticleDTO articleDTO);
 
     List<Article> findByUsernameToArticle(String username);
 
@@ -34,6 +35,8 @@ public interface ArticleService {
     Article findByTitle(ArticleDTO articleDTO);
 
     Page<Article> findAll(Pageable pageable);
+
+    List<Article> findMyQna(ArticleDTO articleDTO);
 
     long count();
 
@@ -47,6 +50,15 @@ public interface ArticleService {
 
     boolean existsById(String article);
 
-    int partialUpdate(ArticleDTO articleDTO);
+    void partialUpdate(ArticleDTO articleDTO) throws Exception;
 
+    File makeDir(String t, String u);
+
+    File makeFile(File t, String u);
+
+    List<Article> findByToken(UserDTO userDTO);
+
+    List<Article> findByUserId(UserDTO userDTO);
+
+    List<Article> findByUsername(String username);
 }

@@ -5,19 +5,21 @@ import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.articles.repositories.ArticleRepository;
 import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.common.blank.StringUtils;
+import kr.co.clozet.users.domains.User;
+import kr.co.clozet.users.domains.UserDTO;
 import kr.co.clozet.users.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.jni.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
+import java.io.File;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiFunction;
 
 /**
  * packageName:kr.co.clozet.board.services
@@ -44,8 +46,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Article findAllQna(ArticleDTO articleDTO) {
-        Article article = repository.findByOpen(String.valueOf(Objects.equals(articleDTO.getOpen(), "true"))).orElse(null);
+    public List<Article> findAllQna(ArticleDTO articleDTO) {
+        List<Article> article = repository.findByOpen(String.valueOf(Objects.equals(articleDTO.getOpen(), "true")));
         return article;
     }
 
@@ -66,6 +68,16 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<Article> findMyQna(ArticleDTO articleDTO) {
+        List<Article> findArticle = repository.findByUserUserId(articleDTO.getUserId());
+        boolean checkPassword = findArticle.equals("false");
+        if(checkPassword)
+            findArticle = repository.findByOpen(String.valueOf(Objects.equals(articleDTO.getOpen(), "false")));
+
+        return findArticle;
+    }
+
+    @Override
     public long count() {
         return repository.count();
     }
@@ -78,7 +90,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> findByUsernameToArticle(String username) {
-
         return repository.findByUsernameToArticle(username);
     }
 
@@ -90,11 +101,11 @@ public class ArticleServiceImpl implements ArticleService {
             repository.save(Article.builder()
                     .title(article.getTitle())
                     .writtenDate(article.getWrittenDate())
-                    .open(article.getOpen())
                     .content(article.getContent())
                     .height(article.getHeight())
                     .weight(article.getWeight())
                     .comment(article.getComment())
+                    .user(new User((article.getUserId())))
                     .build());
             result = "SUCCESS";
         } else {
@@ -111,7 +122,6 @@ public class ArticleServiceImpl implements ArticleService {
             repository.save(Article.builder()
                     .title(article.getTitle())
                     .writtenDate(article.getWrittenDate())
-                    .open(article.getOpen())
                     .content(article.getContent())
                     .comment(article.getComment())
                     .build());
@@ -133,22 +143,48 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override @Transactional
-    public int partialUpdate(final ArticleDTO articleDTO) {
+    public void partialUpdate(final ArticleDTO articleDTO) throws Exception{
         Optional<Article> originArticle = repository.findById(articleDTO.getArticleId());
 
         Article article = originArticle.get();
         if(StringUtils.isNotBlank(articleDTO.getTitle())) article.setTitle(articleDTO.getTitle());
         if(StringUtils.isNotBlank(articleDTO.getWrittenDate())) article.setWrittenDate(articleDTO.getWrittenDate());
-        if(StringUtils.isNotBlank(articleDTO.getOpen())) article.setOpen(articleDTO.getOpen());
         if(StringUtils.isNotBlank(articleDTO.getContent())) article.setContent(articleDTO.getContent());
         if(StringUtils.isNotBlank(articleDTO.getHeight())) article.setHeight(articleDTO.getHeight());
         if(StringUtils.isNotBlank(articleDTO.getWeight())) article.setWeight(articleDTO.getWeight());
         if(StringUtils.isNotBlank(articleDTO.getComment())) article.setComment(articleDTO.getComment());
         repository.save(article);
-        return 1;
     }
 
 
+    @Override
+    public File makeDir(String t, String u) {
+        BiFunction<String,String,File> f = File :: new;
+        return f.apply(t, u);
+    }
+
+    @Override
+    public File makeFile(File t, String u) {
+        BiFunction<File, String, File> f = File :: new;
+        return f.apply(t, u);
+    }
+
+    @Override
+    public List<Article> findByToken(UserDTO userDTO) {
+        User user = userRepository.findByToken(userDTO.getToken()).orElse(null);
+        return user.getArticles();
+    }
+
+    @Override
+    public List<Article> findByUserId(UserDTO userDTO) {
+        User user = userRepository.findByUserId(userDTO.getUserId()).orElse(null);
+        return user.getArticles();
+    }
+
+    @Override
+    public List<Article> findByUsername(String username) {
+        return repository.findByUsername(username);
+    }
 
 }
 

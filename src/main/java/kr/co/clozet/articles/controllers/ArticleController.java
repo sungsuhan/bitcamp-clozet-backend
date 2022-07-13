@@ -6,7 +6,7 @@ import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.articles.repositories.ArticleRepository;
 import kr.co.clozet.articles.services.ArticleService;
 import kr.co.clozet.auth.domains.Messenger;
-import kr.co.clozet.files.services.FileService;
+import kr.co.clozet.common.dataStructure.Box2;
 import kr.co.clozet.users.domains.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,9 +14,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import java.util.List;
-import java.util.Optional;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 /**
@@ -39,11 +42,13 @@ public class ArticleController {
 
     private final ArticleService service;
     private final ArticleRepository repository;
+    private final Box2 box;
 
-    @GetMapping("/findByUsername/{username}")
-    public ResponseEntity<List<Article>> findByUsernameToArticle(@PathVariable("username") String username) {
-        return ResponseEntity.ok(service.findByUsernameToArticle(username));
-    }
+//    @GetMapping("/findByUsername")
+//    public ResponseEntity<List<Article>> findByUsernameToArticle(@RequestBody String username) {
+//        return ResponseEntity.ok(service.findByUsernameToArticle(username));
+//    }
+
     @GetMapping("/findByTokenToArticle") @ResponseBody
     public ResponseEntity<String []> findByTokenToArticle(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(repository.findByTokenToArticle(userDTO.getToken()));
@@ -54,9 +59,10 @@ public class ArticleController {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @GetMapping("/findAllQna")
-    public ResponseEntity<List<Article>> findAllQna() {
-        return ResponseEntity.ok(service.findAll());
+
+    @PostMapping("/findMyQna")
+    public ResponseEntity<List<Article>> findMyQna(ArticleDTO articleDTO) {
+        return ResponseEntity.ok(service.findMyQna(articleDTO));
     }
 
     @GetMapping("/findAll/sort")
@@ -85,9 +91,9 @@ public class ArticleController {
         return ResponseEntity.ok(service.save(article));
     }
     @PostMapping(value = "/qnaList")
-    public ResponseEntity<Article> qnaList(@RequestBody ArticleDTO article) {
-        return ResponseEntity.ok(service.findAllQna(article));
-    }
+    public ResponseEntity<List<Article>> qnaList(@RequestBody ArticleDTO article) {
+            return ResponseEntity.ok(service.findAllQna(article));
+        }
 
     @PostMapping(value = "/comment")
     public ResponseEntity<Article> findByTitle(@RequestBody ArticleDTO article) {
@@ -101,10 +107,14 @@ public class ArticleController {
         return ResponseEntity.ok(service.save(article));
     }
 
-    @GetMapping("/findById")
-    @ResponseBody
-    public ResponseEntity<Optional<Article>> findById(ArticleDTO articleDTO) {
+    @GetMapping("/findById") @ResponseBody
+    public ResponseEntity<Optional<Article>> findById(@RequestBody ArticleDTO articleDTO) {
         return ResponseEntity.ok(service.findById(articleDTO));
+    }
+
+    @GetMapping("/findByUserId") @ResponseBody
+    public ResponseEntity<List<Article>> findByUserId(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(service.findByUserId(userDTO));
     }
 
     @GetMapping("/existsById/{article}")
@@ -113,9 +123,10 @@ public class ArticleController {
     }
 
     @PatchMapping(value = "/update") @ResponseBody
-    public ResponseEntity<Integer> partialUpdate(@RequestBody final ArticleDTO articleDTO) {
-        return ResponseEntity.ok(service.partialUpdate(articleDTO));
+    public void partialUpdate(@RequestBody final ArticleDTO articleDTO) throws Exception{
+        service.partialUpdate(articleDTO);
     }
+
     @GetMapping("/posts/{title}") @ResponseBody
     public Integer read(@PathVariable("title") String title) {
         ResponseEntity.ok(repository.updateView(title));
@@ -127,5 +138,37 @@ public class ArticleController {
         repository.deleteArticle(token, title);
 
     }
+    @PostMapping("/uploadImg") @ResponseBody
+    public ResponseEntity<String> uploadImg(MultipartHttpServletRequest uploadFile) {
+        Iterator<String> itr =uploadFile.getFileNames();
+        String filename = itr.next();
+        MultipartFile mfile = uploadFile.getFile(filename);
+        String origName=mfile.getOriginalFilename();
+        String path = "C:\\";
+        String directory=new SimpleDateFormat("yy-MM-dd").format(new Date()).replace("-", File.separator);
+        File serverPath = service.makeDir(path, directory);
+        serverPath.mkdirs();
+        String extension = origName.substring(origName.lastIndexOf(".")+1);
+        filename = UUID.randomUUID().toString() +"."+extension;
+        File serverFile = service.makeFile(serverPath, filename);
+        box.add(directory);
+        box.add(filename);
+        try {
+            mfile.transferTo(serverFile);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.ok("uploadImg");
+    }
+
+    @GetMapping("/findByUsername")
+    public ResponseEntity<List<Article>> findByUsername(@RequestBody String username) {
+        return ResponseEntity.ok(service.findByUsernameToArticle(username));
+    }
+
+
+
+
+
 
 }
