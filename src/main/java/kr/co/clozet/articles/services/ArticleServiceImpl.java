@@ -85,6 +85,7 @@ public class ArticleServiceImpl implements ArticleService {
     public Messenger save(ArticleDTO article) {
         System.out.println("서비스로 전달된 게시글 정보: "+article.toString());
         String result = "";
+
         if (repository.findByTitle(article.getTitle()).isEmpty()) {
             repository.save(Article.builder()
                     .title(article.getTitle())
@@ -93,7 +94,8 @@ public class ArticleServiceImpl implements ArticleService {
                     .height(article.getHeight())
                     .weight(article.getWeight())
                     .comment(article.getComment())
-                    .user(new User(Long.parseLong(article.getUserId())))
+                    .comment(article.getComment())
+                    .user(new User(article.getUserId()))
                     .build());
             result = "SUCCESS";
         } else {

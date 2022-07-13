@@ -107,7 +107,7 @@ public class ArticleController {
         return ResponseEntity.ok(service.findById(articleDTO));
     }
 
-    @GetMapping("/findByUserId") @ResponseBody
+    @PostMapping("/findByUserId") @ResponseBody
     public ResponseEntity<List<Article>> findByUserId(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(service.findByUserId(userDTO));
     }
@@ -156,6 +156,8 @@ public class ArticleController {
     public ResponseEntity<List<Article>> findByUsername(@RequestBody String username) {
         return ResponseEntity.ok(service.findByUsernameToArticle(username));
     }
+
+
 
 
 
