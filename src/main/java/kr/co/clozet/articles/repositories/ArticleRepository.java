@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 /**
  * packageName:kr.co.clozet.board.repositories
@@ -35,10 +36,15 @@ interface ArticleCustomRepository{
     @Query("update Article a set a.view = a.view + 1 where a.title = :title")
     int updateView(@Param("title") String title);
 
+    @Transactional @Modifying
+    @Query("delete from Article a where a.user.token in :token and a.title = :title")
+    void deleteArticle(@Param("token") String token, @Param("title") String title);
+
 }
 
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long>, ArticleCustomRepository {
     Optional<Article> findByTitle(String title);
+    Optional<Article> findByOpen(String open);
 }

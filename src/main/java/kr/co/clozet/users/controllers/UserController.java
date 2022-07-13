@@ -200,7 +200,6 @@ public class UserController {
     @DeleteMapping(value = "/delete") @ResponseBody
     public void delete(@RequestBody UserDTO userDTO) throws Exception{
         System.out.println(userDTO);
-        log.info(userDTO.getToken());
         service.delete(userDTO);
     }
     @DeleteMapping(value = "/deleteByUserId") @ResponseBody

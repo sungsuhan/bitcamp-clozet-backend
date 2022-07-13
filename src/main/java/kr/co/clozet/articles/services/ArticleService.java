@@ -25,7 +25,7 @@ import java.util.Optional;
 public interface ArticleService {
     List<Article> findAll();
 
-    List<Article> findAllQna();
+    Article findAllQna(ArticleDTO articleDTO);
 
     List<Article> findByUsernameToArticle(String username);
 

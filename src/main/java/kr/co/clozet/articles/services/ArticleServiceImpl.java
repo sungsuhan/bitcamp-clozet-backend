@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -34,6 +35,7 @@ import java.util.Optional;
 public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository repository;
+    private final UserRepository userRepository;
 
 
     @Override
@@ -42,8 +44,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> findAllQna() {
-        return repository.findAll();
+    public Article findAllQna(ArticleDTO articleDTO) {
+        Article article = repository.findByOpen(String.valueOf(Objects.equals(articleDTO.getOpen(), "true"))).orElse(null);
+        return article;
     }
 
     @Override

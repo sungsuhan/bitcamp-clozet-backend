@@ -84,6 +84,10 @@ public class ArticleController {
         System.out.println("게시글 정보: " + article.toString());//확인만 하려구.. 지워야함
         return ResponseEntity.ok(service.save(article));
     }
+    @PostMapping(value = "/qnaList")
+    public ResponseEntity<Article> qnaList(@RequestBody ArticleDTO article) {
+        return ResponseEntity.ok(service.findAllQna(article));
+    }
 
     @PostMapping(value = "/comment")
     public ResponseEntity<Article> findByTitle(@RequestBody ArticleDTO article) {
@@ -118,6 +122,10 @@ public class ArticleController {
         Article article = new Article();
         return article.getView();
     }
+    @DeleteMapping(value = "/tokenDelete/{token}{title}")
+    public void delete(@PathVariable("token") String token, @PathVariable("title") String title ) throws Exception{
+        repository.deleteArticle(token, title);
 
+    }
 
 }
