@@ -3,6 +3,7 @@ package kr.co.clozet.articles.services;
 import kr.co.clozet.articles.domains.Article;
 import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.auth.domains.Messenger;
+import kr.co.clozet.users.domains.UserDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -47,10 +48,15 @@ public interface ArticleService {
 
     boolean existsById(String article);
 
-    int partialUpdate(ArticleDTO articleDTO);
+    void partialUpdate(ArticleDTO articleDTO) throws Exception;
 
     File makeDir(String t, String u);
 
     File makeFile(File t, String u);
+
+    List<Article> findByToken(UserDTO userDTO);
+
+    List<Article> findByUsername(String username);
+
 
 }

@@ -180,8 +180,6 @@ public class UserServiceImpl implements UserService {
         return repository.findByUsername(username);
     }
 
-
-
     @Override
     public Messenger logout() {
         return Messenger.builder().build();
@@ -193,14 +191,10 @@ public class UserServiceImpl implements UserService {
         try {
             result= repository.findUsername(user.getName(), user.getEmail());
             user.setUsername(result);
-
         } catch(Exception e) {
-
             e.printStackTrace();
         }
-
         return user;
-
     }
 
     //비밀번호 찾기 이메일발송
@@ -251,7 +245,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO save1(UserDTO user) throws Exception{
-
         User returnUser = modelMapper.map(user, User.class);
         repository.save(returnUser);
         return user;
@@ -293,7 +286,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override @Transactional
-    public void partialUpdate(final UserDTO userDTO)  throws Exception{
+    public void partialUpdate(final UserDTO userDTO) throws Exception{
 
         Optional<User> originUser = repository.findByToken(userDTO.getToken());
 

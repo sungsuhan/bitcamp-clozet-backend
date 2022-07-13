@@ -90,6 +90,7 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/files/upload").permitAll()
                 .antMatchers("/files/findAll").permitAll()
                 .antMatchers("/articles/uploadImg").permitAll()
+                .antMatchers("/articles/findByToken").permitAll()
                 .anyRequest().authenticated();
         http.exceptionHandling().accessDeniedPage("/users/login");
         http.logout()

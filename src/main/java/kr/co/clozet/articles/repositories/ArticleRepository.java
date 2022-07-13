@@ -35,6 +35,9 @@ interface ArticleCustomRepository{
     @Query("update Article a set a.view = a.view + 1 where a.title = :title")
     int updateView(@Param("title") String title);
 
+    @Query("select a.articleId FROM Article a join User u on u.userId = a.user.userId where a.user.username = :username")
+    List<Article> findByUsername(@Param("username") String username);
+
 }
 
 

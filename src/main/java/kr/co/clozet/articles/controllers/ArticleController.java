@@ -44,10 +44,10 @@ public class ArticleController {
     private final ArticleRepository repository;
     private final Box2 box;
 
-    @GetMapping("/findByUsername/{username}")
-    public ResponseEntity<List<Article>> findByUsernameToArticle(@PathVariable("username") String username) {
-        return ResponseEntity.ok(service.findByUsernameToArticle(username));
-    }
+//    @GetMapping("/findByUsername")
+//    public ResponseEntity<List<Article>> findByUsernameToArticle(@RequestBody String username) {
+//        return ResponseEntity.ok(service.findByUsernameToArticle(username));
+//    }
 
     @GetMapping("/findByTokenToArticle") @ResponseBody
     public ResponseEntity<String []> findByTokenToArticle(@RequestBody UserDTO userDTO) {
@@ -102,9 +102,8 @@ public class ArticleController {
         return ResponseEntity.ok(service.save(article));
     }
 
-    @GetMapping("/findById")
-    @ResponseBody
-    public ResponseEntity<Optional<Article>> findById(ArticleDTO articleDTO) {
+    @GetMapping("/findById") @ResponseBody
+    public ResponseEntity<Optional<Article>> findById(@RequestBody ArticleDTO articleDTO) {
         return ResponseEntity.ok(service.findById(articleDTO));
     }
 
@@ -114,8 +113,8 @@ public class ArticleController {
     }
 
     @PatchMapping(value = "/update") @ResponseBody
-    public ResponseEntity<Integer> partialUpdate(@RequestBody final ArticleDTO articleDTO) {
-        return ResponseEntity.ok(service.partialUpdate(articleDTO));
+    public void partialUpdate(@RequestBody final ArticleDTO articleDTO) throws Exception{
+        service.partialUpdate(articleDTO);
     }
 
     @GetMapping("/posts/{title}") @ResponseBody
@@ -147,6 +146,13 @@ public class ArticleController {
         }
         return ResponseEntity.ok("uploadImg");
     }
+
+    @GetMapping("/findByUsername")
+    public ResponseEntity<List<Article>> findByUsername(@RequestBody String username) {
+        return ResponseEntity.ok(service.findByUsernameToArticle(username));
+    }
+
+
 
 
 

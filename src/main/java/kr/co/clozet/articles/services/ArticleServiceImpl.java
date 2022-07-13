@@ -5,6 +5,9 @@ import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.articles.repositories.ArticleRepository;
 import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.common.blank.StringUtils;
+import kr.co.clozet.users.domains.User;
+import kr.co.clozet.users.domains.UserDTO;
+import kr.co.clozet.users.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +36,7 @@ import java.util.function.BiFunction;
 public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository repository;
+    private final UserRepository userRepository;
 
 
     @Override
@@ -74,7 +78,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> findByUsernameToArticle(String username) {
-
         return repository.findByUsernameToArticle(username);
     }
 
@@ -90,6 +93,7 @@ public class ArticleServiceImpl implements ArticleService {
                     .height(article.getHeight())
                     .weight(article.getWeight())
                     .comment(article.getComment())
+                    .user(new User(Long.parseLong(article.getUserId())))
                     .build());
             result = "SUCCESS";
         } else {
@@ -127,7 +131,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override @Transactional
-    public int partialUpdate(final ArticleDTO articleDTO) {
+    public void partialUpdate(final ArticleDTO articleDTO) throws Exception{
         Optional<Article> originArticle = repository.findById(articleDTO.getArticleId());
 
         Article article = originArticle.get();
@@ -138,7 +142,6 @@ public class ArticleServiceImpl implements ArticleService {
         if(StringUtils.isNotBlank(articleDTO.getWeight())) article.setWeight(articleDTO.getWeight());
         if(StringUtils.isNotBlank(articleDTO.getComment())) article.setComment(articleDTO.getComment());
         repository.save(article);
-        return 1;
     }
 
 
@@ -152,6 +155,17 @@ public class ArticleServiceImpl implements ArticleService {
     public File makeFile(File t, String u) {
         BiFunction<File, String, File> f = File :: new;
         return f.apply(t, u);
+    }
+
+    @Override
+    public List<Article> findByToken(UserDTO userDTO) {
+        User user = userRepository.findByToken(userDTO.getToken()).orElse(null);
+        return user.getArticles();
+    }
+
+    @Override
+    public List<Article> findByUsername(String username) {
+        return repository.findByUsername(username);
     }
 
 }

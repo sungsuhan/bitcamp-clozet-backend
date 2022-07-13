@@ -37,7 +37,7 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.AUTO) private long articleId;
     @Column private String title;
     @Column(name = "written_date") private String writtenDate;
-    @Column private boolean open;
+    @Column private String open;
     @Column private String content;
     @Column private String picture;
     @Column private String height;
