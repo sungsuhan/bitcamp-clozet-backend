@@ -56,7 +56,7 @@ public interface ArticleService {
 
     List<Article> findByToken(UserDTO userDTO);
 
+    List<Article> findByUserId(UserDTO userDTO);
+
     List<Article> findByUsername(String username);
-
-
 }

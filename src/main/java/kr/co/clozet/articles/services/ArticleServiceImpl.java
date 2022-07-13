@@ -164,6 +164,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<Article> findByUserId(UserDTO userDTO) {
+        User user = userRepository.findByUserId(userDTO.getUserId()).orElse(null);
+        return user.getArticles();
+    }
+
+    @Override
     public List<Article> findByUsername(String username) {
         return repository.findByUsername(username);
     }

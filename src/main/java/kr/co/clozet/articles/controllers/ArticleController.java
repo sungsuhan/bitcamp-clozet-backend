@@ -107,6 +107,11 @@ public class ArticleController {
         return ResponseEntity.ok(service.findById(articleDTO));
     }
 
+    @GetMapping("/findByUserId") @ResponseBody
+    public ResponseEntity<List<Article>> findByUserId(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(service.findByUserId(userDTO));
+    }
+
     @GetMapping("/existsById/{article}")
     public boolean existsById(@PathVariable String article) {
         return service.existsById(article);
