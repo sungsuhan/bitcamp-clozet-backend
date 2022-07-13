@@ -27,8 +27,13 @@ public class ArticleDTO {
     @ApiModelProperty(position = 6) String height;
     @ApiModelProperty(position = 7) String weight;
     @ApiModelProperty(position = 8) long userId;
+<<<<<<< HEAD
     @ApiModelProperty(position = 9) String fileId;
     @ApiModelProperty(position = 10) String clothesId;
+=======
+    @ApiModelProperty(position = 9) long fileId;
+    @ApiModelProperty(position = 10) long clothesId;
+>>>>>>> 0daffdfa8c718acd8337f86f4721ffa863c97688
     @ApiModelProperty(position = 11) String comment;
     @ApiModelProperty(position = 12) String qna;
     @ApiModelProperty(position = 13) int view;
