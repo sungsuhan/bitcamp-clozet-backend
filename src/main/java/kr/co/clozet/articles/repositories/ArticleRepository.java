@@ -1,6 +1,7 @@
 package kr.co.clozet.articles.repositories;
 
 import kr.co.clozet.articles.domains.Article;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -51,4 +52,5 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Article
     Optional<Article> findByTitle(String title);
     List<Article> findByOpen(String open);
     List<Article> findByUserUserId(long userId);
+    List<Article> findAll(Sort sort);
 }

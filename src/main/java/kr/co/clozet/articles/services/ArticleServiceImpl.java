@@ -48,6 +48,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> findAllQna(ArticleDTO articleDTO) {
         List<Article> article = repository.findByOpen(String.valueOf(Objects.equals(articleDTO.getOpen(), "true")));
+        article = repository.findAll(Sort.by(Sort.Direction.DESC, "writtenDate"));
         return article;
     }
 
@@ -106,12 +107,9 @@ public class ArticleServiceImpl implements ArticleService {
                     .height(article.getHeight())
                     .weight(article.getWeight())
                     .comment(article.getComment())
-<<<<<<< HEAD
                     .user(new User((article.getUserId())))
-=======
                     .comment(article.getComment())
                     .user(new User(article.getUserId()))
->>>>>>> 0daffdfa8c718acd8337f86f4721ffa863c97688
                     .build());
             result = "SUCCESS";
         } else {
