@@ -135,7 +135,7 @@ public class UserController {
         return ResponseEntity.ok(service.articlesByToken(userDTO));
     }
 
-    @GetMapping("findByUsername") @ResponseBody
+    @PostMapping("findByUsername") @ResponseBody
     public ResponseEntity<Optional<User>> findByUsername(@RequestBody String username) {
         return ResponseEntity.ok(service.findByUsername(username));
     }
@@ -145,22 +145,22 @@ public class UserController {
         return ResponseEntity.ok(service.existsById(userid));
     }
 
-    @GetMapping("/existsByUsername") @ResponseBody
+    @PostMapping("/existsByUsername") @ResponseBody
     public ResponseEntity<Boolean> existsByUsername(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(repository.existsByUsername(userDTO.getUsername()));
     }
 
-    @GetMapping("/existsByPhone") @ResponseBody
+    @PostMapping("/existsByPhone") @ResponseBody
     public ResponseEntity<Boolean> existsByPhone(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(repository.existsByPhone(userDTO.getPhone()));
     }
 
-    @GetMapping("/existsByEmail") @ResponseBody
+    @PostMapping("/existsByEmail") @ResponseBody
     public ResponseEntity<Boolean> existsByEmail(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(repository.existsByEmail(userDTO.getEmail()));
     }
 
-    @GetMapping("/existsByNickname") @ResponseBody
+    @PostMapping("/existsByNickname") @ResponseBody
     public ResponseEntity<Boolean> existsByNickname(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(repository.existsByNickname(userDTO.getNickname()));
     }
