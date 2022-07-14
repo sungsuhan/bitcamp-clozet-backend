@@ -204,7 +204,6 @@ public class UserController {
     }
     @DeleteMapping(value = "/deleteByUserId") @ResponseBody
     public void deleteByUserId(@RequestBody UserDTO userDTO) throws Exception{
-
         service.delete(userDTO);
     }
 
