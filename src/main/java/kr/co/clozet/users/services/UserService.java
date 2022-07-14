@@ -59,7 +59,7 @@ public interface UserService {
 
     Messenger logout();
 
-    UserDTO findUsername(UserDTO user);
+    UserDTO find_id(UserDTO user);
 
     //이메일발송
     public void sendEmail(UserDTO user, String div) throws Exception;
@@ -69,7 +69,7 @@ public interface UserService {
 
     void partialUpdate(UserDTO userDTO) throws Exception;
 
-    Optional<User> delete(UserDTO userDTO) throws Exception;
+    void delete(UserDTO userDTO) throws Exception;
 
     Optional<User> deleteByUserId(UserDTO userDTO) throws Exception;
 }

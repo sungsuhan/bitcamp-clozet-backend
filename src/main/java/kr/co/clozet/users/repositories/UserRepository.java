@@ -45,8 +45,8 @@ interface UserCustomRepository{
             nativeQuery = true)
     String [] findTitleByUserId();
 
-    @Query(value = "select u.username from User u where u.name = :name and u.email = :email")
-    String findUsername(@Param("name") String name, @Param("email") String email);
+    @Query("SELECT u.username FROM User u WHERE u.name= :name AND u.email= :email")
+    public String find_id(@Param("name") String name, @Param("email") String email);
 
 }
 
