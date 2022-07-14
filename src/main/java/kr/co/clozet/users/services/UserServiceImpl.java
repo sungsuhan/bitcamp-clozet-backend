@@ -186,15 +186,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO findUsername(UserDTO user) {
+    public UserDTO find_id(UserDTO userDTO) {
         String result = "";
         try {
-            result= repository.findUsername(user.getName(), user.getEmail());
-            user.setUsername(result);
+            result= repository.find_id(userDTO.getName(), userDTO.getEmail());
+            userDTO.setUsername(result);
         } catch(Exception e) {
             e.printStackTrace();
         }
-        return user;
+        return userDTO;
     }
 
     //비밀번호 찾기 이메일발송
@@ -301,14 +301,10 @@ public class UserServiceImpl implements UserService {
         repository.save(user);
     }
 
-    @Override @Transactional
-    public Optional<User> delete(final UserDTO userDTO) throws Exception{
-
-        Optional<User> originUser = repository.findByUsername(userDTO.getUsername());
-
-        repository.delete(originUser.get());
-
-        return originUser;
+    @Override
+    public void delete(UserDTO userDTO) throws Exception{
+        User user =repository.findByToken(userDTO.getToken()).orElse(null);
+        repository.delete(user);
     }
 
     @Override

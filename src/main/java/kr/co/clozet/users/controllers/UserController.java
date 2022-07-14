@@ -87,11 +87,12 @@ public class UserController {
     public ResponseEntity<Messenger> count() {
         return ResponseEntity.ok(service.count());
     }
-    @DeleteMapping("/delete/{username}") @ResponseBody
+
+  /*  @DeleteMapping("/delete/{username}") @ResponseBody
     public void delete(@PathVariable("username") String username) throws Exception{
         log.info(username);
         service.delete(username);
-    }
+    }*/
 //    @DeleteMapping("/delete")
 //    public ResponseEntity<Messenger> delete(@RequestBody UserDTO user) {
 //        return ResponseEntity.ok(service.delete(user));
@@ -180,8 +181,8 @@ public class UserController {
     }
 
     @PostMapping("/findUsername") @ResponseBody
-    public ResponseEntity<String> findUsername(@RequestBody UserDTO user) {
-        return ResponseEntity.ok(service.findUsername(user).getUsername());
+    public ResponseEntity<String> findUsername(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.ok(service.find_id(userDTO).getUsername());
     }
 
     @PostMapping(value = "/findPw")
@@ -191,7 +192,6 @@ public class UserController {
         service.findPw(response, user);
     }
 
-
     @PatchMapping(value = "/update") @ResponseBody
     public void partialUpdate(@RequestBody UserDTO userDTO) throws Exception{
        service.partialUpdate(userDTO);
@@ -200,7 +200,6 @@ public class UserController {
     @DeleteMapping(value = "/delete") @ResponseBody
     public void delete(@RequestBody UserDTO userDTO) throws Exception{
         System.out.println(userDTO);
-        log.info(userDTO.getToken());
         service.delete(userDTO);
     }
     @DeleteMapping(value = "/deleteByUserId") @ResponseBody

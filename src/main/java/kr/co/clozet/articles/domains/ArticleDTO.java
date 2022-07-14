@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
+
 /**
  * packageName:kr.co.clozet.articles.domains
  * fileName        :ArticleDTO.java

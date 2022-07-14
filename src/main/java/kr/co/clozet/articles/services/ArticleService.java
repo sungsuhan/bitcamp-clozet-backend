@@ -26,7 +26,7 @@ import java.util.Optional;
 public interface ArticleService {
     List<Article> findAll();
 
-    List<Article> findAllQna();
+    List<Article> findAllQna(ArticleDTO articleDTO);
 
     List<Article> findByUsernameToArticle(String username);
 
@@ -35,6 +35,8 @@ public interface ArticleService {
     Article findByTitle(ArticleDTO articleDTO);
 
     Page<Article> findAll(Pageable pageable);
+
+    List<Article> findMyQna(ArticleDTO articleDTO);
 
     long count();
 

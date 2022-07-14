@@ -59,9 +59,10 @@ public class ArticleController {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @GetMapping("/findAllQna")
-    public ResponseEntity<List<Article>> findAllQna() {
-        return ResponseEntity.ok(service.findAll());
+
+    @PostMapping("/findMyQna")
+    public ResponseEntity<List<Article>> findMyQna(ArticleDTO articleDTO) {
+        return ResponseEntity.ok(service.findMyQna(articleDTO));
     }
 
     @GetMapping("/findAll/sort")
@@ -89,6 +90,10 @@ public class ArticleController {
         System.out.println("게시글 정보: " + article.toString());//확인만 하려구.. 지워야함
         return ResponseEntity.ok(service.save(article));
     }
+    @PostMapping(value = "/qnaList")
+    public ResponseEntity<List<Article>> qnaList(@RequestBody ArticleDTO article) {
+            return ResponseEntity.ok(service.findAllQna(article));
+        }
 
     @PostMapping(value = "/comment")
     public ResponseEntity<Article> findByTitle(@RequestBody ArticleDTO article) {
@@ -128,7 +133,11 @@ public class ArticleController {
         Article article = new Article();
         return article.getView();
     }
+    @DeleteMapping(value = "/tokenDelete/{token}{title}")
+    public void delete(@PathVariable("token") String token, @PathVariable("title") String title ) throws Exception{
+        repository.deleteArticle(token, title);
 
+    }
     @PostMapping("/uploadImg") @ResponseBody
     public ResponseEntity<String> uploadImg(MultipartHttpServletRequest uploadFile) {
         Iterator<String> itr =uploadFile.getFileNames();

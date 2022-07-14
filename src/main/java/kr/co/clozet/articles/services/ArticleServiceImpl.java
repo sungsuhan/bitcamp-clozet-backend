@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
 
@@ -45,8 +46,10 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> findAllQna() {
-        return repository.findAll();
+    public List<Article> findAllQna(ArticleDTO articleDTO) {
+        List<Article> article = repository.findByOpen(String.valueOf(Objects.equals(articleDTO.getOpen(), "true")));
+        article = repository.findAll(Sort.by(Sort.Direction.DESC, "writtenDate"));
+        return article;
     }
 
     @Override
@@ -63,6 +66,16 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Page findAll(Pageable pageable) {
         return repository.findAll(pageable);
+    }
+
+    @Override
+    public List<Article> findMyQna(ArticleDTO articleDTO) {
+        List<Article> findArticle = repository.findByUserUserId(articleDTO.getUserId());
+        boolean checkPassword = findArticle.equals("false");
+        if(checkPassword)
+            findArticle = repository.findByOpen(String.valueOf(Objects.equals(articleDTO.getOpen(), "false")));
+
+        return findArticle;
     }
 
     @Override
@@ -94,6 +107,7 @@ public class ArticleServiceImpl implements ArticleService {
                     .height(article.getHeight())
                     .weight(article.getWeight())
                     .comment(article.getComment())
+                    .user(new User((article.getUserId())))
                     .comment(article.getComment())
                     .user(new User(article.getUserId()))
                     .build());
