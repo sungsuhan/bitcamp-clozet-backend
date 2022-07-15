@@ -133,32 +133,10 @@ public class ArticleController {
         Article article = new Article();
         return article.getView();
     }
+
     @DeleteMapping(value = "/tokenDelete/{token}{title}")
     public void delete(@PathVariable("token") String token, @PathVariable("title") String title ) throws Exception{
         repository.deleteArticle(token, title);
-
-    }
-    @PostMapping("/uploadImg") @ResponseBody
-    public ResponseEntity<String> uploadImg(MultipartHttpServletRequest uploadFile) {
-        Iterator<String> itr =uploadFile.getFileNames();
-        String filename = itr.next();
-        MultipartFile mfile = uploadFile.getFile(filename);
-        String origName=mfile.getOriginalFilename();
-        String path = "C:\\";
-        String directory=new SimpleDateFormat("yy-MM-dd").format(new Date()).replace("-", File.separator);
-        File serverPath = service.makeDir(path, directory);
-        serverPath.mkdirs();
-        String extension = origName.substring(origName.lastIndexOf(".")+1);
-        filename = UUID.randomUUID().toString() +"."+extension;
-        File serverFile = service.makeFile(serverPath, filename);
-        box.add(directory);
-        box.add(filename);
-        try {
-            mfile.transferTo(serverFile);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.ok("uploadImg");
     }
 
     @GetMapping("/findByUsername")

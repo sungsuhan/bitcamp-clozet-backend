@@ -160,19 +160,6 @@ public class ArticleServiceImpl implements ArticleService {
         repository.save(article);
     }
 
-
-    @Override
-    public File makeDir(String t, String u) {
-        BiFunction<String,String,File> f = File :: new;
-        return f.apply(t, u);
-    }
-
-    @Override
-    public File makeFile(File t, String u) {
-        BiFunction<File, String, File> f = File :: new;
-        return f.apply(t, u);
-    }
-
     @Override
     public List<Article> findByToken(UserDTO userDTO) {
         User user = userRepository.findByToken(userDTO.getToken()).orElse(null);

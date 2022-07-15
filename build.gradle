@@ -3,9 +3,11 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 }
+
 jar {
 	enabled = false
 }
+
 group = 'kr.co.clozet'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
@@ -46,7 +48,6 @@ dependencies {
 	implementation group: 'org.json', name: 'json', version: '20220320'
 	//json -> csv
 	implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-csv', version: '2.13.3'
-	implementation group: 'com.aspose.cells', name: 'aspose-cells-jdk16', version: '8.1.1.0'
 	// password -> email
 	implementation group: 'org.apache.commons', name: 'commons-email', version: '1.5'
 

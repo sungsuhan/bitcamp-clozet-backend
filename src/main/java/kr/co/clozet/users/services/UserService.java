@@ -35,11 +35,6 @@ public interface UserService {
 
     Messenger count();
 
-    //UserDTO update(UserDTO user);
-
-    void delete(String username)throws Exception;
-    //Messenger delete(UserDTO user);
-
     Messenger deleteAll();
 
     Messenger save(UserDTO user);

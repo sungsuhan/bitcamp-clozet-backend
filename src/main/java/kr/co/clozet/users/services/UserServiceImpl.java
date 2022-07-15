@@ -101,23 +101,6 @@ public class UserServiceImpl implements UserService {
         return Messenger.builder().message(string(repository.count())).build();
     }
 
-//    public Messenger update(User user) {
-//        repository.update(user);
-//        return Messenger.builder().build();
-//    }
-
-
-    @Override @Transactional
-    public void delete(String username) throws Exception{
-        User user =repository.findByUsername(username).orElse(null);
-        repository.delete(user);
-    }
-//    @Override
-//    public Messenger delete(UserDTO user) {
-//        repository.findByUsername(user.getUsername()).ifPresent(repository::delete);
-//        return Messenger.builder().message("삭제 완료").build();
-//    }
-
     @Override
     public Messenger deleteAll() {
         repository.deleteAll();

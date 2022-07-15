@@ -52,10 +52,6 @@ public interface ArticleService {
 
     void partialUpdate(ArticleDTO articleDTO) throws Exception;
 
-    File makeDir(String t, String u);
-
-    File makeFile(File t, String u);
-
     List<Article> findByToken(UserDTO userDTO);
 
     List<Article> findByUserId(UserDTO userDTO);
