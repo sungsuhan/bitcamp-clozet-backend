@@ -53,4 +53,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Article
     List<Article> findByOpen(String open);
     List<Article> findByUserUserId(long userId);
     List<Article> findAll(Sort sort);
+    List<Article> findByToken(String token);
+    void deleteArticleByArticleId(Long articleId);
+
 }

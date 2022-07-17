@@ -1,6 +1,7 @@
 package kr.co.clozet.clothes.domains;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import kr.co.clozet.articles.domains.Article;
 import kr.co.clozet.users.domains.User;
@@ -43,6 +44,7 @@ public class Clothes {
     @Column private String styles;
     @Column private String events;
 
+    @JsonIgnore
     @JsonManagedReference
     @OneToMany(mappedBy = "clothes", cascade = CascadeType.REMOVE)
     List<Article> articles = new ArrayList<>();

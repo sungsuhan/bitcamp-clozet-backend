@@ -40,11 +40,11 @@ public interface ArticleService {
 
     long count();
 
-    Messenger delete(ArticleDTO articleDTO);
+    void delete(ArticleDTO articleDTO);
 
     Messenger save(ArticleDTO article);
 
-    Messenger saveQna(ArticleDTO article);
+    void saveQna(ArticleDTO article) throws Exception;
 
     Optional<Article> findById(ArticleDTO articleDTO);
 

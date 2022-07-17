@@ -80,9 +80,9 @@ public class ArticleController {
         return service.count();
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Messenger> delete(@RequestBody ArticleDTO articleDTO) {
-        return ResponseEntity.ok(service.delete(articleDTO));
+    @DeleteMapping("/delete/{articleId}") @ResponseBody
+    public void delete(@PathVariable(value = "articleId") Long articleId) {
+         repository.deleteById(articleId);
     }
 
     @PostMapping(value = "/join")
@@ -101,10 +101,10 @@ public class ArticleController {
         return ResponseEntity.ok(service.findByTitle(article));
     }
 
-    @PostMapping(value = "/joinQna")
-    public ResponseEntity<Messenger> saveQna(@RequestBody ArticleDTO article) {
+    @PostMapping(value = "/joinQna") @ResponseBody
+    public void saveQna(@RequestBody ArticleDTO article) throws Exception{
         System.out.println("QnA 정보: " + article.toString());//확인만 하려구.. 지워야함
-        return ResponseEntity.ok(service.save(article));
+         service.saveQna(article);
     }
 
     @GetMapping("/findById") @ResponseBody

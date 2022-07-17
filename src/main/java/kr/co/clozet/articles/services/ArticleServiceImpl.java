@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 /**
  * packageName:kr.co.clozet.board.services
@@ -70,12 +71,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> findMyQna(ArticleDTO articleDTO) {
-        List<Article> findArticle = repository.findByUserUserId(articleDTO.getUserId());
-        boolean checkPassword = findArticle.equals("false");
-        if(checkPassword)
-            findArticle = repository.findByOpen(String.valueOf(Objects.equals(articleDTO.getOpen(), "false")));
-
-        return findArticle;
+        List<Article> article = repository.findByToken(articleDTO.getToken());
+        article = repository.findAll(Sort.by(Sort.Direction.DESC, "writtenDate"));
+        return article;
     }
 
     @Override
@@ -83,10 +81,13 @@ public class ArticleServiceImpl implements ArticleService {
         return repository.count();
     }
 
-    @Override
-    public Messenger delete(ArticleDTO articleDTO) {
-        repository.findById(articleDTO.getArticleId()).ifPresent(repository::delete);
-        return Messenger.builder().message("삭제").build();
+    @Override @Transactional
+    public void delete(ArticleDTO articleDTO) {
+        /*Article article = new Article();
+        article.setToken(articleDTO.getToken());
+        repository.save(article);
+        List<Article> article1 = repository.findByToken(article.getToken());*/
+        repository.deleteArticleByArticleId(articleDTO.getArticleId());
     }
 
     @Override
@@ -98,7 +99,6 @@ public class ArticleServiceImpl implements ArticleService {
     public Messenger save(ArticleDTO article) {
         System.out.println("서비스로 전달된 게시글 정보: "+article.toString());
         String result = "";
-
         if (repository.findByTitle(article.getTitle()).isEmpty()) {
             repository.save(Article.builder()
                     .title(article.getTitle())
@@ -107,9 +107,8 @@ public class ArticleServiceImpl implements ArticleService {
                     .height(article.getHeight())
                     .weight(article.getWeight())
                     .comment(article.getComment())
-                    .user(new User((article.getUserId())))
+                            .token(article.getToken())
                     .comment(article.getComment())
-                    .user(new User(article.getUserId()))
                     .build());
             result = "SUCCESS";
         } else {
@@ -119,21 +118,20 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Messenger saveQna(ArticleDTO article) {
+    public void saveQna(ArticleDTO article) {
         System.out.println("서비스로 전달된 QnA 정보: "+article.toString());
         String result = "";
         if (repository.findByTitle(article.getTitle()).isEmpty()) {
             repository.save(Article.builder()
                     .title(article.getTitle())
-                    .writtenDate(article.getWrittenDate())
                     .content(article.getContent())
-                    .comment(article.getComment())
+                    .open(article.getOpen())
+                    .token(article.getToken())
                     .build());
             result = "SUCCESS";
         } else {
             result = "FAIL";
         }
-        return Messenger.builder().message(result).build();
     }
 
     @Override
