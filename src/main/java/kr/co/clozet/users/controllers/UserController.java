@@ -88,15 +88,6 @@ public class UserController {
         return ResponseEntity.ok(service.count());
     }
 
-  /*  @DeleteMapping("/delete/{username}") @ResponseBody
-    public void delete(@PathVariable("username") String username) throws Exception{
-        log.info(username);
-        service.delete(username);
-    }*/
-//    @DeleteMapping("/delete")
-//    public ResponseEntity<Messenger> delete(@RequestBody UserDTO user) {
-//        return ResponseEntity.ok(service.delete(user));
-//    }
 
     @DeleteMapping("/deleteAll")
     public ResponseEntity<Messenger> deleteAll() {
@@ -110,6 +101,7 @@ public class UserController {
             @ApiResponse(code = 403, message = "승인거절"),
             @ApiResponse(code = 422, message = "중복된 ID")
     })
+
     public ResponseEntity<Messenger> save(@ApiParam("Join User") @RequestBody UserDTO user) {
         System.out.println("회원가입 정보: "+user.toString()); // 확인만 하려구...지워야함
         return ResponseEntity.ok(service.save(user));
@@ -202,6 +194,7 @@ public class UserController {
         System.out.println(userDTO);
         service.delete(userDTO);
     }
+
     @DeleteMapping(value = "/deleteByUserId") @ResponseBody
     public void deleteByUserId(@RequestBody UserDTO userDTO) throws Exception{
         service.delete(userDTO);
