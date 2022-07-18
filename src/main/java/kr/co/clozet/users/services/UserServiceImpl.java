@@ -286,13 +286,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(UserDTO userDTO) throws Exception{
-        User user =repository.findByToken(userDTO.getToken()).orElse(null);
+        User user = repository.findByToken(userDTO.getToken()).orElse(null);
         repository.delete(user);
     }
 
     @Override
     public Optional<User> deleteByUserId(UserDTO userDTO) throws Exception {
-        Optional<User> originUser =repository.findByUserId(userDTO.getUserId());
+        Optional<User> originUser = repository.findByUserId(userDTO.getUserId());
         repository.delete(originUser.get());
         return originUser;
     }

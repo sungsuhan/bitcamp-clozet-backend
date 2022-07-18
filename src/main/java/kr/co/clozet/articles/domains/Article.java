@@ -45,6 +45,7 @@ public class Article {
     @Column String comment;
     @Column String qna;
     @Column(columnDefinition = "integer default 0", nullable = false) private int view;
+    @Column(length = 1200) private String token;
 
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)

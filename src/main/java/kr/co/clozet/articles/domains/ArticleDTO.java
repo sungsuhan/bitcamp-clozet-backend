@@ -32,5 +32,6 @@ public class ArticleDTO {
     @ApiModelProperty(position = 11) String comment;
     @ApiModelProperty(position = 12) String qna;
     @ApiModelProperty(position = 13) int view;
+    @ApiModelProperty(position = 14) private String token;
 
 }

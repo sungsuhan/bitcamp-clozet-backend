@@ -40,7 +40,7 @@ public interface ArticleService {
 
     long count();
 
-    Messenger delete(ArticleDTO articleDTO);
+    void delete(ArticleDTO articleDTO) throws Exception;
 
     Messenger save(ArticleDTO article);
 
@@ -57,4 +57,5 @@ public interface ArticleService {
     List<Article> findByUserId(UserDTO userDTO);
 
     List<Article> findByUsername(String username);
+
 }

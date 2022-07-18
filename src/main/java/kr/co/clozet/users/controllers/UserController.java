@@ -67,7 +67,6 @@ public class UserController {
         return ResponseEntity.ok(service.logout());
     }
 
-    // Embeded Method
     @GetMapping("/findAll")
     public ResponseEntity<List<User>> findAll() {
         return ResponseEntity.ok(service.findAll());

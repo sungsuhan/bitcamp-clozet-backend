@@ -15,11 +15,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.io.File;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.BiFunction;
 
 /**
  * packageName:kr.co.clozet.board.services
@@ -83,10 +81,16 @@ public class ArticleServiceImpl implements ArticleService {
         return repository.count();
     }
 
+//    @Override
+//    public void delete(ArticleDTO articleDTO) throws Exception {
+//        Article article = repository.findByToken(articleDTO.getToken()).orElse(null);
+//        repository.delete(article);
+//    }
+
     @Override
-    public Messenger delete(ArticleDTO articleDTO) {
-        repository.findById(articleDTO.getArticleId()).ifPresent(repository::delete);
-        return Messenger.builder().message("삭제").build();
+    public void delete(ArticleDTO articleDTO) throws Exception {
+        Article article = repository.findByToken(articleDTO.getToken()).orElse(null);
+        repository.delete(article);
     }
 
     @Override
@@ -108,8 +112,6 @@ public class ArticleServiceImpl implements ArticleService {
                     .weight(article.getWeight())
                     .comment(article.getComment())
                     .user(new User((article.getUserId())))
-                    .comment(article.getComment())
-                    .user(new User(article.getUserId()))
                     .build());
             result = "SUCCESS";
         } else {
@@ -142,6 +144,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<Article> findByUserId(UserDTO userDTO) {
+        User user = userRepository.findByUserId(userDTO.getUserId()).orElse(null);
+        return user.getArticles();
+    }
+
+    @Override
     public boolean existsById(String article) {
         return repository.existsById(0L);
     }
@@ -163,12 +171,6 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> findByToken(UserDTO userDTO) {
         User user = userRepository.findByToken(userDTO.getToken()).orElse(null);
-        return user.getArticles();
-    }
-
-    @Override
-    public List<Article> findByUserId(UserDTO userDTO) {
-        User user = userRepository.findByUserId(userDTO.getUserId()).orElse(null);
         return user.getArticles();
     }
 

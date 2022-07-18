@@ -46,7 +46,7 @@ interface UserCustomRepository{
     String [] findTitleByUserId();
 
     @Query("SELECT u.username FROM User u WHERE u.name= :name AND u.email= :email")
-    public String find_id(@Param("name") String name, @Param("email") String email);
+    String find_id(@Param("name") String name, @Param("email") String email);
 
 }
 

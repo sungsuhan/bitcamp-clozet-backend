@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
-import java.util.Scanner;
 
 /**
  * packageName:kr.co.clozet.board.repositories
@@ -53,4 +52,5 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Article
     List<Article> findByOpen(String open);
     List<Article> findByUserUserId(long userId);
     List<Article> findAll(Sort sort);
+    Optional<Article> findByToken(String token);
 }

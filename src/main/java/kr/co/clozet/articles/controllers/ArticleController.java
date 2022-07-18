@@ -80,9 +80,10 @@ public class ArticleController {
         return service.count();
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Messenger> delete(@RequestBody ArticleDTO articleDTO) {
-        return ResponseEntity.ok(service.delete(articleDTO));
+    @DeleteMapping("/delete") @ResponseBody
+    public void delete(@RequestBody ArticleDTO articleDTO) throws Exception{
+        System.out.println(articleDTO);
+        service.delete(articleDTO);
     }
 
     @PostMapping(value = "/join")
@@ -90,10 +91,11 @@ public class ArticleController {
         System.out.println("게시글 정보: " + article.toString());//확인만 하려구.. 지워야함
         return ResponseEntity.ok(service.save(article));
     }
+
     @PostMapping(value = "/qnaList")
     public ResponseEntity<List<Article>> qnaList(@RequestBody ArticleDTO article) {
             return ResponseEntity.ok(service.findAllQna(article));
-        }
+    }
 
     @PostMapping(value = "/comment")
     public ResponseEntity<Article> findByTitle(@RequestBody ArticleDTO article) {
