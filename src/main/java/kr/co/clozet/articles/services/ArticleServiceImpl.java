@@ -72,11 +72,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> findMyQna(ArticleDTO articleDTO) {
-        List<Article> article = new ArrayList<>();
-        if(articleDTO.getOpen() != null){
-            article = repository.findByToken(articleDTO.getToken());
-        }
-        article = repository.findAll(Sort.by(Sort.Direction.DESC, "writtenDate"));
+        List<Article> article = repository.findByToken(articleDTO.getToken());
         return article;
     }
 

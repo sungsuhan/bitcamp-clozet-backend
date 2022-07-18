@@ -47,6 +47,8 @@ interface ArticleCustomRepository{
     @Query("SELECT a from Article a WHERE a.open LIKE 'true' order by a.writtenDate ASC")
     List<Article> findByQnaDateASC(@Param("open") String open);
 
+
+
 }
 
 
