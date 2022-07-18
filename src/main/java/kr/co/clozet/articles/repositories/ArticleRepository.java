@@ -43,6 +43,9 @@ interface ArticleCustomRepository{
     @Query("select a.articleId FROM Article a join User u on u.userId = a.user.userId where a.user.username = :username")
     List<Article> findByUsername(@Param("username") String username);
 
+    @Query("SELECT a from Article a WHERE a.open LIKE 'true' order by a.writtenDate ASC")
+    List<Article> findByQnaDateASC(@Param("open") String open);
+
 }
 
 
@@ -52,5 +55,8 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Article
     List<Article> findByOpen(String open);
     List<Article> findByUserUserId(long userId);
     List<Article> findAll(Sort sort);
-    Optional<Article> findByToken(String token);
+    //Optional<Article> findByToken(String token);
+    List<Article> findByToken(String token);
+    void deleteArticleByArticleId(Long articleId);
+
 }

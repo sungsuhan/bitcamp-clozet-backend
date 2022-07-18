@@ -1,5 +1,6 @@
 package kr.co.clozet.files.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import kr.co.clozet.articles.domains.Article;
 import lombok.*;
@@ -37,7 +38,7 @@ public class File {
     @Column private String picture;
     @Column private long size;
 
-
+    @JsonIgnore
     @JsonManagedReference
     @OneToMany(mappedBy = "file", cascade = CascadeType.REMOVE)
     List<Article> articles = new ArrayList<>();

@@ -44,7 +44,7 @@ public interface ArticleService {
 
     Messenger save(ArticleDTO article);
 
-    Messenger saveQna(ArticleDTO article);
+    void saveQna(ArticleDTO article) throws Exception;
 
     Optional<Article> findById(ArticleDTO articleDTO);
 

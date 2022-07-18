@@ -84,6 +84,10 @@ public class ArticleController {
     public void delete(@RequestBody ArticleDTO articleDTO) throws Exception{
         System.out.println(articleDTO);
         service.delete(articleDTO);
+
+    @DeleteMapping("/delete/{articleId}") @ResponseBody
+    public void delete(@PathVariable(value = "articleId") Long articleId) {
+         repository.deleteById(articleId);
     }
 
     @PostMapping(value = "/join")
@@ -95,6 +99,11 @@ public class ArticleController {
     @PostMapping(value = "/qnaList")
     public ResponseEntity<List<Article>> qnaList(@RequestBody ArticleDTO article) {
             return ResponseEntity.ok(service.findAllQna(article));
+        }
+
+    @PostMapping(value = "/findByQnaDateASC")
+    public ResponseEntity<List<Article>> findByQnaDateASC(@RequestBody ArticleDTO article) {
+        return ResponseEntity.ok(repository.findByQnaDateASC(article.getOpen()));
     }
 
     @PostMapping(value = "/comment")
@@ -103,10 +112,10 @@ public class ArticleController {
         return ResponseEntity.ok(service.findByTitle(article));
     }
 
-    @PostMapping(value = "/joinQna")
-    public ResponseEntity<Messenger> saveQna(@RequestBody ArticleDTO article) {
+    @PostMapping(value = "/joinQna") @ResponseBody
+    public void saveQna(@RequestBody ArticleDTO article) throws Exception{
         System.out.println("QnA 정보: " + article.toString());//확인만 하려구.. 지워야함
-        return ResponseEntity.ok(service.save(article));
+         service.saveQna(article);
     }
 
     @GetMapping("/findById") @ResponseBody

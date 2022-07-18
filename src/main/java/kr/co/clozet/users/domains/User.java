@@ -1,5 +1,6 @@
 package kr.co.clozet.users.domains;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 import kr.co.clozet.articles.domains.Article;
@@ -50,12 +51,15 @@ public class User {
     }
 
     @JsonManagedReference
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     List<Article> articles = new ArrayList<>();
 
     @JsonManagedReference // json 꼬리물기 방지
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     List<Clothes> clothes = new ArrayList<>();
+
 
     @ElementCollection(fetch = FetchType.EAGER)
     public List<Role> roles;

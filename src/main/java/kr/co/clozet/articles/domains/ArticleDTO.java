@@ -1,6 +1,7 @@
 package kr.co.clozet.articles.domains;
 
 import io.swagger.annotations.ApiModelProperty;
+import kr.co.clozet.users.domains.User;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.stereotype.Component;
@@ -21,17 +22,23 @@ import org.springframework.stereotype.Component;
 public class ArticleDTO {
     @ApiModelProperty(position = 1) private long articleId;
     @ApiModelProperty(position = 2) String title;
-    @ApiModelProperty(position = 3) private String writtenDate;
+    @ApiModelProperty(position = 3) String writtenDate;
     @ApiModelProperty(position = 4) String open;
     @ApiModelProperty(position = 5) String content;
     @ApiModelProperty(position = 6) String height;
     @ApiModelProperty(position = 7) String weight;
-    @ApiModelProperty(position = 8) long userId;
+    @ApiModelProperty(position = 8) User user;
     @ApiModelProperty(position = 9) long fileId;
     @ApiModelProperty(position = 10) long clothesId;
     @ApiModelProperty(position = 11) String comment;
     @ApiModelProperty(position = 12) String qna;
     @ApiModelProperty(position = 13) int view;
+<<<<<<< HEAD
     @ApiModelProperty(position = 14) private String token;
+=======
+    @ApiModelProperty(position = 14) String token;
+    @ApiModelProperty(position = 15) String nickname;
+
+>>>>>>> 0c1326554b99a94ae3359fa2c977524414c5a6e8
 
 }
