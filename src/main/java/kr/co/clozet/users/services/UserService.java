@@ -57,10 +57,10 @@ public interface UserService {
     UserDTO find_id(UserDTO user);
 
     //이메일발송
-    public void sendEmail(UserDTO user, String div) throws Exception;
+    void sendEmail(UserDTO user, String div) throws Exception;
 
     //비밀번호찾기
-    public void findPw(HttpServletResponse resp, UserDTO user) throws Exception;
+    void findPw(HttpServletResponse resp, UserDTO user) throws Exception;
 
     void partialUpdate(UserDTO userDTO) throws Exception;
 

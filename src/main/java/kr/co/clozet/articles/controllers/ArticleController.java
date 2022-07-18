@@ -56,17 +56,12 @@ public class ArticleController {
 
     @GetMapping("/findAll")
     public ResponseEntity<List<Article>> findAll() {
-        return ResponseEntity.ok(service.findAll());
-    }
-
-    @GetMapping("/findAllArticle")
-    public ResponseEntity<List<Article>> findAllArticle() {
         return ResponseEntity.ok(repository.findAllArticle());
     }
 
 
-    @PostMapping("/findMyQna")  @ResponseBody
-    public ResponseEntity<List<Article>> findMyQna(@RequestBody ArticleDTO articleDTO) {
+    @PostMapping("/findMyQna")
+    public ResponseEntity<List<Article>> findMyQna(ArticleDTO articleDTO) {
         return ResponseEntity.ok(service.findMyQna(articleDTO));
     }
 
@@ -87,7 +82,7 @@ public class ArticleController {
 
     @DeleteMapping("/delete/{articleId}") @ResponseBody
     public void delete(@PathVariable(value = "articleId") Long articleId) {
-         repository.deleteById(articleId);
+        repository.deleteById(articleId);
     }
 
     @PostMapping(value = "/join")
@@ -97,9 +92,9 @@ public class ArticleController {
     }
     @PostMapping(value = "/qnaList")
     public ResponseEntity<List<Article>> qnaList(@RequestBody ArticleDTO article) {
-            return ResponseEntity.ok(service.findAllQna(article));
-        }
-    @PostMapping(value = "/findByQnaDateASC") @ResponseBody
+        return ResponseEntity.ok(service.findAllQna(article));
+    }
+    @PostMapping(value = "/findByQnaDateASC")
     public ResponseEntity<List<Article>> findByQnaDateASC(@RequestBody ArticleDTO article) {
         return ResponseEntity.ok(repository.findByQnaDateASC(article.getOpen()));
     }
@@ -113,7 +108,7 @@ public class ArticleController {
     @PostMapping(value = "/joinQna") @ResponseBody
     public void saveQna(@RequestBody ArticleDTO article) throws Exception{
         System.out.println("QnA 정보: " + article.toString());//확인만 하려구.. 지워야함
-         service.saveQna(article);
+        service.saveQna(article);
     }
 
     @GetMapping("/findById") @ResponseBody
