@@ -29,8 +29,8 @@ interface ArticleCustomRepository{
     @Query(value = "SELECT a FROM Article a where a.user.username = :username")
     List<Article> findByUsernameToArticle(@Param("username") String username);
 
-    @Query(value = "SELECT a FROM Article a where a.user.token = :token")
-    String [] findByTokenToArticle(@Param("token") String token);
+    @Query(value = "SELECT a FROM Article a where a.token = :token and a.open is null")
+    List<Article> findByTokenToArticle(@Param("token") String token);
 
     @Query(value = "SELECT a FROM Article a WHERE a.open is null")
     List<Article> findAllArticle();

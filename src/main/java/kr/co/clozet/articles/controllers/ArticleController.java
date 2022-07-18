@@ -50,7 +50,7 @@ public class ArticleController {
 //    }
 
     @GetMapping("/findByTokenToArticle") @ResponseBody
-    public ResponseEntity<String []> findByTokenToArticle(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<List<Article>> findByTokenToArticle(@RequestBody ArticleDTO userDTO) {
         return ResponseEntity.ok(repository.findByTokenToArticle(userDTO.getToken()));
     }
 
@@ -63,10 +63,8 @@ public class ArticleController {
         return ResponseEntity.ok(service.findAll());
     }
 
-
-
-    @PostMapping("/findMyQna")
-    public ResponseEntity<List<Article>> findMyQna(ArticleDTO articleDTO) {
+    @PostMapping("/findMyQna") @ResponseBody
+    public ResponseEntity<List<Article>> findMyQna(@RequestBody ArticleDTO articleDTO) {
         return ResponseEntity.ok(service.findMyQna(articleDTO));
     }
 
