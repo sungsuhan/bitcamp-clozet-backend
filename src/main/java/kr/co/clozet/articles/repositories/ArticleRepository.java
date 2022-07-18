@@ -40,7 +40,7 @@ interface ArticleCustomRepository{
     int updateView(@Param("title") String title);
 
     @Transactional @Modifying
-    @Query("delete from Article a where a.user.token in :token and a.title = :title")
+    @Query("delete from Article a where a.token in :token and a.title = :title")
     void deleteArticle(@Param("token") String token, @Param("title") String title);
 
     @Query("select a.articleId FROM Article a join User u on u.userId = a.user.userId where a.user.username = :username")

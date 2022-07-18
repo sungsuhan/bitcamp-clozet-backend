@@ -89,6 +89,7 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/articles/findMyQna").permitAll()
                 .antMatchers("/articles/findByToken").permitAll()
                 .antMatchers("/articles/findByQnaDateASC").permitAll()
+                .antMatchers("/articles/deleteArticle").permitAll()
                 .anyRequest().authenticated();
         http.exceptionHandling().accessDeniedPage("/users/login");
         http.logout()

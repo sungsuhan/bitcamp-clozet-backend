@@ -50,8 +50,8 @@ public class ArticleController {
 //    }
 
     @GetMapping("/findByTokenToArticle") @ResponseBody
-    public ResponseEntity<List<Article>> findByTokenToArticle(@RequestBody ArticleDTO userDTO) {
-        return ResponseEntity.ok(repository.findByTokenToArticle(userDTO.getToken()));
+    public ResponseEntity<List<Article>> findByTokenToArticle(@RequestBody ArticleDTO articleDTO) {
+        return ResponseEntity.ok(repository.findByTokenToArticle(articleDTO.getToken()));
     }
 
     @GetMapping("/findAllArticle")
@@ -149,6 +149,11 @@ public class ArticleController {
     @GetMapping("/findByUsername")
     public ResponseEntity<List<Article>> findByUsername(@RequestBody String username) {
         return ResponseEntity.ok(service.findByUsernameToArticle(username));
+    }
+
+    @DeleteMapping(value = "/deleteArticle")
+    public void delete1(Long articleId){
+        service.deleteArticle(articleId);
     }
 
 

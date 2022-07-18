@@ -58,4 +58,6 @@ public interface ArticleService {
 
     List<Article> findByUsername(String username);
 
+    void deleteArticle(Long articleId);
+
 }

@@ -181,4 +181,12 @@ public class ArticleServiceImpl implements ArticleService {
         return repository.findByUsername(username);
     }
 
+    @Override @Transactional
+    public void deleteArticle(Long articleId){
+        Optional<Article> optArticle = repository.findById(articleId);
+        if (optArticle.isPresent()){
+            Article article = optArticle.get();
+            repository.delete(article);
+        }
+    }
 }
