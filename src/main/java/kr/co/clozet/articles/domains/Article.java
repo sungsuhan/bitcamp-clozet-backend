@@ -8,8 +8,6 @@ import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * packageName:kr.co.clozet.auth.domains
@@ -42,6 +40,7 @@ public class Article {
     @Column private String picture;
     @Column private String height;
     @Column private String weight;
+    @Column private String nickname;
     @Column String comment;
     @Column String qna;
     @Column String token;

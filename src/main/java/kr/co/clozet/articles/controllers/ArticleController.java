@@ -94,6 +94,10 @@ public class ArticleController {
     public ResponseEntity<List<Article>> qnaList(@RequestBody ArticleDTO article) {
             return ResponseEntity.ok(service.findAllQna(article));
         }
+    @PostMapping(value = "/findByQnaDateASC")
+    public ResponseEntity<List<Article>> findByQnaDateASC(@RequestBody ArticleDTO article) {
+        return ResponseEntity.ok(repository.findByQnaDateASC(article.getOpen()));
+    }
 
     @PostMapping(value = "/comment")
     public ResponseEntity<Article> findByTitle(@RequestBody ArticleDTO article) {

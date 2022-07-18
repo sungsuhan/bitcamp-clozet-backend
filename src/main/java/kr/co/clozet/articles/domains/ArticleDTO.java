@@ -34,5 +34,7 @@ public class ArticleDTO {
     @ApiModelProperty(position = 12) String qna;
     @ApiModelProperty(position = 13) int view;
     @ApiModelProperty(position = 14) String token;
+    @ApiModelProperty(position = 15) String nickname;
+
 
 }

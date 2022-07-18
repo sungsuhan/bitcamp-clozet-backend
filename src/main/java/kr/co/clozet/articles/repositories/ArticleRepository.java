@@ -44,6 +44,9 @@ interface ArticleCustomRepository{
     @Query("select a.articleId FROM Article a join User u on u.userId = a.user.userId where a.user.username = :username")
     List<Article> findByUsername(@Param("username") String username);
 
+    @Query("SELECT a from Article a WHERE a.open LIKE 'true' order by a.writtenDate ASC")
+    List<Article> findByQnaDateASC(@Param("open") String open);
+
 }
 
 

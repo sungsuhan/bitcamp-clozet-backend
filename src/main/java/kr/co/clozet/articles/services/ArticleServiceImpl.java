@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -49,7 +50,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> findAllQna(ArticleDTO articleDTO) {
         List<Article> article = repository.findByOpen(String.valueOf(Objects.equals(articleDTO.getOpen(), "true")));
-        article = repository.findAll(Sort.by(Sort.Direction.DESC, "writtenDate"));
+       // article = repository.findAll(Sort.by(Sort.Direction.DESC, "writtenDate"));
         return article;
     }
 
@@ -71,7 +72,10 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> findMyQna(ArticleDTO articleDTO) {
-        List<Article> article = repository.findByToken(articleDTO.getToken());
+        List<Article> article = new ArrayList<>();
+        if(articleDTO.getOpen() != null){
+            article = repository.findByToken(articleDTO.getToken());
+        }
         article = repository.findAll(Sort.by(Sort.Direction.DESC, "writtenDate"));
         return article;
     }
@@ -107,7 +111,8 @@ public class ArticleServiceImpl implements ArticleService {
                     .height(article.getHeight())
                     .weight(article.getWeight())
                     .comment(article.getComment())
-                            .token(article.getToken())
+                    .token(article.getToken())
+                    .nickname(article.getNickname())
                     .comment(article.getComment())
                     .build());
             result = "SUCCESS";
@@ -126,6 +131,7 @@ public class ArticleServiceImpl implements ArticleService {
                     .title(article.getTitle())
                     .content(article.getContent())
                     .open(article.getOpen())
+                    .nickname(article.getNickname())
                     .token(article.getToken())
                     .build());
             result = "SUCCESS";
