@@ -44,6 +44,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> findAll() {
+
         return repository.findAll();
     }
 
@@ -72,7 +73,10 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<Article> findMyQna(ArticleDTO articleDTO) {
-        List<Article> article = repository.findByToken(articleDTO.getToken());
+        List<Article> article = new ArrayList<>();
+        if(articleDTO.getOpen() != null){
+            article = repository.findByToken(articleDTO.getToken());
+        }
         return article;
     }
 
@@ -127,6 +131,7 @@ public class ArticleServiceImpl implements ArticleService {
                     .title(article.getTitle())
                     .content(article.getContent())
                     .open(article.getOpen())
+                    .writtenDate(article.getWrittenDate())
                     .nickname(article.getNickname())
                     .token(article.getToken())
                     .build());

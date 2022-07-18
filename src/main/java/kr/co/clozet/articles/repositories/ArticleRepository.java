@@ -33,6 +33,9 @@ interface ArticleCustomRepository{
     @Query(value = "SELECT a FROM Article a where a.user.token = :token")
     String [] findByTokenToArticle(@Param("token") String token);
 
+    @Query(value = "SELECT a FROM Article a WHERE a.open is null")
+    List<Article> findAllArticle();
+
     @Transactional @Modifying
     @Query("update Article a set a.view = a.view + 1 where a.title = :title")
     int updateView(@Param("title") String title);
@@ -46,7 +49,6 @@ interface ArticleCustomRepository{
 
     @Query("SELECT a from Article a WHERE a.open LIKE 'true' order by a.writtenDate ASC")
     List<Article> findByQnaDateASC(@Param("open") String open);
-
 
 
 }

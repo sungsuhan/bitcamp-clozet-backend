@@ -59,9 +59,14 @@ public class ArticleController {
         return ResponseEntity.ok(service.findAll());
     }
 
+    @GetMapping("/findAllArticle")
+    public ResponseEntity<List<Article>> findAllArticle() {
+        return ResponseEntity.ok(repository.findAllArticle());
+    }
 
-    @PostMapping("/findMyQna")
-    public ResponseEntity<List<Article>> findMyQna(ArticleDTO articleDTO) {
+
+    @PostMapping("/findMyQna")  @ResponseBody
+    public ResponseEntity<List<Article>> findMyQna(@RequestBody ArticleDTO articleDTO) {
         return ResponseEntity.ok(service.findMyQna(articleDTO));
     }
 
@@ -94,7 +99,7 @@ public class ArticleController {
     public ResponseEntity<List<Article>> qnaList(@RequestBody ArticleDTO article) {
             return ResponseEntity.ok(service.findAllQna(article));
         }
-    @PostMapping(value = "/findByQnaDateASC")
+    @PostMapping(value = "/findByQnaDateASC") @ResponseBody
     public ResponseEntity<List<Article>> findByQnaDateASC(@RequestBody ArticleDTO article) {
         return ResponseEntity.ok(repository.findByQnaDateASC(article.getOpen()));
     }
