@@ -49,9 +49,9 @@ public class ArticleController {
 //        return ResponseEntity.ok(service.findByUsernameToArticle(username));
 //    }
 
-    @GetMapping("/findByTokenToArticle") @ResponseBody
-    public ResponseEntity<List<Article>> findByTokenToArticle(@RequestBody ArticleDTO userDTO) {
-        return ResponseEntity.ok(repository.findByTokenToArticle(userDTO.getToken()));
+    @PostMapping("/findByTokenToArticle") @ResponseBody
+    public ResponseEntity<List<Article>> findByTokenToArticle(@RequestBody ArticleDTO articleDTO) {
+        return ResponseEntity.ok(repository.findByTokenToArticle(articleDTO.getToken()));
     }
 
     @GetMapping("/findAllArticle")

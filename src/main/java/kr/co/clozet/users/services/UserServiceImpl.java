@@ -63,14 +63,14 @@ public class UserServiceImpl implements UserService {
             User findUser = repository.findByUsername(username).orElse(null);
             if(findUser != null){
                 boolean checkPassword = encoder.matches(paramUser.getPassword(), findUser.getPassword());
-                if(checkPassword){
+                if(checkPassword && findUser.getToken() == null){
                     returnUser = modelMapper.map(findUser, UserDTO.class);
                     String token = provider.createToken(username, returnUser.getRoles());
                     returnUser.setToken(token);
                     findUser = modelMapper.map(returnUser, User.class); // 토큰
                     repository.save(findUser); // 토큰
                 }else{
-                    String token = "FAILURE";
+                    String token = findUser.getToken();
                     returnUser.setToken(token);
                 }
             }
