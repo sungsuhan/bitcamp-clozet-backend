@@ -151,5 +151,10 @@ public class ArticleController {
         return ResponseEntity.ok(service.findByUsernameToArticle(username));
     }
 
+    @DeleteMapping(value = "/deleteArticle")
+    public void delete1(Long articleId){
+        service.deleteArticle(articleId);
+    }
+
 
 }
