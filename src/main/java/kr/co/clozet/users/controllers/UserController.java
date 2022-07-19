@@ -83,7 +83,7 @@ public class UserController {
     }
 
     @GetMapping("/count")
-    public ResponseEntity<Messenger> count() {
+    public ResponseEntity<Long> count() {
         return ResponseEntity.ok(service.count());
     }
 

@@ -33,7 +33,7 @@ public interface UserService {
 
     Page<User> findAll(Pageable pageable);
 
-    Messenger count();
+    Long count();
 
     Messenger deleteAll();
 

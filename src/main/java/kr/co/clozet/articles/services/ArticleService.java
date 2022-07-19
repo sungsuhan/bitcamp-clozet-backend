@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
-import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,11 +31,13 @@ public interface ArticleService {
 
     List<Article> findAll(Sort sort);
 
-    Article findByTitle(ArticleDTO articleDTO);
+    List<Article> findByTitle(ArticleDTO articleDTO);
 
     Page<Article> findAll(Pageable pageable);
 
     List<Article> findMyQna(ArticleDTO articleDTO);
+
+    List<Article> findComment(ArticleDTO articleDTO);
 
     long count();
 

@@ -6,7 +6,6 @@ import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.articles.repositories.ArticleRepository;
 import kr.co.clozet.articles.services.ArticleService;
 import kr.co.clozet.auth.domains.Messenger;
-import kr.co.clozet.common.dataStructure.Box2;
 import kr.co.clozet.users.domains.UserDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -14,11 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -42,7 +37,6 @@ public class ArticleController {
 
     private final ArticleService service;
     private final ArticleRepository repository;
-    private final Box2 box;
 
 //    @GetMapping("/findByUsername")
 //    public ResponseEntity<List<Article>> findByUsernameToArticle(@RequestBody String username) {
@@ -67,6 +61,10 @@ public class ArticleController {
     public ResponseEntity<List<Article>> findMyQna(@RequestBody ArticleDTO articleDTO) {
         return ResponseEntity.ok(service.findMyQna(articleDTO));
     }
+    @PostMapping("/findComment") @ResponseBody
+    public ResponseEntity<List<Article>> findComment(@RequestBody ArticleDTO articleDTO) {
+        return ResponseEntity.ok(service.findComment(articleDTO));
+    }
 
     @GetMapping("/findAll/sort")
     public ResponseEntity<List<Article>> findAll(Sort sort) {
@@ -79,13 +77,13 @@ public class ArticleController {
     }
 
     @GetMapping("/count")
-    public long count() {
-        return service.count();
+    public ResponseEntity<Long> count() {
+        return  ResponseEntity.ok(service.count());
     }
 
-    @DeleteMapping("/delete/{articleId}") @ResponseBody
-    public void delete(@PathVariable(value = "articleId") Long articleId) {
-        repository.deleteById(articleId);
+    @DeleteMapping("/delete") @ResponseBody
+    public void delete(@RequestBody ArticleDTO articleDTO) {
+        repository.deleteById(articleDTO.getArticleId());
     }
 
     @PostMapping(value = "/join")
@@ -103,7 +101,7 @@ public class ArticleController {
     }
 
     @PostMapping(value = "/comment")
-    public ResponseEntity<Article> findByTitle(@RequestBody ArticleDTO article) {
+    public ResponseEntity<List<Article>> findByTitle(@RequestBody ArticleDTO article) {
         System.out.println("게시글 정보: " + article.toString());//확인만 하려구.. 지워야함
         return ResponseEntity.ok(service.findByTitle(article));
     }
@@ -135,8 +133,8 @@ public class ArticleController {
     }
 
     @GetMapping("/posts/{title}") @ResponseBody
-    public Integer read(@PathVariable("title") String title) {
-        ResponseEntity.ok(repository.updateView(title));
+    public Integer read(@RequestBody ArticleDTO articleDTO) {
+        ResponseEntity.ok(repository.updateView(articleDTO.getArticleId()));
         Article article = new Article();
         return article.getView();
     }

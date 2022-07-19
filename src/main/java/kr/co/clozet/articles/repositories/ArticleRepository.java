@@ -36,8 +36,8 @@ interface ArticleCustomRepository{
     List<Article> findAllArticle();
 
     @Transactional @Modifying
-    @Query("update Article a set a.view = a.view + 1 where a.title = :title")
-    int updateView(@Param("title") String title);
+    @Query("update Article a set a.view = a.view + 1 where a.articleId = :articleId")
+    int updateView(@Param("articleId") Long articleId);
 
     @Transactional @Modifying
     @Query("delete from Article a where a.token in :token and a.title = :title")
@@ -55,7 +55,7 @@ interface ArticleCustomRepository{
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long>, ArticleCustomRepository {
-    Optional<Article> findByTitle(String title);
+    List<Article> findByTitle(String title);
     List<Article> findByOpen(String open);
     List<Article> findByUserUserId(long userId);
     List<Article> findAll(Sort sort);

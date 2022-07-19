@@ -97,8 +97,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Messenger count() {
-        return Messenger.builder().message(string(repository.count())).build();
+    public Long count() {
+
+        return repository.count();
     }
 
     @Override
