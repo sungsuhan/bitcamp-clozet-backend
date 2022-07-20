@@ -61,6 +61,7 @@ public class ArticleController {
     public ResponseEntity<List<Article>> findMyQna(@RequestBody ArticleDTO articleDTO) {
         return ResponseEntity.ok(service.findMyQna(articleDTO));
     }
+
     @PostMapping("/findComment") @ResponseBody
     public ResponseEntity<List<Article>> findComment(@RequestBody ArticleDTO articleDTO) {
         return ResponseEntity.ok(service.findComment(articleDTO));

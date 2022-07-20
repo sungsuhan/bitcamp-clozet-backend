@@ -1,6 +1,9 @@
 package kr.co.clozet.clothes.services;
 
+import kr.co.clozet.articles.domains.ArticleDTO;
+import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.clothes.domains.Clothes;
+import kr.co.clozet.clothes.domains.ClothesDTO;
 
 import java.util.List;
 
@@ -17,4 +20,8 @@ import java.util.List;
  **/
 public interface ClothesService {
     List<Clothes> findAll();
+
+    Messenger save(ClothesDTO clothesDTO);
+
+    void delete(Long clothesId);
 }
