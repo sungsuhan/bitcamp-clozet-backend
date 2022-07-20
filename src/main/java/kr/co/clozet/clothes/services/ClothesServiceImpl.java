@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,5 +88,31 @@ public class ClothesServiceImpl implements ClothesService {
     public Messenger update(Clothes clothes) {
         return null;
     }
+    public Messenger save(ClothesDTO clothesDTO) {
+        System.out.println("서비스로 전달된 옷 정보: " + clothesDTO.toString());
+        String result = "";
+        repository.save(Clothes.builder()
+                .clothesClassification(clothesDTO.getClothesClassification())
+                .colors(clothesDTO.getColors())
+                .token(clothesDTO.getToken())
+                .build());
+        result = "SUCCESS";
+        return Messenger.builder().message(result).build();
+    }
+
+    @Override @Transactional
+    public void delete(Long clothesId){
+        Optional<Clothes> optClothes = repository.findById(clothesId);
+        if (optClothes.isPresent()){
+            Clothes clothes = optClothes.get();
+            repository.delete(clothes);
+        }
+    }
+
 
 }
+
+
+
+
+

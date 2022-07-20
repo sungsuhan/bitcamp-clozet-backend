@@ -1,5 +1,6 @@
 package kr.co.clozet.clothes.services;
 
+import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.clothes.domains.Clothes;
 import kr.co.clozet.clothes.domains.ClothesDTO;
@@ -42,4 +43,7 @@ public interface ClothesService {
     Optional<Clothes> findByUserId(String userId);
 
     Messenger update(Clothes clothes);
+    Messenger save(ClothesDTO clothesDTO);
+
+    void delete(Long clothesId);
 }

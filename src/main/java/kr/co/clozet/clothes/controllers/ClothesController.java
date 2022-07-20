@@ -43,6 +43,24 @@ public class ClothesController {
     public ResponseEntity<List<Clothes>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
+
+    @PostMapping(value = "/join")
+    public ResponseEntity<Messenger> save(@RequestBody ClothesDTO clothesDTO) {
+        System.out.println("옷 정보: " + clothesDTO.toString());//확인만 하려구.. 지워야함
+        return ResponseEntity.ok(service.save(clothesDTO));
+    }
+
+    @DeleteMapping(value = "/delete") @ResponseBody
+    public void delete(@RequestBody ClothesDTO clothesDTO){
+        service.delete(clothesDTO.getClothesId());
+    }
+
+    @PostMapping("/findBottom")
+    public ResponseEntity<List<Clothes>> findBottom() {
+        return ResponseEntity.ok(service.findAll());
+    }
+
+
   @PostMapping("/findTop") @ResponseBody
     public ResponseEntity<List<Clothes>> findTop(@RequestBody ClothesDTO clothesDTO) {
         return ResponseEntity.ok(repository.findTop(clothesDTO.getToken(), clothesDTO.getClothesClassification()));
