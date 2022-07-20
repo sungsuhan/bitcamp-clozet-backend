@@ -105,7 +105,6 @@ public class ArticleServiceImpl implements ArticleService {
     public Messenger save(ArticleDTO article) {
         System.out.println("서비스로 전달된 게시글 정보: "+article.toString());
         String result = "";
-        if (repository.findByTitle(article.getTitle()).isEmpty()) {
             repository.save(Article.builder()
                     .title(article.getTitle())
                     .writtenDate(article.getWrittenDate())
@@ -118,9 +117,6 @@ public class ArticleServiceImpl implements ArticleService {
                     .comment(article.getComment())
                     .build());
             result = "SUCCESS";
-        } else {
-            result = "FAIL";
-        }
         return Messenger.builder().message(result).build();
     }
 
@@ -192,4 +188,7 @@ public class ArticleServiceImpl implements ArticleService {
             repository.delete(article);
         }
     }
+
+
+
 }

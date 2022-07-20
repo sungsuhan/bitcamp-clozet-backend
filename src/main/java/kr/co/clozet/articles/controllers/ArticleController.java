@@ -96,10 +96,12 @@ public class ArticleController {
         System.out.println("게시글 정보: " + article.toString());//확인만 하려구.. 지워야함
         return ResponseEntity.ok(service.save(article));
     }
+
     @PostMapping(value = "/qnaList")
     public ResponseEntity<List<Article>> qnaList(@RequestBody ArticleDTO article) {
         return ResponseEntity.ok(service.findAllQna(article));
     }
+
     @PostMapping(value = "/findByQnaDateASC")
     public ResponseEntity<List<Article>> findByQnaDateASC(@RequestBody ArticleDTO article) {
         return ResponseEntity.ok(repository.findByQnaDateASC(article.getOpen()));
