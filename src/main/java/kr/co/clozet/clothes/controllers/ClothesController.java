@@ -1,7 +1,6 @@
 package kr.co.clozet.clothes.controllers;
 
 import io.swagger.annotations.Api;
-import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.clothes.domains.Clothes;
 import kr.co.clozet.clothes.domains.ClothesDTO;
@@ -25,6 +24,7 @@ import java.util.List;
  * =============================================
  * 2022-05-29           sungsuhan      최초 생성
  **/
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Api(tags = "clothes")
 @RestController
 @RequiredArgsConstructor
@@ -50,26 +50,16 @@ public class ClothesController {
         service.delete(clothesDTO.getClothesId());
     }
 
-    @PostMapping("/findTop")
-    public ResponseEntity<List<Clothes>> findTop() {
-        return ResponseEntity.ok(service.findAll());
-    }
-
     @PostMapping("/findBottom")
     public ResponseEntity<List<Clothes>> findBottom() {
         return ResponseEntity.ok(service.findAll());
     }
 
 
-
-
-
-
-
-
-
-
-
+  @PostMapping("/findTop") @ResponseBody
+    public ResponseEntity<List<Clothes>> findTop(@RequestBody ClothesDTO clothesDTO) {
+        return ResponseEntity.ok(repository.findTop(clothesDTO.getToken(), clothesDTO.getClothesClassification()));
+    }
 
 }
 
