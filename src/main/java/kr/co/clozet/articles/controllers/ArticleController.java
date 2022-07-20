@@ -86,6 +86,11 @@ public class ArticleController {
         repository.deleteById(articleDTO.getArticleId());
     }
 
+    @DeleteMapping("/deleteComment") @ResponseBody
+    public void deleteComment(@RequestBody ArticleDTO articleDTO) {
+        repository.deleteComment(articleDTO.getToken(), articleDTO.getArticleId());
+    }
+
     @PostMapping(value = "/join")
     public ResponseEntity<Messenger> save(@RequestBody ArticleDTO article) {
         System.out.println("게시글 정보: " + article.toString());//확인만 하려구.. 지워야함
@@ -141,9 +146,9 @@ public class ArticleController {
         return article.getView();
     }
 
-    @DeleteMapping(value = "/tokenDelete/{token}{title}")
-    public void delete(@PathVariable("token") String token, @PathVariable("title") String title ) throws Exception{
-        repository.deleteArticle(token, title);
+    @DeleteMapping(value = "/tokenDelete/{token}{articleId}")
+    public void delete(@PathVariable("token") String token, @PathVariable("articleId") long articleId ) throws Exception{
+        repository.deleteArticle(token, articleId);
     }
 
     @GetMapping("/findByUsername")
