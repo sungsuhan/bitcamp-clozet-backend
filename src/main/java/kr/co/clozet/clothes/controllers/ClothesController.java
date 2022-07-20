@@ -1,15 +1,15 @@
 package kr.co.clozet.clothes.controllers;
 
 import io.swagger.annotations.Api;
+import kr.co.clozet.articles.domains.Article;
 import kr.co.clozet.clothes.domains.Clothes;
+import kr.co.clozet.clothes.domains.ClothesDTO;
 import kr.co.clozet.clothes.repositories.ClothesRepository;
 import kr.co.clozet.clothes.services.ClothesService;
 import kr.co.clozet.users.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,6 +24,7 @@ import java.util.List;
  * =============================================
  * 2022-05-29           sungsuhan      최초 생성
  **/
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Api(tags = "clothes")
 @RestController
 @RequiredArgsConstructor
@@ -37,17 +38,10 @@ public class ClothesController {
     public ResponseEntity<List<Clothes>> findAll() {
         return ResponseEntity.ok(service.findAll());
     }
-
-
-
-
-
-
-
-
-
-
-
+  @PostMapping("/findTop") @ResponseBody
+    public ResponseEntity<List<Clothes>> findTop(@RequestBody ClothesDTO clothesDTO) {
+        return ResponseEntity.ok(repository.findTop(clothesDTO.getToken(), clothesDTO.getClothesClassification()));
+    }
 
 }
 

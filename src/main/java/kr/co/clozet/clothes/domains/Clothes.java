@@ -43,6 +43,7 @@ public class Clothes {
     @Column private String weathers;
     @Column private String styles;
     @Column private String events;
+    @Column private String token;
 
     @JsonIgnore
     @JsonManagedReference

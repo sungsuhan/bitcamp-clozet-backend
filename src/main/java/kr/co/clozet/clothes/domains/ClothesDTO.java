@@ -24,4 +24,5 @@ public class ClothesDTO {
     @ApiModelProperty(position = 6) String weathers;
     @ApiModelProperty(position = 7) String styles;
     @ApiModelProperty(position = 8) String events;
+    @ApiModelProperty(position = 9) String token;
 }

@@ -1,6 +1,7 @@
 package kr.co.clozet.clothes.services;
 
 import kr.co.clozet.clothes.domains.Clothes;
+import kr.co.clozet.clothes.domains.ClothesDTO;
 
 import java.util.List;
 

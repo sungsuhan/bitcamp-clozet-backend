@@ -1,6 +1,7 @@
 package kr.co.clozet.clothes.services;
 
 import kr.co.clozet.clothes.domains.Clothes;
+import kr.co.clozet.clothes.domains.ClothesDTO;
 import kr.co.clozet.clothes.repositories.ClothesRepository;
 import kr.co.clozet.clothes.services.ClothesService;
 import lombok.RequiredArgsConstructor;
@@ -29,4 +30,5 @@ public class ClothesServiceImpl implements ClothesService {
     public List<Clothes> findAll() {
         return repository.findAll();
     }
+
 }
