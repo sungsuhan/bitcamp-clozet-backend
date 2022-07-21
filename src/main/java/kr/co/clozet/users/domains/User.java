@@ -2,34 +2,19 @@ package kr.co.clozet.users.domains;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.sun.istack.NotNull;
 import kr.co.clozet.articles.domains.Article;
 import kr.co.clozet.clothes.domains.Clothes;
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * packageName:kr.co.clozet.domains
- * fileName        :User.java
- * author          : sungsuhan
- * date            :2022-05-03
- * desc            :
- * =============================================
- * DATE              AUTHOR        NOTE
- * =============================================
- * 2022-05-03           sungsuhan      최초 생성
- **/
 @ToString
-@Setter // modelMapper 를 사용하기 위해
-
+@Setter
 @Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-// 컴포넌트는 프로퍼티와 메소드의 집합
 @Entity
 @Table(name="users")
 public class User {
@@ -55,7 +40,7 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     List<Article> articles = new ArrayList<>();
 
-    @JsonManagedReference // json 꼬리물기 방지
+    @JsonManagedReference
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     List<Clothes> clothes = new ArrayList<>();

@@ -7,22 +7,9 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
-/**
- * packageName:kr.co.clozet.board.repositories
- * fileName        :ArticleRepository.java
- * author          : sungsuhan
- * date            :2022-05-09
- * desc            :
- * =============================================
- * DATE              AUTHOR        NOTE
- * =============================================
- * 2022-05-09           sungsuhan      최초 생성
- **/
 
 interface ArticleCustomRepository{
 
@@ -63,7 +50,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long>, Article
     List<Article> findByOpen(String open);
     List<Article> findByUserUserId(long userId);
     List<Article> findAll(Sort sort);
-    //Optional<Article> findByToken(String token);
     List<Article> findByToken(String token);
     void deleteArticleByArticleId(Long articleId);
 

@@ -7,21 +7,10 @@ import kr.co.clozet.users.domains.UserDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-
 import java.util.List;
 import java.util.Optional;
 
-/**
- * packageName:kr.co.clozet.board.services
- * fileName        :ArticleService.java
- * author          : sungsuhan
- * date            :2022-05-09
- * desc            :
- * =============================================
- * DATE              AUTHOR        NOTE
- * =============================================
- * 2022-05-09           sungsuhan      최초 생성
- **/
+
 public interface ArticleService {
     List<Article> findAll();
 
@@ -40,8 +29,6 @@ public interface ArticleService {
     List<Article> findComment(ArticleDTO articleDTO);
 
     long count();
-
-    void delete(ArticleDTO articleDTO) throws Exception;
 
     Messenger save(ArticleDTO article);
 

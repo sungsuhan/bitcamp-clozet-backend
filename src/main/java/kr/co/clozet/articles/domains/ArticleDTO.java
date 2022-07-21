@@ -2,22 +2,10 @@ package kr.co.clozet.articles.domains;
 
 import io.swagger.annotations.ApiModelProperty;
 import kr.co.clozet.users.domains.User;
-import lombok.Builder;
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
 
-/**
- * packageName:kr.co.clozet.articles.domains
- * fileName        :ArticleDTO.java
- * author          : sungsuhan
- * date            :2022-06-15
- * desc            :
- * =============================================
- * DATE              AUTHOR        NOTE
- * =============================================
- * 2022-06-15           sungsuhan      최초 생성
- **/
 @Component @Data
 public class ArticleDTO {
     @ApiModelProperty(position = 1) private long articleId;

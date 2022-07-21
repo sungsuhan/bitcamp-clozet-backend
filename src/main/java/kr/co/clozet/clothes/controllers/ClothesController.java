@@ -6,24 +6,12 @@ import kr.co.clozet.clothes.domains.Clothes;
 import kr.co.clozet.clothes.domains.ClothesDTO;
 import kr.co.clozet.clothes.repositories.ClothesRepository;
 import kr.co.clozet.clothes.services.ClothesService;
-import kr.co.clozet.users.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
-/**
- * packageName:kr.co.clozet.closet.controllers
- * fileName        :ClothesController.java
- * author          : sungsuhan
- * date            :2022-05-29
- * desc            :
- * =============================================
- * DATE              AUTHOR        NOTE
- * =============================================
- * 2022-05-29           sungsuhan      최초 생성
- **/
+
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Api(tags = "clothes")
 @RestController
@@ -48,11 +36,6 @@ public class ClothesController {
     @DeleteMapping(value = "/delete") @ResponseBody
     public void delete(@RequestBody ClothesDTO clothesDTO){
         service.delete(clothesDTO.getClothesId());
-    }
-
-    @PostMapping("/findBottom")
-    public ResponseEntity<List<Clothes>> findBottom() {
-        return ResponseEntity.ok(service.findAll());
     }
 
 
