@@ -4,8 +4,12 @@ import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.clothes.domains.Clothes;
 import kr.co.clozet.clothes.domains.ClothesDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * packageName:kr.co.clozet.closet.services
@@ -20,7 +24,25 @@ import java.util.List;
  **/
 public interface ClothesService {
     List<Clothes> findAll();
+    List<Clothes> findAll(Sort sort);
+    Page<Clothes> findAll(Pageable pageable);
 
+    Messenger count();
+
+    Messenger delete(Clothes clothes);
+
+    Messenger save(Clothes clothes);
+
+    Optional<Clothes> findByDate(String date);
+
+    Messenger existsById(String userid);
+
+    Messenger getOne(Long id);
+    //custom
+
+    Optional<Clothes> findByUserId(String userId);
+
+    Messenger update(Clothes clothes);
     Messenger save(ClothesDTO clothesDTO);
 
     void delete(Long clothesId);
