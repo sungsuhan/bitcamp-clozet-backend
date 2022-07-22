@@ -1,7 +1,6 @@
 package kr.co.clozet.clothes.controllers;
 
 import io.swagger.annotations.Api;
-import kr.co.clozet.articles.domains.Article;
 import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.clothes.domains.Clothes;
 import kr.co.clozet.clothes.domains.ClothesDTO;
