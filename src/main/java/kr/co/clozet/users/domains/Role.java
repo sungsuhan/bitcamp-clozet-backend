@@ -3,20 +3,8 @@ package kr.co.clozet.users.domains;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-
 import java.util.Arrays;
 
-/**
- * packageName:kr.co.clozet.auth.domains
- * fileName        :Role.java
- * author          : sungsuhan
- * date            :2022-05-23
- * desc            :
- * =============================================
- * DATE              AUTHOR        NOTE
- * =============================================
- * 2022-05-23           sungsuhan      최초 생성
- **/
 @Getter
 @RequiredArgsConstructor
 public enum Role implements GrantedAuthority {

@@ -10,22 +10,10 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * packageName:kr.co.clozet.closet.domains
- * fileName        :Clothes.java
- * author          : sungsuhan
- * date            :2022-05-29
- * desc            :
- * =============================================
- * DATE              AUTHOR        NOTE
- * =============================================
- * 2022-05-29           sungsuhan      최초 생성
- **/
 @Builder
 @Getter
 @NoArgsConstructor
@@ -50,7 +38,7 @@ public class Clothes {
     @OneToMany(mappedBy = "clothes", cascade = CascadeType.REMOVE)
     List<Article> articles = new ArrayList<>();
 
-    @JsonBackReference // json 꼬리물기 방지
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

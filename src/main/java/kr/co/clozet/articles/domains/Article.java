@@ -6,20 +6,9 @@ import kr.co.clozet.files.domains.File;
 import kr.co.clozet.users.domains.User;
 import lombok.*;
 import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 
-/**
- * packageName:kr.co.clozet.auth.domains
- * fileName        :Article.java
- * author          : sungsuhan
- * date            :2022-05-18
- * desc            :
- * =============================================
- * DATE              AUTHOR        NOTE
- * =============================================
- * 2022-05-18           sungsuhan      최초 생성
- **/
+
 @Setter
 @Builder
 @Getter

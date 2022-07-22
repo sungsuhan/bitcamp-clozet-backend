@@ -13,21 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.*;
 
 
-/**
- * packageName:kr.co.clozet.board.controllers
- * fileName        :ArticleController.java
- * author          : sungsuhan
- * date            :2022-05-09
- * desc            :
- * =============================================
- * DATE              AUTHOR        NOTE
- * =============================================
- * 2022-05-09           sungsuhan      최초 생성
- **/
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Api(tags ="articles")
 @RestController
@@ -38,23 +26,26 @@ public class ArticleController {
     private final ArticleService service;
     private final ArticleRepository repository;
 
-//    @GetMapping("/findByUsername")
-//    public ResponseEntity<List<Article>> findByUsernameToArticle(@RequestBody String username) {
-//        return ResponseEntity.ok(service.findByUsernameToArticle(username));
-//    }
+    @PostMapping(value = "/write")
+    public ResponseEntity<Messenger> save(@RequestBody ArticleDTO article) {
+        System.out.println("게시글 정보: " + article.toString());
+        return ResponseEntity.ok(service.save(article));
+    }
 
     @PostMapping("/findByTokenToArticle") @ResponseBody
     public ResponseEntity<List<Article>> findByTokenToArticle(@RequestBody ArticleDTO articleDTO) {
         return ResponseEntity.ok(repository.findByTokenToArticle(articleDTO.getToken()));
     }
 
-    @GetMapping("/findAllArticle")
-    public ResponseEntity<List<Article>> findAllArticles() {
-        return ResponseEntity.ok(repository.findAllArticle());
+    @PostMapping(value = "/joinQna") @ResponseBody
+    public void saveQna(@RequestBody ArticleDTO article) throws Exception{
+        System.out.println("QnA 정보: " + article.toString());
+        service.saveQna(article);
     }
-    @GetMapping("/findAll")
-    public ResponseEntity<List<Article>> findAll() {
-        return ResponseEntity.ok(service.findAll());
+
+    @PostMapping(value = "/findByQnaDateASC")
+    public ResponseEntity<List<Article>> findByQnaDateASC(@RequestBody ArticleDTO article) {
+        return ResponseEntity.ok(repository.findByQnaDateASC(article.getOpen()));
     }
 
     @PostMapping("/findMyQna") @ResponseBody
@@ -62,19 +53,24 @@ public class ArticleController {
         return ResponseEntity.ok(service.findMyQna(articleDTO));
     }
 
+    @DeleteMapping(value = "/deleteArticle") @ResponseBody
+    public void delete1(@RequestBody ArticleDTO articleId){
+        service.deleteArticle(articleId.getArticleId());
+    }
+
+    @GetMapping("/findAllArticle")
+    public ResponseEntity<List<Article>> findAllArticles() {
+        return ResponseEntity.ok(repository.findAllArticle());
+    }
+
+    @GetMapping("/findAll")
+    public ResponseEntity<List<Article>> findAll() {
+        return ResponseEntity.ok(service.findAll());
+    }
+
     @PostMapping("/findComment") @ResponseBody
     public ResponseEntity<List<Article>> findComment(@RequestBody ArticleDTO articleDTO) {
         return ResponseEntity.ok(service.findComment(articleDTO));
-    }
-
-    @GetMapping("/findAll/sort")
-    public ResponseEntity<List<Article>> findAll(Sort sort) {
-        return ResponseEntity.ok(service.findAll(sort));
-    }
-
-    @GetMapping("/findAll/pageable")
-    public ResponseEntity<Page<Article>> findAll(Pageable pageable) {
-        return ResponseEntity.ok(service.findAll(pageable));
     }
 
     @GetMapping("/count")
@@ -92,21 +88,12 @@ public class ArticleController {
         repository.deleteComment(articleDTO.getToken(), articleDTO.getArticleId());
     }
 
-    @PostMapping(value = "/join")
-    public ResponseEntity<Messenger> save(@RequestBody ArticleDTO article) {
-        System.out.println("게시글 정보: " + article.toString());//확인만 하려구.. 지워야함
-        return ResponseEntity.ok(service.save(article));
-    }
 
     @PostMapping(value = "/qnaList")
     public ResponseEntity<List<Article>> qnaList(@RequestBody ArticleDTO article) {
         return ResponseEntity.ok(service.findAllQna(article));
     }
 
-    @PostMapping(value = "/findByQnaDateASC")
-    public ResponseEntity<List<Article>> findByQnaDateASC(@RequestBody ArticleDTO article) {
-        return ResponseEntity.ok(repository.findByQnaDateASC(article.getOpen()));
-    }
 
     @PostMapping(value = "/comment")
     public ResponseEntity<List<Article>> findByTitle(@RequestBody ArticleDTO article) {
@@ -114,11 +101,6 @@ public class ArticleController {
         return ResponseEntity.ok(service.findByTitle(article));
     }
 
-    @PostMapping(value = "/joinQna") @ResponseBody
-    public void saveQna(@RequestBody ArticleDTO article) throws Exception{
-        System.out.println("QnA 정보: " + article.toString());//확인만 하려구.. 지워야함
-        service.saveQna(article);
-    }
 
     @GetMapping("/findById") @ResponseBody
     public ResponseEntity<Optional<Article>> findById(@RequestBody ArticleDTO articleDTO) {
@@ -157,10 +139,7 @@ public class ArticleController {
         return ResponseEntity.ok(service.findByUsernameToArticle(username));
     }
 
-    @DeleteMapping(value = "/deleteArticle") @ResponseBody
-    public void delete1(@RequestBody ArticleDTO articleId){
-        service.deleteArticle(articleId.getArticleId());
-    }
+
 
 
 }

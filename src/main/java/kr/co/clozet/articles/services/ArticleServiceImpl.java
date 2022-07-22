@@ -13,24 +13,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * packageName:kr.co.clozet.board.services
- * fileName        :ArticleServiceImpl.java
- * author          : sungsuhan
- * date            :2022-05-09
- * desc            :
- * =============================================
- * DATE              AUTHOR        NOTE
- * =============================================
- * 2022-05-09           sungsuhan      최초 생성
- **/
+
 @Service
 @RequiredArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
@@ -87,14 +76,7 @@ public class ArticleServiceImpl implements ArticleService {
         return repository.count();
     }
 
-    @Override @Transactional
-    public void delete(ArticleDTO articleDTO) {
-        /*Article article = new Article();
-        article.setToken(articleDTO.getToken());
-        repository.save(article);
-        List<Article> article1 = repository.findByToken(article.getToken());*/
-        repository.deleteArticleByArticleId(articleDTO.getArticleId());
-    }
+
 
     @Override
     public List<Article> findByUsernameToArticle(String username) {
