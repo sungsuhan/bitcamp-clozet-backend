@@ -4,7 +4,6 @@ import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.clothes.domains.Clothes;
 import kr.co.clozet.clothes.domains.ClothesDTO;
 import kr.co.clozet.clothes.repositories.ClothesRepository;
-import kr.co.clozet.clothes.services.ClothesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -53,16 +52,6 @@ public class ClothesServiceImpl implements ClothesService {
         return Messenger.builder().message(string(repository.count())).build();
     }
 
-    @Override
-    public Messenger delete(Clothes clothes) {
-        repository.delete(clothes);
-        return Messenger.builder().build();
-    }
-
-    @Override
-    public Messenger save(Clothes clothes) {
-        return null;
-    }
 
     @Override
     public Optional<Clothes> findByDate(String date) {

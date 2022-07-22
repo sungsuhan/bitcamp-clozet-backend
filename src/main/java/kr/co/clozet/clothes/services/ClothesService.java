@@ -1,6 +1,5 @@
 package kr.co.clozet.clothes.services;
 
-import kr.co.clozet.articles.domains.ArticleDTO;
 import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.clothes.domains.Clothes;
 import kr.co.clozet.clothes.domains.ClothesDTO;
@@ -29,9 +28,6 @@ public interface ClothesService {
 
     Messenger count();
 
-    Messenger delete(Clothes clothes);
-
-    Messenger save(Clothes clothes);
 
     Optional<Clothes> findByDate(String date);
 

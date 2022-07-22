@@ -126,7 +126,7 @@ public class UserController {
         return ResponseEntity.ok(service.articlesByToken(userDTO));
     }
 
-    @PostMapping("findByUsername") @ResponseBody
+    @PostMapping("/findByUsername") @ResponseBody
     public ResponseEntity<Optional<User>> findByUsername(@RequestBody String username) {
         return ResponseEntity.ok(service.findByUsername(username));
     }
@@ -156,20 +156,6 @@ public class UserController {
         return ResponseEntity.ok(repository.existsByNickname(userDTO.getNickname()));
     }
 
-    @GetMapping("/findHan")
-    public ResponseEntity<List<User>> findHan() {
-        return ResponseEntity.ok(repository.findHan());
-    }
-
-    @GetMapping("/findPhoneByHan")
-    public ResponseEntity<String []> findPhoneByHan() {
-        return ResponseEntity.ok(repository.findPhoneByHan());
-    }
-
-    @GetMapping("/findTitleByUserId")
-    public ResponseEntity<String []> findTitleByUserId() {
-        return ResponseEntity.ok(repository.findTitleByUserId());
-    }
 
     @PostMapping("/findUsername") @ResponseBody
     public ResponseEntity<String> findUsername(@RequestBody UserDTO userDTO) {

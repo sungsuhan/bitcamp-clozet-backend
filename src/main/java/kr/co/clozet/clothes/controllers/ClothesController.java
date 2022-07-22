@@ -1,13 +1,11 @@
 package kr.co.clozet.clothes.controllers;
 
 import io.swagger.annotations.Api;
-import kr.co.clozet.articles.domains.Article;
 import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.clothes.domains.Clothes;
 import kr.co.clozet.clothes.domains.ClothesDTO;
 import kr.co.clozet.clothes.repositories.ClothesRepository;
 import kr.co.clozet.clothes.services.ClothesService;
-import kr.co.clozet.users.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -75,10 +73,6 @@ public class ClothesController {
 
     @GetMapping("/count")
     public ResponseEntity<Messenger> count() {return ResponseEntity.ok(service.count());}
-
-    @DeleteMapping("/delete")
-    public ResponseEntity<Messenger> delete(@RequestBody Clothes clothes) {
-        return ResponseEntity.ok(service.delete(clothes));}
 
 
     @GetMapping("/findById/{userId}")
