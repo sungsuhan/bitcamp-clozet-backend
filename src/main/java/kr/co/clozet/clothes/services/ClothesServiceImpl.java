@@ -53,16 +53,6 @@ public class ClothesServiceImpl implements ClothesService {
         return Messenger.builder().message(string(repository.count())).build();
     }
 
-    @Override
-    public Messenger delete(Clothes clothes) {
-        repository.delete(clothes);
-        return Messenger.builder().build();
-    }
-
-    @Override
-    public Messenger save(Clothes clothes) {
-        return null;
-    }
 
     @Override
     public Optional<Clothes> findByDate(String date) {

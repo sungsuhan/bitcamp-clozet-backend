@@ -59,10 +59,6 @@ public class ClothesController {
     @GetMapping("/count")
     public ResponseEntity<Messenger> count() {return ResponseEntity.ok(service.count());}
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<Messenger> delete(@RequestBody Clothes clothes) {
-        return ResponseEntity.ok(service.delete(clothes));}
-
 
     @GetMapping("/findById/{userId}")
     public ResponseEntity<Optional<Clothes>> findByUserId(@PathVariable String userId) {

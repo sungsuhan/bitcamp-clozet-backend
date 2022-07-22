@@ -29,9 +29,6 @@ public interface ClothesService {
 
     Messenger count();
 
-    Messenger delete(Clothes clothes);
-
-    Messenger save(Clothes clothes);
 
     Optional<Clothes> findByDate(String date);
 
