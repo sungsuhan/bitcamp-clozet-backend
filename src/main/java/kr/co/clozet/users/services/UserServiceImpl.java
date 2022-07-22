@@ -185,7 +185,7 @@ public class UserServiceImpl implements UserService {
             }
             user.setPassword(pw);
             // 비밀번호 변경
-            String newPw = encoder.encode(returnUser.getPassword());
+            //String newPw = encoder.encode(returnUser.getPassword());
             repository.save(returnUser);
 
             // 비밀번호 변경 메일 발송
