@@ -4,7 +4,6 @@ import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.clothes.domains.Clothes;
 import kr.co.clozet.clothes.domains.ClothesDTO;
 import kr.co.clozet.clothes.repositories.ClothesRepository;
-import kr.co.clozet.clothes.services.ClothesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

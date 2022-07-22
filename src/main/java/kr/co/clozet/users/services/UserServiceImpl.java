@@ -120,13 +120,13 @@ public class UserServiceImpl implements UserService {
         // Mail Server 설정
         String charSet = "utf-8";
         String hostSMTP = "smtp.gmail.com"; //네이버 이용시 smtp.naver.com
-        String hostSMTPid = "swhanssu@gmail.com";
-        String hostSMTPpwd = "owmhrcwfvoihuwke";
+        String hostSMTPid = "dbstjqdlwksj@gmail.com";
+        String hostSMTPpwd = "lvclhyjvmykoxfst";
 
         // 보내는 사람 EMail, 제목, 내용
-        String fromEmail = "swhanssu@gmail.com";//"보내는 사람 이메일주소(받는 사람 이메일에 표시됨)";
+        String fromEmail = "dbstjqdlwksj@gmail.com";//"보내는 사람 이메일주소(받는 사람 이메일에 표시됨)";
         String fromName = "CLOZET";//"프로젝트이름 또는 보내는 사람 이름";
-        String subject = "임시비밀번호 발금";
+        String subject = "임시비밀번호 발급";
         String msg = "임시비밀번호";
 
         if(div.equals("findpw")) {
@@ -146,7 +146,7 @@ public class UserServiceImpl implements UserService {
             email.setCharset(charSet);
             email.setSSLOnConnect(true);
             email.setHostName(hostSMTP);
-            email.setSmtpPort(587); //네이버 이용시 587
+            email.setSmtpPort(465); //네이버 이용시 587 구글 465
 
             email.setAuthentication(hostSMTPid, hostSMTPpwd);
             email.setStartTLSEnabled(true);
@@ -185,7 +185,7 @@ public class UserServiceImpl implements UserService {
             }
             user.setPassword(pw);
             // 비밀번호 변경
-            String newPw = encoder.encode(returnUser.getPassword());
+            //String newPw = encoder.encode(returnUser.getPassword());
             repository.save(returnUser);
 
             // 비밀번호 변경 메일 발송
@@ -200,10 +200,6 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findByToken(UserDTO userDTO) {
         return repository.findByToken(userDTO.getToken());
     }
-
-
-
-
 
 
 
