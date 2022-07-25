@@ -22,6 +22,9 @@ interface ArticleCustomRepository{
     @Query(value = "SELECT a FROM Article a WHERE a.open is null")
     List<Article> findAllArticle();
 
+    @Query(value = "SELECT a FROM Article a where a.token = :token and a.open is not null")
+    List<Article> findMyQna(@Param("token") String token);
+
     @Transactional @Modifying
     @Query("update Article a set a.view = a.view + 1 where a.articleId = :articleId")
     int updateView(@Param("articleId") Long articleId);
