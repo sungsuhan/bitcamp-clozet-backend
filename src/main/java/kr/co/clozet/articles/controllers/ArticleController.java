@@ -62,12 +62,12 @@ public class ArticleController {
 
     @PostMapping("/myList/qna") @ResponseBody
     public ResponseEntity<List<Article>> findMyQna(@RequestBody ArticleDTO articleDTO) {
-        return ResponseEntity.ok(service.findMyQna(articleDTO));
+        return ResponseEntity.ok(repository.findMyQna(articleDTO.getToken()));
     }
 
     @PostMapping("/list/comment") @ResponseBody
     public ResponseEntity<List<Article>> findComment(@RequestBody ArticleDTO articleDTO) {
-        return ResponseEntity.ok(service.findComment(articleDTO));
+        return ResponseEntity.ok(repository.findByTitle(articleDTO.getTitle()));
     }
 
     @DeleteMapping("/delete/comment") @ResponseBody

@@ -19,6 +19,9 @@ interface ArticleCustomRepository{
     @Query(value = "SELECT a FROM Article a where a.token = :token and a.open is null")
     List<Article> findByTokenToArticle(@Param("token") String token);
 
+    @Query(value = "SELECT a FROM Article a where a.token = :token and a.open is not null")
+    List<Article> findMyQna(@Param("token") String token);
+
     @Query(value = "SELECT a FROM Article a WHERE a.open is null")
     List<Article> findAllArticle();
 
@@ -48,7 +51,7 @@ interface ArticleCustomRepository{
 public interface ArticleRepository extends JpaRepository<Article, Long>, ArticleCustomRepository {
     List<Article> findByTitle(String title);
     List<Article> findByOpen(String open);
-    List<Article> findByUserUserId(long userId);
+    List<Article> findByArticleId(long articleId);
     List<Article> findAll(Sort sort);
     List<Article> findByToken(String token);
     void deleteArticleByArticleId(Long articleId);

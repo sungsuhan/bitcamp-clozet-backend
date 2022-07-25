@@ -62,14 +62,11 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/exists").permitAll()
                 .antMatchers("/users/token").permitAll()
                 .antMatchers("/articles/write").permitAll()
-<<<<<<< HEAD
                 .antMatchers("/articles/findAll").permitAll()
                 .antMatchers("/articles/count").permitAll()
                 .antMatchers("/articles/findAllArticle").permitAll()
-=======
                 .antMatchers("/articles/list").permitAll()
                 .antMatchers("/articles/myList").permitAll()
->>>>>>> 0617ef0b94c68a6db4776099f4672a6cac072294
                 .antMatchers("/articles/update").permitAll()
                 .antMatchers("/articles/delete").permitAll()
                 .antMatchers("/articles/write/qna").permitAll()

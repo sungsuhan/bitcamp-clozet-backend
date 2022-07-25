@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder encoder;
     private final AuthProvider provider;
     private final ModelMapper modelMapper;
-
+    @Transactional
     @Override
     public Messenger save(UserDTO user) {
         System.out.println("서비스로 전달된 회원가입 정보: "+user.toString());
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
         if (repository.findByUsername(user.getUsername()).isEmpty()) {
             List<Role> list = new ArrayList<>();
             list.add(Role.USER);
-            repository.save(User.builder()
+            User returnUser = repository.save(User.builder()
                     .username(user.getUsername())
                     .name(user.getName())
                     .birth(user.getBirth())
@@ -50,6 +50,7 @@ public class UserServiceImpl implements UserService {
                     .phone(user.getPhone())
                     .password(encoder.encode(user.getPassword()))
                     .roles(list).build());
+            System.out.println("DB에 저장된 회원가입 정보: "+returnUser.toString());
             result = "SUCCESS";
         } else {
             result = "FAIL";

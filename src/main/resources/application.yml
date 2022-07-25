@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/clozet?characterEncoding=UTF-8&serverTimezone=UTC
-    username: root
-    password: root
+    url: jdbc:mariadb://clozet.cbmmf1db7skg.ap-northeast-2.rds.amazonaws.com/clozet?characterEncoding=UTF-8&serverTimezone=UTC
+    username: clozet
+    password: clozetdb
   servlet:
     multipart:
       max-file-size: 100MB
