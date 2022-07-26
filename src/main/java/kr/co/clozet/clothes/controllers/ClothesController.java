@@ -31,7 +31,7 @@ public class ClothesController {
         return ResponseEntity.ok(service.findAll());
     }
 
-    @PostMapping(value = "/join")
+    @PostMapping(value = "/save")
     public ResponseEntity<Messenger> save(@RequestBody ClothesDTO clothesDTO) {
         System.out.println("옷 정보: " + clothesDTO.toString());//확인만 하려구.. 지워야함
         return ResponseEntity.ok(service.save(clothesDTO));
@@ -43,7 +43,7 @@ public class ClothesController {
     }
 
 
-  @PostMapping("/findTop") @ResponseBody
+  @PostMapping("/classification") @ResponseBody
     public ResponseEntity<List<Clothes>> findTop(@RequestBody ClothesDTO clothesDTO) {
         return ResponseEntity.ok(repository.findTop(clothesDTO.getToken(), clothesDTO.getClothesClassification()));
     }

@@ -11,6 +11,7 @@ import lombok.extern.java.Log;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -78,6 +79,10 @@ public class UserController {
     @PostMapping("/token") @ResponseBody
     public ResponseEntity<Optional<User>> findByToken(@RequestBody UserDTO userDTO) {
         return ResponseEntity.ok(service.findByToken(userDTO));
+    }
+    @GetMapping("/count") @ResponseBody
+    public ResponseEntity<Long> count(){
+       return ResponseEntity.ok(service.count());
     }
 
 }

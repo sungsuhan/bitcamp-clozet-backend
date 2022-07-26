@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder encoder;
     private final AuthProvider provider;
     private final ModelMapper modelMapper;
+
     @Transactional
     @Override
     public Messenger save(UserDTO user) {
@@ -113,6 +114,11 @@ public class UserServiceImpl implements UserService {
             e.printStackTrace();
         }
         return userDTO;
+    }
+
+    @Override
+    public long count() {
+        return repository.count();
     }
 
     //비밀번호 찾기 이메일발송

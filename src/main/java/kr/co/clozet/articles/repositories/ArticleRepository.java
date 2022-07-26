@@ -25,6 +25,7 @@ interface ArticleCustomRepository{
     @Query(value = "SELECT a FROM Article a WHERE a.open is null")
     List<Article> findAllArticle();
 
+
     @Transactional @Modifying
     @Query("update Article a set a.view = a.view + 1 where a.articleId = :articleId")
     int updateView(@Param("articleId") Long articleId);

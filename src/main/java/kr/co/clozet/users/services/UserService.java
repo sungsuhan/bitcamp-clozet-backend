@@ -4,6 +4,7 @@ import kr.co.clozet.auth.domains.Messenger;
 import kr.co.clozet.users.domains.User;
 import kr.co.clozet.users.domains.UserDTO;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -15,7 +16,7 @@ public interface UserService {
     Optional<User> findByToken(UserDTO userDTO);
 
     UserDTO find_id(UserDTO user);
-
+    long count();
     //이메일발송
     void sendEmail(UserDTO user, String div) throws Exception;
 
